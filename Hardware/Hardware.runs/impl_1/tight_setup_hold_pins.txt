@@ -1,0 +1,33 @@
++====================+===================+========================================================================================================================================+
+| Launch Setup Clock | Launch Hold Clock | Pin                                                                                                                                    |
++====================+===================+========================================================================================================================================+
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_data_inst/PACKED_1.BANKS_WAY[0].ECC0.size_256.WAYS.wrptr_ff/genblock.dffs/dout_reg[0]/D               |
+| clk_core           | clk_core          | swervolf/rvtop/veer/dma_ctrl/GenFifo[0].fifo_done_dff/dffsc/dout_reg[0]/D                                                              |
+| clk_core           | clk_core          | swervolf/rvtop/veer/dma_ctrl/GenFifo[1].fifo_done_dff/dffsc/dout_reg[0]/D                                                              |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r0_data/genblock.dffs/dout_reg[17]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r0_data/genblock.dffs/dout_reg[26]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r0_data/genblock.dffs/dout_reg[13]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r0_data/genblock.dffs/dout_reg[12]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r0_data/genblock.dffs/dout_reg[5]/D                                                                       |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r0_data/genblock.dffs/dout_reg[23]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r1_data/genblock.dffs/dout_reg[22]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r0_data/genblock.dffs/dout_reg[22]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r1_data/genblock.dffs/dout_reg[23]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r1_data/genblock.dffs/dout_reg[28]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r1_data/genblock.dffs/dout_reg[15]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r1_data/genblock.dffs/dout_reg[5]/D                                                                       |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r1_data/genblock.dffs/dout_reg[4]/D                                                                       |
+| clk_core           | clk_core          | swervolf/rvtop/mem/iccm.iccm/r1_data/genblock.dffs/dout_reg[25]/D                                                                      |
+| clk_core           | clk_core          | swervolf/rvtop/veer/dma_ctrl/nack_count_dff/genblock.dffs/dout_reg[1]/D                                                                |
+| clk_core           | clk_core          | swervolf/rvtop/veer/dma_ctrl/nack_count_dff/genblock.dffs/dout_reg[0]/D                                                                |
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_data_inst/PACKED_1.BANKS_WAY[1].ECC0.size_256.WAYS.BYPASS[0].index_val_ff/genblock.dffs/dout_reg[0]/D |
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_tag_inst/PACKED_1.ECC0.size_64.WAYS.BYPASS[1].index_val_ff/genblock.dffs/dout_reg[0]/D                |
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_tag_inst/PACKED_1.ECC0.size_64.WAYS.BYPASS[0].index_val_ff/genblock.dffs/dout_reg[0]/D                |
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_tag_inst/PACKED_1.ECC0.size_64.WAYS.wrptr_ff/genblock.dffs/dout_reg[0]/D                              |
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_data_inst/PACKED_1.BANKS_WAY[1].ECC0.size_256.WAYS.wrptr_ff/genblock.dffs/dout_reg[0]/D               |
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_data_inst/PACKED_1.BANKS_WAY[1].ECC0.size_256.WAYS.BYPASS[1].sel_hold_ff/dout_reg[0]/D                |
+| clk_core           | clk_core          | swervolf/rvtop/mem/icache.icm/ic_data_inst/PACKED_1.BANKS_WAY[1].ECC0.size_256.WAYS.BYPASS[0].sel_hold_ff/dout_reg[0]/D                |
+| clk_core           | clk_core          | swervolf/rvtop/veer/dma_ctrl/nack_count_dff/genblock.dffs/dout_reg[2]/D                                                                |
+| clk_core           | clk_core          | swervolf/rvtop/veer/dma_ctrl/GenFifo[0].fifo_rpend_dff/dffsc/dout_reg[0]/D                                                             |
+| clk_core           | clk_core          | swervolf/rvtop/veer/dma_ctrl/GenFifo[1].fifo_rpend_dff/dffsc/dout_reg[0]/D                                                             |
++--------------------+-------------------+----------------------------------------------------------------------------------------------------------------------------------------+
