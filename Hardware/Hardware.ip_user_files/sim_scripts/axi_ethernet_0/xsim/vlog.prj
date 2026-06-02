@@ -1,0 +1,14 @@
+verilog xil_defaultlib -i "../../../../../../../../../../../../../../../../../../../tools/Xilinx/2025.2/data/rsb/busdef" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/synth/bd_5d9f_0_mac_0_axi4_lite_ipif_wrapper.v" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/synth/physical/bd_5d9f_0_mac_0_mii_if.v" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/synth/statistics/bd_5d9f_0_mac_0_vector_decode.v" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/synth/bd_5d9f_0_mac_0_block.v" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/synth/bd_5d9f_0_mac_0.v" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_5/sim/bd_5d9f_0_util_vector_logic_0_0.v" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/sim/bd_5d9f_0.v" \
+"../../../../Hardware.gen/sources_1/ip/axi_ethernet_0/sim/axi_ethernet_0.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

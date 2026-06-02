@@ -113,3 +113,21 @@ set_property -dict { PACKAGE_PIN D8   IOSTANDARD LVCMOS33 } [get_ports { vgaBlue
 
 set_property -dict { PACKAGE_PIN B11  IOSTANDARD LVCMOS33 } [get_ports { vgaHsync }];
 set_property -dict { PACKAGE_PIN B12  IOSTANDARD LVCMOS33 } [get_ports { vgaVsync }];
+
+# Ethernet PHY
+set_property -dict { PACKAGE_PIN A9  IOSTANDARD LVCMOS33 } [get_ports { MDIO }];
+set_property -dict { PACKAGE_PIN C9  IOSTANDARD LVCMOS33 } [get_ports { MDC }];
+set_property -dict { PACKAGE_PIN B3  IOSTANDARD LVCMOS33 } [get_ports { nRST }];
+
+set_property -dict { PACKAGE_PIN D10  IOSTANDARD LVCMOS33 } [get_ports { RXD1 }];
+set_property -dict { PACKAGE_PIN C11  IOSTANDARD LVCMOS33 } [get_ports { RXD0 }];
+set_property -dict { PACKAGE_PIN C10  IOSTANDARD LVCMOS33 } [get_ports { RXERR }];
+
+set_property -dict { PACKAGE_PIN A10  IOSTANDARD LVCMOS33 } [get_ports { TXD0 }];
+set_property -dict { PACKAGE_PIN A8  IOSTANDARD LVCMOS33 } [get_ports { TXD1 }];
+set_property -dict { PACKAGE_PIN B9  IOSTANDARD LVCMOS33 } [get_ports { TXEN }];
+
+set_property -dict { PACKAGE_PIN D9  IOSTANDARD LVCMOS33 } [get_ports { CRS_DV }];
+set_property -dict { PACKAGE_PIN B8  IOSTANDARD LVCMOS33 } [get_ports { nINT }];
+
+set_property -dict { PACKAGE_PIN D5  IOSTANDARD LVCMOS33 } [get_ports { CLKIN }];
