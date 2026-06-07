@@ -2,10 +2,10 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-// Date        : Mon Jun  1 22:29:15 2026
+// Date        : Sat Jun  6 20:42:21 2026
 // Host        : archlinux running 64-bit unknown
-// Command     : write_verilog -force -mode synth_stub
-//               /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/bd_5d9f_0_mac_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top bd_5d9f_0_mac_0 -prefix
+//               bd_5d9f_0_mac_0_ bd_5d9f_0_mac_0_stub.v
 // Design      : bd_5d9f_0_mac_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tcsg324-1
@@ -14,7 +14,7 @@
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
-(* CORE_GENERATION_INFO = "bd_5d9f_0_mac_0,bd_5d9f_0_mac_0_block,{x_ipProduct=Vivado 2025.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=tri_mode_ethernet_mac,x_ipVersion=9.0,x_ipCoreRevision=39,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,c_component_name=bd_5d9f_0_mac_0,c_physical_interface=MII,c_half_duplex=false,c_en_iodelay=true,c_has_host=true,c_has_mdio=true,c_mdio_external=false,c_axilite_freq=150.00,c_add_filter=true,c_at_entries=4,c_family=artix7,c_mac_speed=SPEED_10_100_MBPS,c_int_clk_src=User_Clk2,c_int_mode_type=BASEX,c_has_stats=true,c_num_stats=34,c_cntr_rst=false,c_stats_width=64,c_avb=false,c_1588=0,c_tx_inband_cf_enable=false,c_rx_inband_ts_enable=false,c_tx_tuser_width=1,c_rx_vec_width=79,c_tx_vec_width=79,c_addr_width=12,c_pfc=false,c_mii_io=true,c_data_rate=1_Gbps,x_ipLicense=tri_mode_eth_mac@2015.04(design_linking),x_ipLicense=eth_avb_endpoint@2015.04(design_linking)}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "bd_5d9f_0_mac_0_block,Vivado 2025.2" *) 
+(* CORE_GENERATION_INFO = "bd_5d9f_0_mac_0,bd_5d9f_0_mac_0_block,{x_ipProduct=Vivado 2025.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=tri_mode_ethernet_mac,x_ipVersion=9.0,x_ipCoreRevision=39,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,c_component_name=bd_5d9f_0_mac_0,c_physical_interface=MII,c_half_duplex=false,c_en_iodelay=true,c_has_host=true,c_has_mdio=true,c_mdio_external=false,c_axilite_freq=150.00,c_add_filter=true,c_at_entries=4,c_family=artix7,c_mac_speed=SPEED_10_100_MBPS,c_int_clk_src=User_Clk2,c_int_mode_type=BASEX,c_has_stats=true,c_num_stats=34,c_cntr_rst=false,c_stats_width=64,c_avb=false,c_1588=0,c_tx_inband_cf_enable=false,c_rx_inband_ts_enable=false,c_tx_tuser_width=1,c_rx_vec_width=79,c_tx_vec_width=79,c_addr_width=12,c_pfc=false,c_mii_io=true,c_data_rate=1_Gbps,x_ipLicense=tri_mode_eth_mac@2015.04(hardware_evaluation),x_ipLicense=eth_avb_endpoint@2015.04(design_linking)}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "bd_5d9f_0_mac_0_block,Vivado 2025.2" *) 
 module bd_5d9f_0_mac_0(gtx_clk, glbl_rstn, rx_axi_rstn, tx_axi_rstn, 
   rx_enable, rx_statistics_vector, rx_statistics_valid, rx_mac_aclk, rx_reset, 
   rx_axis_mac_tdata, rx_axis_mac_tvalid, rx_axis_mac_tlast, rx_axis_mac_tuser, 

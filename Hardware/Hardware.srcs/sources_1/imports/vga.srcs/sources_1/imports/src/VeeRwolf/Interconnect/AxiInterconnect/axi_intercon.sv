@@ -177,11 +177,50 @@ module axi_intercon
     input  wire  [1:0] i_ram_rresp,
     input  wire        i_ram_rlast,
     input  wire        i_ram_rvalid,
-    output wire        o_ram_rready);
+    output wire        o_ram_rready,
+    output wire  [5:0] o_eth_awid,
+    output wire [31:0] o_eth_awaddr,
+    output wire  [7:0] o_eth_awlen,
+    output wire  [2:0] o_eth_awsize,
+    output wire  [1:0] o_eth_awburst,
+    output wire        o_eth_awlock,
+    output wire  [3:0] o_eth_awcache,
+    output wire  [2:0] o_eth_awprot,
+    output wire  [3:0] o_eth_awregion,
+    output wire  [3:0] o_eth_awqos,
+    output wire        o_eth_awvalid,
+    input  wire        i_eth_awready,
+    output wire  [5:0] o_eth_arid,
+    output wire [31:0] o_eth_araddr,
+    output wire  [7:0] o_eth_arlen,
+    output wire  [2:0] o_eth_arsize,
+    output wire  [1:0] o_eth_arburst,
+    output wire        o_eth_arlock,
+    output wire  [3:0] o_eth_arcache,
+    output wire  [2:0] o_eth_arprot,
+    output wire  [3:0] o_eth_arregion,
+    output wire  [3:0] o_eth_arqos,
+    output wire        o_eth_arvalid,
+    input  wire        i_eth_arready,
+    output wire [63:0] o_eth_wdata,
+    output wire  [7:0] o_eth_wstrb,
+    output wire        o_eth_wlast,
+    output wire        o_eth_wvalid,
+    input  wire        i_eth_wready,
+    input  wire  [5:0] i_eth_bid,
+    input  wire  [1:0] i_eth_bresp,
+    input  wire        i_eth_bvalid,
+    output wire        o_eth_bready,
+    input  wire  [5:0] i_eth_rid,
+    input  wire [63:0] i_eth_rdata,
+    input  wire  [1:0] i_eth_rresp,
+    input  wire        i_eth_rlast,
+    input  wire        i_eth_rvalid,
+    output wire        o_eth_rready);
 
 
   localparam int unsigned NoMasters   = 32'd3;    // How many Axi Masters there are
-  localparam int unsigned NoSlaves    = 32'd2;    // How many Axi Slaves  there are
+  localparam int unsigned NoSlaves    = 32'd3;    // How many Axi Slaves  there are
 
   // axi configuration
   localparam int unsigned AxiIdWidthMasters =  32'd4;
@@ -230,13 +269,14 @@ module axi_intercon
   `AXI_TYPEDEF_REQ_T(mst_req_t, aw_chan_slv_t, w_chan_t, ar_chan_slv_t)
   `AXI_TYPEDEF_RESP_T(mst_resp_t, b_chan_slv_t, r_chan_slv_t)
 
-  localparam rule_t [1:0] AddrMap = '{
+  localparam rule_t [2:0] AddrMap = '{
     '{idx: 32'd0, start_addr: 32'h80000000, end_addr: 32'h80004000},
-    '{idx: 32'd1, start_addr: 32'h00000000, end_addr: 32'h08000000}};
+    '{idx: 32'd1, start_addr: 32'h00000000, end_addr: 32'h08000000},
+    '{idx: 32'd2, start_addr: 32'h80040000, end_addr: 32'h80080000}};
    slv_req_t  [2:0] masters_req;
    slv_resp_t [2:0] masters_resp;
-   mst_req_t  [1:0] slaves_req;
-   mst_resp_t [1:0] slaves_resp;
+   mst_req_t  [2:0] slaves_req;
+   mst_resp_t [2:0] slaves_resp;
 
    //Master ifu
    assign masters_req[0].aw.id = 4'd0;
@@ -440,6 +480,47 @@ module axi_intercon
    assign slaves_resp[1].r.last = i_ram_rlast;
    assign slaves_resp[1].r_valid = i_ram_rvalid;
    assign o_ram_rready = slaves_req[1].r_ready;
+
+   //Slave eth
+   assign o_eth_awid     = slaves_req[2].aw.id;
+   assign o_eth_awaddr   = slaves_req[2].aw.addr;
+   assign o_eth_awlen    = slaves_req[2].aw.len;
+   assign o_eth_awsize   = slaves_req[2].aw.size;
+   assign o_eth_awburst  = slaves_req[2].aw.burst;
+   assign o_eth_awlock   = slaves_req[2].aw.lock;
+   assign o_eth_awcache  = slaves_req[2].aw.cache;
+   assign o_eth_awprot   = slaves_req[2].aw.prot;
+   assign o_eth_awregion = slaves_req[2].aw.region;
+   assign o_eth_awqos    = slaves_req[2].aw.qos;
+   assign o_eth_awvalid  = slaves_req[2].aw_valid;
+   assign slaves_resp[2].aw_ready = i_eth_awready;
+   assign o_eth_arid     = slaves_req[2].ar.id;
+   assign o_eth_araddr   = slaves_req[2].ar.addr;
+   assign o_eth_arlen    = slaves_req[2].ar.len;
+   assign o_eth_arsize   = slaves_req[2].ar.size;
+   assign o_eth_arburst  = slaves_req[2].ar.burst;
+   assign o_eth_arlock   = slaves_req[2].ar.lock;
+   assign o_eth_arcache  = slaves_req[2].ar.cache;
+   assign o_eth_arprot   = slaves_req[2].ar.prot;
+   assign o_eth_arregion = slaves_req[2].ar.region;
+   assign o_eth_arqos    = slaves_req[2].ar.qos;
+   assign o_eth_arvalid  = slaves_req[2].ar_valid;
+   assign slaves_resp[2].ar_ready = i_eth_arready;
+   assign o_eth_wdata    = slaves_req[2].w.data;
+   assign o_eth_wstrb    = slaves_req[2].w.strb;
+   assign o_eth_wlast    = slaves_req[2].w.last;
+   assign o_eth_wvalid   = slaves_req[2].w_valid;
+   assign slaves_resp[2].w_ready = i_eth_wready;
+   assign slaves_resp[2].b.id    = i_eth_bid;
+   assign slaves_resp[2].b.resp  = i_eth_bresp;
+   assign slaves_resp[2].b_valid = i_eth_bvalid;
+   assign o_eth_bready   = slaves_req[2].b_ready;
+   assign slaves_resp[2].r.id    = i_eth_rid;
+   assign slaves_resp[2].r.data  = i_eth_rdata;
+   assign slaves_resp[2].r.resp  = i_eth_rresp;
+   assign slaves_resp[2].r.last  = i_eth_rlast;
+   assign slaves_resp[2].r_valid = i_eth_rvalid;
+   assign o_eth_rready   = slaves_req[2].r_ready;
 
 
 axi_xbar

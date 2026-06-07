@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
--- Date        : Mon Jun  1 22:29:15 2026
+-- Date        : Sat Jun  6 20:42:21 2026
 -- Host        : archlinux running 64-bit unknown
--- Command     : write_vhdl -force -mode synth_stub
---               /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/bd_5d9f_0_mac_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top bd_5d9f_0_mac_0 -prefix
+--               bd_5d9f_0_mac_0_ bd_5d9f_0_mac_0_stub.vhdl
 -- Design      : bd_5d9f_0_mac_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tcsg324-1
@@ -78,7 +78,7 @@ entity bd_5d9f_0_mac_0 is
   );
 
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of bd_5d9f_0_mac_0 : entity is "bd_5d9f_0_mac_0,bd_5d9f_0_mac_0_block,{x_ipProduct=Vivado 2025.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=tri_mode_ethernet_mac,x_ipVersion=9.0,x_ipCoreRevision=39,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,c_component_name=bd_5d9f_0_mac_0,c_physical_interface=MII,c_half_duplex=false,c_en_iodelay=true,c_has_host=true,c_has_mdio=true,c_mdio_external=false,c_axilite_freq=150.00,c_add_filter=true,c_at_entries=4,c_family=artix7,c_mac_speed=SPEED_10_100_MBPS,c_int_clk_src=User_Clk2,c_int_mode_type=BASEX,c_has_stats=true,c_num_stats=34,c_cntr_rst=false,c_stats_width=64,c_avb=false,c_1588=0,c_tx_inband_cf_enable=false,c_rx_inband_ts_enable=false,c_tx_tuser_width=1,c_rx_vec_width=79,c_tx_vec_width=79,c_addr_width=12,c_pfc=false,c_mii_io=true,c_data_rate=1_Gbps,x_ipLicense=tri_mode_eth_mac@2015.04(design_linking),x_ipLicense=eth_avb_endpoint@2015.04(design_linking)}";
+  attribute CORE_GENERATION_INFO of bd_5d9f_0_mac_0 : entity is "bd_5d9f_0_mac_0,bd_5d9f_0_mac_0_block,{x_ipProduct=Vivado 2025.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=tri_mode_ethernet_mac,x_ipVersion=9.0,x_ipCoreRevision=39,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,c_component_name=bd_5d9f_0_mac_0,c_physical_interface=MII,c_half_duplex=false,c_en_iodelay=true,c_has_host=true,c_has_mdio=true,c_mdio_external=false,c_axilite_freq=150.00,c_add_filter=true,c_at_entries=4,c_family=artix7,c_mac_speed=SPEED_10_100_MBPS,c_int_clk_src=User_Clk2,c_int_mode_type=BASEX,c_has_stats=true,c_num_stats=34,c_cntr_rst=false,c_stats_width=64,c_avb=false,c_1588=0,c_tx_inband_cf_enable=false,c_rx_inband_ts_enable=false,c_tx_tuser_width=1,c_rx_vec_width=79,c_tx_vec_width=79,c_addr_width=12,c_pfc=false,c_mii_io=true,c_data_rate=1_Gbps,x_ipLicense=tri_mode_eth_mac@2015.04(hardware_evaluation),x_ipLicense=eth_avb_endpoint@2015.04(design_linking)}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of bd_5d9f_0_mac_0 : entity is "yes";
 end bd_5d9f_0_mac_0;

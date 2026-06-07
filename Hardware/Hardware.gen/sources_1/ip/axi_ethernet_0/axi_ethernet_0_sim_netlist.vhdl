@@ -2,7 +2,7 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
--- Date        : Mon Jun  1 22:29:42 2026
+-- Date        : Sun Jun  7 12:10:20 2026
 -- Host        : archlinux running 64-bit unknown
 -- Command     : write_vhdl -force -mode funcsim
 --               /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0_sim_netlist.vhdl
@@ -331,20 +331,37 @@ architecture STRUCTURE of axi_ethernet_0_bd_5d9f_0 is
   signal NLW_mac_tx_statistics_vector_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   attribute CHECK_LICENSE_TYPE : string;
   attribute CHECK_LICENSE_TYPE of c_counter_binary_0 : label is "bd_5d9f_0_c_counter_binary_0_0,c_counter_binary_v12_0_22,{}";
+  attribute black_box_pad_pin : string;
+  attribute black_box_pad_pin of c_counter_binary_0 : label is "SCLR,THRESH0,Q[23:0]";
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of c_counter_binary_0 : label is "yes";
+  attribute syn_black_box : string;
+  attribute syn_black_box of c_counter_binary_0 : label is "1";
+  attribute syn_force_seq_prim : string;
+  attribute syn_force_seq_prim of c_counter_binary_0 : label is "CLK";
   attribute x_core_info : string;
   attribute x_core_info of c_counter_binary_0 : label is "c_counter_binary_v12_0_22,Vivado 2025.2";
   attribute CHECK_LICENSE_TYPE of c_shift_ram_0 : label is "bd_5d9f_0_c_shift_ram_0_0,c_shift_ram_v12_0_20,{}";
+  attribute black_box_pad_pin of c_shift_ram_0 : label is "D[0:0],CE,SCLR,Q[0:0]";
   attribute downgradeipidentifiedwarnings of c_shift_ram_0 : label is "yes";
+  attribute syn_black_box of c_shift_ram_0 : label is "1";
+  attribute syn_force_seq_prim of c_shift_ram_0 : label is "CLK";
   attribute x_core_info of c_shift_ram_0 : label is "c_shift_ram_v12_0_20,Vivado 2025.2";
   attribute CHECK_LICENSE_TYPE of eth_buf : label is "bd_5d9f_0_eth_buf_0,axi_ethernet_buffer_v2_0_26,{}";
+  attribute black_box_pad_pin of eth_buf : label is "INTERRUPT,S_AXI_ARESETN,S_AXI_AWADDR[17:0],S_AXI_AWVALID,S_AXI_AWREADY,S_AXI_WDATA[31:0],S_AXI_WSTRB[3:0],S_AXI_WVALID,S_AXI_WREADY,S_AXI_BRESP[1:0],S_AXI_BVALID,S_AXI_BREADY,S_AXI_ARADDR[17:0],S_AXI_ARVALID,S_AXI_ARREADY,S_AXI_RDATA[31:0],S_AXI_RRESP[1:0],S_AXI_RVALID,S_AXI_RREADY,EMAC_CLIENT_AUTONEG_INT,EMAC_RESET_DONE_INT,EMAC_RX_DCM_LOCKED_INT,PCSPMA_STATUS_VECTOR[15:0],AXI_STR_TXD_ARESETN,AXI_STR_TXD_TVALID,AXI_STR_TXD_TREADY,AXI_STR_TXD_TLAST,AXI_STR_TXD_TKEEP[3:0],AXI_STR_TXD_TDATA[31:0],AXI_STR_TXC_ARESETN,AXI_STR_TXC_TVALID,AXI_STR_TXC_TREADY,AXI_STR_TXC_TLAST,AXI_STR_TXC_TKEEP[3:0],AXI_STR_TXC_TDATA[31:0],AXI_STR_RXD_ARESETN,AXI_STR_RXD_VALID,AXI_STR_RXD_READY,AXI_STR_RXD_LAST,AXI_STR_RXD_KEEP[3:0],AXI_STR_RXD_DATA[31:0],AXI_STR_RXS_ARESETN,AXI_STR_RXS_VALID,AXI_STR_RXS_READY,AXI_STR_RXS_LAST,AXI_STR_RXS_KEEP[3:0],AXI_STR_RXS_DATA[31:0],pause_req,pause_val[16:31],S_AXI_2TEMAC_AWADDR[11:0],S_AXI_2TEMAC_AWVALID,S_AXI_2TEMAC_AWREADY,S_AXI_2TEMAC_WDATA[31:0],S_AXI_2TEMAC_WVALID,S_AXI_2TEMAC_WREADY,S_AXI_2TEMAC_BRESP[1:0],S_AXI_2TEMAC_BVALID,S_AXI_2TEMAC_BREADY,S_AXI_2TEMAC_ARADDR[11:0],S_AXI_2TEMAC_ARVALID,S_AXI_2TEMAC_ARREADY,S_AXI_2TEMAC_RDATA[31:0],S_AXI_2TEMAC_RRESP[1:0],S_AXI_2TEMAC_RVALID,S_AXI_2TEMAC_RREADY,RX_CLK_ENABLE_IN,rx_statistics_vector[27:0],rx_statistics_valid,rx_reset,rx_axis_mac_tdata[7:0],rx_axis_mac_tvalid,rx_axis_mac_tlast,rx_axis_mac_tuser,tx_ifg_delay[24:31],tx_reset,tx_axis_mac_tdata[7:0],tx_axis_mac_tvalid,tx_axis_mac_tlast,tx_axis_mac_tuser[0:0],tx_axis_mac_tready,speed_is_10_100,RESET2PCSPMA,RESET2TEMACn,PHY_RST_N,mdio_i_top,mdio_o_top,mdio_t_top,mdc_top,mdio_t_pcspma,mdio_o_pcspma,mdio_i_temac,mdio_o_temac,mdio_t_temac,mdc_temac";
   attribute downgradeipidentifiedwarnings of eth_buf : label is "yes";
+  attribute syn_black_box of eth_buf : label is "1";
+  attribute syn_force_seq_prim of eth_buf : label is "GTX_CLK";
   attribute x_core_info of eth_buf : label is "axi_ethernet_buffer_v2_0_26,Vivado 2025.2";
+  attribute black_box_pad_pin of mac : label is "glbl_rstn,rx_axi_rstn,tx_axi_rstn,rx_enable,rx_statistics_vector[27:0],rx_statistics_valid,rx_reset,rx_axis_mac_tdata[7:0],rx_axis_mac_tvalid,rx_axis_mac_tlast,rx_axis_mac_tuser,rx_axis_filter_tuser[4:0],tx_enable,tx_ifg_delay[7:0],tx_statistics_vector[31:0],tx_statistics_valid,tx_reset,tx_axis_mac_tdata[7:0],tx_axis_mac_tvalid,tx_axis_mac_tlast,tx_axis_mac_tuser,tx_axis_mac_tready,pause_req,pause_val[15:0],speedis100,speedis10100,mii_txd[3:0],mii_tx_en,mii_tx_er,mii_rxd[3:0],mii_rx_dv,mii_rx_er,mii_rx_clk,mii_tx_clk,mdio_i,mdio_o,mdio_t,mdc,s_axi_resetn,s_axi_awaddr[11:0],s_axi_awvalid,s_axi_awready,s_axi_wdata[31:0],s_axi_wvalid,s_axi_wready,s_axi_bresp[1:0],s_axi_bvalid,s_axi_bready,s_axi_araddr[11:0],s_axi_arvalid,s_axi_arready,s_axi_rdata[31:0],s_axi_rresp[1:0],s_axi_rvalid,s_axi_rready,mac_irq";
   attribute downgradeipidentifiedwarnings of mac : label is "yes";
+  attribute syn_black_box of mac : label is "1";
+  attribute syn_force_seq_prim of mac : label is "s_axi_aclk";
   attribute x_core_info of mac : label is "bd_5d9f_0_mac_0_block,Vivado 2025.2";
   attribute CHECK_LICENSE_TYPE of util_vector_logic_0 : label is "bd_5d9f_0_util_vector_logic_0_0,util_vector_logic_v2_0_5_util_vector_logic,{}";
+  attribute black_box_pad_pin of util_vector_logic_0 : label is "Op1[0:0],Res[0:0]";
   attribute downgradeipidentifiedwarnings of util_vector_logic_0 : label is "yes";
+  attribute syn_black_box of util_vector_logic_0 : label is "1";
   attribute x_core_info of util_vector_logic_0 : label is "util_vector_logic_v2_0_5_util_vector_logic,Vivado 2025.2";
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of axi_rxd_arstn : signal is "xilinx.com:signal:reset:1.0 RST.AXI_RXD_ARSTN RST";

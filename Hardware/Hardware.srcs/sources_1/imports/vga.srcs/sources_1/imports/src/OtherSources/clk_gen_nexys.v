@@ -25,6 +25,8 @@ module clk_gen_nexys
   (input  wire i_clk,
    input  wire     i_rst,
    output wire     o_clk_core,
+   output wire     o_clk_eth,
+   output wire     o_clk_gtx,
    output reg o_rst_core);
 
    wire   clkfb;
@@ -33,15 +35,17 @@ module clk_gen_nexys
 
    PLLE2_BASE
      #(.BANDWIDTH("OPTIMIZED"),
-       .CLKFBOUT_MULT(16),
+       .CLKFBOUT_MULT(15),
        .CLKIN1_PERIOD(10.0), //100MHz
-       .CLKOUT0_DIVIDE(64),
+       .CLKOUT0_DIVIDE(60),  // 100*15/60 = 25MHz core clock
+       .CLKOUT1_DIVIDE(15),  // 100*15/15 = 100MHz eth clock
+       .CLKOUT2_DIVIDE(12),  // 100*15/12 = 125MHz gtx clock
        .DIVCLK_DIVIDE(1),
        .STARTUP_WAIT("FALSE"))
    PLLE2_BASE_inst
      (.CLKOUT0(o_clk_core),
-      .CLKOUT1(),
-      .CLKOUT2(),
+      .CLKOUT1(o_clk_eth),
+      .CLKOUT2(o_clk_gtx),
       .CLKOUT3(),
       .CLKOUT4(),
       .CLKOUT5(),

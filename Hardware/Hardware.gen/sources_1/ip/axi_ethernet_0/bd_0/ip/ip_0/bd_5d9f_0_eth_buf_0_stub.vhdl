@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
--- Date        : Mon Jun  1 22:29:14 2026
+-- Date        : Mon Jun  1 22:29:13 2026
 -- Host        : archlinux running 64-bit unknown
--- Command     : write_vhdl -force -mode synth_stub
---               /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_0/bd_5d9f_0_eth_buf_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top bd_5d9f_0_eth_buf_0 -prefix
+--               bd_5d9f_0_eth_buf_0_ bd_5d9f_0_eth_buf_0_stub.vhdl
 -- Design      : bd_5d9f_0_eth_buf_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tcsg324-1

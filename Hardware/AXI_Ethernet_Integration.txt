@@ -1,0 +1,319 @@
+================================================================================
+  AXI Ethernet Integration — ECE 540 Spring 2026 Final Project
+  Portland State University — Nexys A7 (xc7a100tcsg324-1)
+  Session summary compiled 2026-06-06
+================================================================================
+
+--------------------------------------------------------------------------------
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+The goal of this session was to integrate Ethernet connectivity into the existing
+VeeRwolf RISC-V SoC targeting the Nexys A7 FPGA. The integration adds a third
+AXI slave port to the PULP axi_xbar crossbar, routes it through a clock-domain
+crossing bridge, and connects it to an axi_ethernet_0 MAC (Xilinx IP, MII mode)
+via an RMII bridge (rmii_phy_if).
+
+Key design decisions:
+- Ethernet is a separate AXI slave port (NOT shared with the existing io_* bus)
+- Address space: 0x80040000 – 0x80080000 (256 KB, covers 18-bit AXI4-Lite space)
+- Clock domains: clk_core = 25 MHz (VeeRwolf), clk_eth = 100 MHz (MAC/AXI-Lite),
+  clk_gtx = 125 MHz (GTX clock for axi_ethernet_0), eth_rmii_clk = 50 MHz (PHY)
+- Data width adaptation: 64-bit AXI4 bus → 32-bit AXI4-Lite (w_data[31:0] for
+  writes; eth_rdata_narrow zero-padded to 64 bits for reads)
+- Clock domain crossing via axi_cdc_intf (already used in design for CPU→DRAM)
+- MDIO bidirectional pin handled with Xilinx IOBUF primitive
+- Active-high resets from rmii_phy_if inverted with `not` gates for AXI4-Lite
+
+
+--------------------------------------------------------------------------------
+2. FILES MODIFIED
+--------------------------------------------------------------------------------
+
+  File                                              Change
+  ------------------------------------------------  ----------------------------
+  Hardware.srcs/sources_1/new/ethernet_top.sv       Created (new file)
+  .../AxiInterconnect/axi_intercon.sv               3rd slave port added
+  .../AxiInterconnect/axi_intercon.vh               38 eth_* wires + port ties
+  .../VeeRwolf/veerwolf_core.v                      38 eth port pass-throughs
+  .../src/rvfpganexys.sv                            Top-level integration
+  .../OtherSources/clk_gen_nexys.v                  100 MHz + 125 MHz outputs
+  Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc  CLKIN clock constraint
+
+
+--------------------------------------------------------------------------------
+3. ethernet_top.sv  (Hardware.srcs/sources_1/new/ethernet_top.sv)
+--------------------------------------------------------------------------------
+New wrapper module instantiating axi_ethernet_0 and rmii_phy_if.
+
+Port groups:
+  - System:      s_axi_lite_clk, s_axi_lite_resetn, gtx_clk
+  - AXI4-Lite:   s_axi_awaddr[17:0], s_axi_awvalid/ready, s_axi_wdata[31:0],
+                 s_axi_wstrb[3:0], s_axi_wvalid/ready, s_axi_bresp[1:0],
+                 s_axi_bvalid/ready, s_axi_araddr[17:0], s_axi_arvalid/ready,
+                 s_axi_rdata[31:0], s_axi_rresp[1:0], s_axi_rvalid/ready
+  - AXIS TX:     s_axis_txd_*, s_axis_txc_*
+  - AXIS RX:     m_axis_rxd_*, m_axis_rxs_*
+  - RMII PHY:    phy_rmii_ref_clk, phy_rmii_crs_dv, phy_rmii_rxd[1:0],
+                 phy_rmii_rx_er, phy_rmii_txd[1:0], phy_rmii_tx_en
+  - MDIO:        phy_mdio_i, phy_mdio_o, phy_mdio_t, phy_mdc
+  - PHY reset:   phy_rst_n
+  - Mode/IRQ:    mode_speed, mac_irq, interrupt
+
+Internal MII wires connecting the two sub-modules:
+  mii_rx_clk, mii_rx_dv, mii_rx_er, mii_rxd[3:0]
+  mii_tx_clk, mii_tx_en, mii_tx_er, mii_txd[3:0]
+  mii_rxrst (active-high), mii_txrst (active-high)
+  mii_rxrstn, mii_txrstn (active-low, via `not` gates)
+
+Sub-module instantiations:
+  u_axi_ethernet_0  — axis_clk tied to s_axi_lite_clk;
+                      AXI-Stream resets driven by mii_txrstn / mii_rxrstn
+  u_rmii_phy_if     — rstn_async driven by s_axi_lite_resetn;
+                      mac_mii_crs left unconnected
+
+
+--------------------------------------------------------------------------------
+4. axi_intercon.sv  (.../AxiInterconnect/axi_intercon.sv)
+--------------------------------------------------------------------------------
+Changes:
+  - NoSlaves: 32'd2 → 32'd3
+  - AddrMap:  rule_t [1:0] → rule_t [2:0];
+    added entry: '{idx:32'd2, start_addr:32'h80040000, end_addr:32'h80080000}
+  - slaves_req / slaves_resp arrays: [1:0] → [2:0]
+  - Added 38 new module ports (after o_ram_rready):
+      o_eth_awid[5:0], o_eth_awaddr[31:0], o_eth_awlen[7:0], o_eth_awsize[2:0],
+      o_eth_awburst[1:0], o_eth_awlock, o_eth_awcache[3:0], o_eth_awprot[2:0],
+      o_eth_awregion[3:0], o_eth_awqos[3:0], o_eth_awvalid, i_eth_awready,
+      o_eth_arid[5:0], o_eth_araddr[31:0], o_eth_arlen[7:0], o_eth_arsize[2:0],
+      o_eth_arburst[1:0], o_eth_arlock, o_eth_arcache[3:0], o_eth_arprot[2:0],
+      o_eth_arregion[3:0], o_eth_arqos[3:0], o_eth_arvalid, i_eth_arready,
+      o_eth_wdata[63:0], o_eth_wstrb[7:0], o_eth_wlast, o_eth_wvalid,
+      i_eth_wready, i_eth_bid[5:0], i_eth_bresp[1:0], i_eth_bvalid,
+      o_eth_bready, i_eth_rid[5:0], i_eth_rdata[63:0], i_eth_rresp[1:0],
+      i_eth_rlast, i_eth_rvalid, o_eth_rready
+  - Added //Slave eth assignment block connecting slaves_req[2]/slaves_resp[2]
+    to the new ports
+
+
+--------------------------------------------------------------------------------
+5. axi_intercon.vh  (.../AxiInterconnect/axi_intercon.vh)
+--------------------------------------------------------------------------------
+Changes:
+  - Added 38 wire declarations after ram_rready:
+      wire [5:0]  eth_awid;     wire [31:0] eth_awaddr;
+      wire [7:0]  eth_awlen;    wire [2:0]  eth_awsize;
+      wire [1:0]  eth_awburst;  wire        eth_awlock;
+      wire [3:0]  eth_awcache;  wire [2:0]  eth_awprot;
+      wire [3:0]  eth_awregion; wire [3:0]  eth_awqos;
+      wire        eth_awvalid;  wire        eth_awready;
+      wire [5:0]  eth_arid;     wire [31:0] eth_araddr;
+      wire [7:0]  eth_arlen;    wire [2:0]  eth_arsize;
+      wire [1:0]  eth_arburst;  wire        eth_arlock;
+      wire [3:0]  eth_arcache;  wire [2:0]  eth_arprot;
+      wire [3:0]  eth_arregion; wire [3:0]  eth_arqos;
+      wire        eth_arvalid;  wire        eth_arready;
+      wire [63:0] eth_wdata;    wire [7:0]  eth_wstrb;
+      wire        eth_wlast;    wire        eth_wvalid;
+      wire        eth_wready;   wire [5:0]  eth_bid;
+      wire [1:0]  eth_bresp;    wire        eth_bvalid;
+      wire        eth_bready;   wire [5:0]  eth_rid;
+      wire [63:0] eth_rdata;    wire [1:0]  eth_rresp;
+      wire        eth_rlast;    wire        eth_rvalid;
+      wire        eth_rready;
+  - Extended axi_intercon instantiation: changed closing ); on o_ram_rready to a
+    comma and appended all 38 .o_eth_* / .i_eth_* port connections
+
+
+--------------------------------------------------------------------------------
+6. veerwolf_core.v  (.../VeeRwolf/veerwolf_core.v)
+--------------------------------------------------------------------------------
+Changes:
+  - Added 38 o_eth_* / i_eth_* module ports after o_ram_rready,
+    before i_ram_init_done (matching directions from axi_intercon perspective)
+  - Added 38 assign statements after `assign o_ram_rready = ram_rready`:
+      Outputs:  assign o_eth_awid = eth_awid; ... (pattern for all output ports)
+      Inputs:   assign eth_awready = i_eth_awready; ... (pattern for all inputs)
+
+
+--------------------------------------------------------------------------------
+7. rvfpganexys.sv  (.../src/rvfpganexys.sv)
+--------------------------------------------------------------------------------
+Six edits applied:
+
+Edit 1 — New module ports (after accel_sclk):
+    input  wire  CLKIN,
+    input  wire  CRS_DV, RXD0, RXD1, RXERR,
+    output wire  TXD0, TXD1, TXEN, MDC,
+    inout  wire  MDIO,
+    output wire  nRST,
+    input  wire  nINT
+
+Edit 2 — New internal wires (after user_rst):
+    wire        clk_eth;
+    wire        clk_gtx;
+    wire        mdio_i, mdio_o, mdio_t;
+    wire [31:0] eth_rdata_narrow;
+
+Edit 3 — clk_gen_nexys instantiation extended:
+    .o_clk_eth  (clk_eth),
+    .o_clk_gtx  (clk_gtx)
+
+Edit 4 — AXI bus instances, signal ties, CDC bridge:
+    AXI_BUS #(32, 64, 6, 1) eth_cpu();
+    AXI_BUS #(32, 64, 6, 1) eth_cdc_bus();
+    assign eth_cpu.aw_atop = 6'd0;
+    assign eth_cpu.aw_user = 1'b0;
+    assign eth_cpu.ar_user = 1'b0;
+    assign eth_cpu.w_user  = 1'b0;
+    assign eth_cdc_bus.b_id   = 6'd0;
+    assign eth_cdc_bus.b_user = 1'b0;
+    assign eth_cdc_bus.r_id   = 6'd0;
+    assign eth_cdc_bus.r_last = 1'b1;
+    assign eth_cdc_bus.r_user = 1'b0;
+    assign eth_cdc_bus.r_data = {32'h0, eth_rdata_narrow};
+    axi_cdc_intf #(.AXI_USER_WIDTH(1), .AXI_ADDR_WIDTH(32),
+                   .AXI_DATA_WIDTH(64), .AXI_ID_WIDTH(6))
+    eth_cdc (.src_clk_i(clk_core), .src_rst_ni(~rst_core), .src(eth_cpu),
+             .dst_clk_i(clk_eth),  .dst_rst_ni(~user_rst),  .dst(eth_cdc_bus));
+
+Edit 5 — veerwolf_core instantiation: all 38 o_eth_*/i_eth_* ports connected to
+    eth_cpu.* interface signals (aw_id, aw_addr, aw_len, ..., r_ready)
+
+Edit 6 — IOBUF and ethernet_top instantiation:
+    IOBUF mdio_iobuf (.IO(MDIO), .I(mdio_o), .O(mdio_i), .T(mdio_t));
+
+    ethernet_top u_ethernet_top (
+      .s_axi_lite_clk    (clk_eth),
+      .s_axi_lite_resetn (~user_rst),
+      .gtx_clk           (clk_gtx),
+      .phy_rmii_ref_clk  (CLKIN),
+      .s_axi_awaddr      (eth_cdc_bus.aw_addr[17:0]),
+      .s_axi_wdata       (eth_cdc_bus.w_data[31:0]),
+      .s_axi_wstrb       (eth_cdc_bus.w_strb[3:0]),
+      .s_axi_rdata       (eth_rdata_narrow),
+      // ... (all other AXI4-Lite and AXIS signals)
+      .phy_rmii_rxd      ({RXD1, RXD0}),
+      .phy_rmii_txd      ({TXD1, TXD0}),
+      .phy_mdio_i        (mdio_i),
+      .phy_mdio_o        (mdio_o),
+      .phy_mdio_t        (mdio_t),
+      .phy_mdc           (MDC),
+      .phy_rst_n         (nRST),
+      .mode_speed        (1'b1),
+      .mac_irq(), .interrupt()
+    );
+
+
+--------------------------------------------------------------------------------
+8. clk_gen_nexys.v  (.../OtherSources/clk_gen_nexys.v)
+--------------------------------------------------------------------------------
+Changes:
+  - Added output ports:  o_clk_eth, o_clk_gtx
+  - PLLE2_BASE parameters:
+      CLKFBOUT_MULT:  16 → 15
+      CLKOUT0_DIVIDE: 64 → 60   (100 × 15 / 60 = 25 MHz, core clock, unchanged)
+      CLKOUT1_DIVIDE: (new) 15  (100 × 15 / 15 = 100 MHz, clk_eth)
+      CLKOUT2_DIVIDE: (new) 12  (100 × 15 / 12 = 125 MHz, clk_gtx)
+  - CLKOUT1 → o_clk_eth, CLKOUT2 → o_clk_gtx
+
+
+--------------------------------------------------------------------------------
+9. rvfpganexys.xdc  (Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc)
+--------------------------------------------------------------------------------
+Added at end of file (after CLKIN pin assignment):
+
+  # Ethernet RMII reference clock (50 MHz from PHY)
+  create_clock -add -name eth_rmii_clk -period 20.000 -waveform {0 10} \
+               [get_ports { CLKIN }];
+  set_clock_groups -asynchronous \
+               -group [get_clocks sys_clk_pin] \
+               -group [get_clocks eth_rmii_clk];
+
+Notes:
+  - eth_rmii_clk is the 50 MHz reference driven by the LAN8720 PHY on pin D5
+  - sys_clk_pin (100 MHz board oscillator) and eth_rmii_clk are asynchronous;
+    the set_clock_groups directive prevents false timing paths between them
+  - clk_eth (100 MHz) and clk_gtx (125 MHz) are PLLE2 outputs derived from
+    sys_clk_pin, so they are already related and need no additional grouping
+
+
+--------------------------------------------------------------------------------
+10. REMAINING / FUTURE WORK
+--------------------------------------------------------------------------------
+  [ ] AXI-Stream DMA for TX/RX packet path
+        AXIS streams in ethernet_top are currently tied off (no data path to RAM)
+        Requires a DMA engine or software-driven FIFO approach
+
+  [ ] Connect mac_irq / interrupt to CPU interrupt controller
+        Both outputs are left unconnected (.mac_irq(), .interrupt())
+
+  [ ] Software driver
+        Bare-metal or RTOS driver to configure the MAC via AXI4-Lite registers,
+        initialize the LAN8720 via MDIO, and send/receive frames
+
+
+--------------------------------------------------------------------------------
+11. ADDRESS MAP (post-integration)
+--------------------------------------------------------------------------------
+  Slave  Name   Start        End          Size    Notes
+  -----  -----  -----------  -----------  ------  ----------------------------
+  0      io     0x80000000   0x80040000   256 KB  Wishbone peripherals
+  1      ram    0x80200000   0xA0200000   512 MB  LiteDRAM DDR2
+  2      eth    0x80040000   0x80080000   256 KB  axi_ethernet_0 AXI4-Lite regs
+
+
+--------------------------------------------------------------------------------
+12. CLOCK DOMAIN SUMMARY
+--------------------------------------------------------------------------------
+  Domain        Freq     Source           Used by
+  ----------    -------  ---------------  ------------------------------------
+  clk_core      25 MHz   PLLE2 CLKOUT0    VeeRwolf CPU, AXI crossbar
+  clk_eth       100 MHz  PLLE2 CLKOUT1    axi_ethernet_0 s_axi, eth_cdc dst
+  clk_gtx       125 MHz  PLLE2 CLKOUT2    axi_ethernet_0 gtx_clk
+  user_clk      100 MHz  LiteDRAM PLL     LiteDRAM controller
+  eth_rmii_clk  50 MHz   LAN8720 PHY      rmii_phy_if ref clock input
+
+
+--------------------------------------------------------------------------------
+13. SESSION PROMPTS (chronological)
+--------------------------------------------------------------------------------
+The following user prompts drove this integration work across two sessions.
+
+Session 1
+  1. "Look at the AXI bus in the Hardware.srcs/.../AxiInterconnect/ directory and
+     DRAM AXI peripheral in .../LiteDRAM/litedram_top.v, then look at the
+     ethernet_top module in Hardware.srcs/sources_1/new/ethernet_top.sv. Write
+     the port list of the ethernet_top module along with the internal wires that
+     would connect the two internal modules instantiated."
+
+  2. "now instantiate the two modules using those wires and port list"
+
+  3. "Instruct me how to connect the ethernet_top module to the AXI bus in the
+     current design shown in Hardware.srcs/sources_1/imports/vga.srcs/sources_1/
+     imports/src/. For FPGA pins, look at the .xdc in
+     Hardware.srcs/constrs_1/imports/src/."
+
+  4. "Edit the AXI Ethernet integration instructions so that the Ethernet is added
+     as a AXI port separate from io_*"
+
+  5. "Implement the changes to axi_intercon.sv"
+
+  6. "Implement the changes to axi_intercon.vh"
+
+  7. "Implement the changes to veerwolf_core.v"
+
+  8. "Implement the changes to rvfpganexys.sv"
+
+Session 2  (resumed from compacted context, 2026-06-06)
+  9. [Session resumed — clk_gen_nexys.v changes were the pending task carried
+     over from Session 1 and were implemented automatically on resume]
+
+  10. "implement the changes to rvfpganexys.xdc"
+
+  11. "Rewrite AXI_Ethernet_Integration.txt chat log so that includes the Compact
+      summary for this session"
+
+  12. "Add the prompts used for this session to AXI_Ethernet_Integration.txt
+      chat log"
+
+================================================================================

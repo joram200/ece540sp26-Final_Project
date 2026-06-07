@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Jun  1 22:29:18 2026
-# Process ID         : 24564
+# Start of session at: Sun Jun  7 12:09:56 2026
+# Process ID         : 53390
 # Current directory  : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1
 # Command line       : vivado -log axi_ethernet_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source axi_ethernet_0.tcl
 # Log file           : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0.vds
@@ -13,12 +13,12 @@
 # Platform           : unknown
 # Operating System   : unknown
 # Processor Detail   : 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
-# CPU Frequency      : 4438.175 MHz
+# CPU Frequency      : 4010.818 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 16533 MB
 # Swap memory        : 8266 MB
 # Total Virtual      : 24800 MB
-# Available Virtual  : 14725 MB
+# Available Virtual  : 16336 MB
 #-----------------------------------------------------------
 source axi_ethernet_0.tcl -notrace

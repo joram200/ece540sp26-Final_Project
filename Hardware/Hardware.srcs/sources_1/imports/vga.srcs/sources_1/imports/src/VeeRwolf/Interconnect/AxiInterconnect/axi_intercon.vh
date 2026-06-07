@@ -174,6 +174,45 @@ wire  [1:0] ram_rresp;
 wire        ram_rlast;
 wire        ram_rvalid;
 wire        ram_rready;
+wire  [5:0] eth_awid;
+wire [31:0] eth_awaddr;
+wire  [7:0] eth_awlen;
+wire  [2:0] eth_awsize;
+wire  [1:0] eth_awburst;
+wire        eth_awlock;
+wire  [3:0] eth_awcache;
+wire  [2:0] eth_awprot;
+wire  [3:0] eth_awregion;
+wire  [3:0] eth_awqos;
+wire        eth_awvalid;
+wire        eth_awready;
+wire  [5:0] eth_arid;
+wire [31:0] eth_araddr;
+wire  [7:0] eth_arlen;
+wire  [2:0] eth_arsize;
+wire  [1:0] eth_arburst;
+wire        eth_arlock;
+wire  [3:0] eth_arcache;
+wire  [2:0] eth_arprot;
+wire  [3:0] eth_arregion;
+wire  [3:0] eth_arqos;
+wire        eth_arvalid;
+wire        eth_arready;
+wire [63:0] eth_wdata;
+wire  [7:0] eth_wstrb;
+wire        eth_wlast;
+wire        eth_wvalid;
+wire        eth_wready;
+wire  [5:0] eth_bid;
+wire  [1:0] eth_bresp;
+wire        eth_bvalid;
+wire        eth_bready;
+wire  [5:0] eth_rid;
+wire [63:0] eth_rdata;
+wire  [1:0] eth_rresp;
+wire        eth_rlast;
+wire        eth_rvalid;
+wire        eth_rready;
 
 axi_intercon axi_intercon
    (.clk_i          (clk),
@@ -351,5 +390,44 @@ axi_intercon axi_intercon
     .i_ram_rresp    (ram_rresp),
     .i_ram_rlast    (ram_rlast),
     .i_ram_rvalid   (ram_rvalid),
-    .o_ram_rready   (ram_rready));
+    .o_ram_rready   (ram_rready),
+    .o_eth_awid     (eth_awid),
+    .o_eth_awaddr   (eth_awaddr),
+    .o_eth_awlen    (eth_awlen),
+    .o_eth_awsize   (eth_awsize),
+    .o_eth_awburst  (eth_awburst),
+    .o_eth_awlock   (eth_awlock),
+    .o_eth_awcache  (eth_awcache),
+    .o_eth_awprot   (eth_awprot),
+    .o_eth_awregion (eth_awregion),
+    .o_eth_awqos    (eth_awqos),
+    .o_eth_awvalid  (eth_awvalid),
+    .i_eth_awready  (eth_awready),
+    .o_eth_arid     (eth_arid),
+    .o_eth_araddr   (eth_araddr),
+    .o_eth_arlen    (eth_arlen),
+    .o_eth_arsize   (eth_arsize),
+    .o_eth_arburst  (eth_arburst),
+    .o_eth_arlock   (eth_arlock),
+    .o_eth_arcache  (eth_arcache),
+    .o_eth_arprot   (eth_arprot),
+    .o_eth_arregion (eth_arregion),
+    .o_eth_arqos    (eth_arqos),
+    .o_eth_arvalid  (eth_arvalid),
+    .i_eth_arready  (eth_arready),
+    .o_eth_wdata    (eth_wdata),
+    .o_eth_wstrb    (eth_wstrb),
+    .o_eth_wlast    (eth_wlast),
+    .o_eth_wvalid   (eth_wvalid),
+    .i_eth_wready   (eth_wready),
+    .i_eth_bid      (eth_bid),
+    .i_eth_bresp    (eth_bresp),
+    .i_eth_bvalid   (eth_bvalid),
+    .o_eth_bready   (eth_bready),
+    .i_eth_rid      (eth_rid),
+    .i_eth_rdata    (eth_rdata),
+    .i_eth_rresp    (eth_rresp),
+    .i_eth_rlast    (eth_rlast),
+    .i_eth_rvalid   (eth_rvalid),
+    .o_eth_rready   (eth_rready));
 

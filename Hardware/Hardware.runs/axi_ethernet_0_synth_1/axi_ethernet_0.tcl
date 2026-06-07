@@ -77,6 +77,15 @@ set_property include_dirs {
   /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540_RVfpga/RVfpgaEL2/RVfpga_NexysA7-DDR/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/include
   /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540_RVfpga/RVfpgaEL2/RVfpga_NexysA7-DDR/src/OtherSources/pulp-platform.org__common_cells_1.20.0/include
 } [current_fileset]
+set src_rc [catch { 
+  puts "source /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/pre_synth_axi_eth.tcl"
+  source /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/pre_synth_axi_eth.tcl
+} _RESULT] 
+if {$src_rc} { 
+  send_msg_id runtcl-1 status "$_RESULT"
+  send_msg_id runtcl-2 status "sourcing script /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/pre_synth_axi_eth.tcl failed"
+  return -code error
+}
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_ip -quiet /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/ip/axi_ethernet_0/axi_ethernet_0.xci
@@ -106,47 +115,11 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
-OPTRACE "Configure IP Cache" START { }
-
-set cacheID [config_ip_cache -export -no_bom  -dir /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1 -new_name axi_ethernet_0 -ip [get_ips axi_ethernet_0]]
-
-OPTRACE "Configure IP Cache" END { }
-if { $cacheID == "" } {
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
 synth_design -top axi_ethernet_0 -part xc7a100tcsg324-1 -incremental_mode off -mode out_of_context
 OPTRACE "synth_design" END { }
-OPTRACE "Write IP Cache" START { }
-
-#---------------------------------------------------------
-# Generate Checkpoint/Stub/Simulation Files For IP Cache
-#---------------------------------------------------------
-# disable binary constraint mode for IPCache checkpoints
-set_param constraints.enableBinaryConstraints false
-
-catch {
- write_checkpoint -force -noxdef -rename_prefix axi_ethernet_0_ axi_ethernet_0.dcp
-
- set ipCachedFiles {}
- write_verilog -force -mode synth_stub -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ axi_ethernet_0_stub.v
- lappend ipCachedFiles axi_ethernet_0_stub.v
-
- write_vhdl -force -mode synth_stub -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ axi_ethernet_0_stub.vhdl
- lappend ipCachedFiles axi_ethernet_0_stub.vhdl
-
- write_verilog -force -mode funcsim -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ axi_ethernet_0_sim_netlist.v
- lappend ipCachedFiles axi_ethernet_0_sim_netlist.v
-
- write_vhdl -force -mode funcsim -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ axi_ethernet_0_sim_netlist.vhdl
- lappend ipCachedFiles axi_ethernet_0_sim_netlist.vhdl
- set TIME_taken [expr [clock seconds] - $TIME_start]
-
- if { [get_msg_config -count -severity {CRITICAL WARNING}] == 0 } {
-  config_ip_cache -add -dcp axi_ethernet_0.dcp -move_files $ipCachedFiles   -synth_runtime $TIME_taken  -ip [get_ips axi_ethernet_0]
- }
-OPTRACE "Write IP Cache" END { }
-}
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
 }
@@ -192,44 +165,6 @@ if { [catch {
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
-
-
-} else {
-
-
-if { [catch {
-  file copy -force /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0.dcp /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0.dcp
-} _RESULT ] } { 
-  send_msg_id runtcl-3 status "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
-  error "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
-}
-
-if { [catch {
-  file rename -force /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0_stub.v /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0_stub.v
-} _RESULT ] } { 
-  puts "CRITICAL WARNING: Unable to successfully create a Verilog synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
-}
-
-if { [catch {
-  file rename -force /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0_stub.vhdl /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0_stub.vhdl
-} _RESULT ] } { 
-  puts "CRITICAL WARNING: Unable to successfully create a VHDL synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
-}
-
-if { [catch {
-  file rename -force /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0_sim_netlist.v /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0_sim_netlist.v
-} _RESULT ] } { 
-  puts "CRITICAL WARNING: Unable to successfully create the Verilog functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
-}
-
-if { [catch {
-  file rename -force /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0_sim_netlist.vhdl /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0_sim_netlist.vhdl
-} _RESULT ] } { 
-  puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
-}
-
-close [open .end.used_ip_cache.rst w]
-}; # end if cacheID 
 
 if {[file isdir /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.ip_user_files/ip/axi_ethernet_0]} {
   catch { 

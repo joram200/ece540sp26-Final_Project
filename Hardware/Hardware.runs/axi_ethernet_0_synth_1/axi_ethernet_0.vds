@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Mon Jun  1 22:29:18 2026
-# Process ID         : 24564
+# Start of session at: Sun Jun  7 12:09:56 2026
+# Process ID         : 53390
 # Current directory  : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1
 # Command line       : vivado -log axi_ethernet_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source axi_ethernet_0.tcl
 # Log file           : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0.vds
@@ -13,15 +13,21 @@
 # Platform           : unknown
 # Operating System   : unknown
 # Processor Detail   : 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
-# CPU Frequency      : 4438.175 MHz
+# CPU Frequency      : 4010.818 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
 # Host memory        : 16533 MB
 # Swap memory        : 8266 MB
 # Total Virtual      : 24800 MB
-# Available Virtual  : 14725 MB
+# Available Virtual  : 16336 MB
 #-----------------------------------------------------------
 source axi_ethernet_0.tcl -notrace
+source /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/pre_synth_axi_eth.tcl
+HOOK: loaded {/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_0/bd_5d9f_0_eth_buf_0_stub.v}
+HOOK: loaded {/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/bd_5d9f_0_mac_0_stub.v}
+HOOK: loaded {/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_2/bd_5d9f_0_c_shift_ram_0_0_stub.v}
+HOOK: loaded {/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_3/bd_5d9f_0_c_counter_binary_0_0_stub.v}
+HOOK: loaded {/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_5/bd_5d9f_0_util_vector_logic_0_0_stub.v}
 Command: synth_design -top axi_ethernet_0 -part xc7a100tcsg324-1 -incremental_mode off -mode out_of_context
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
@@ -29,20 +35,27 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 24595
+INFO: [Synth 8-7075] Helper process launched with PID 53413
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2219.922 ; gain = 479.875 ; free physical = 5388 ; free virtual = 12827
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2185.234 ; gain = 481.844 ; free physical = 2602 ; free virtual = 14248
 ---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-9873] overwriting previous definition of module 'bd_5d9f_0_eth_buf_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_0/bd_5d9f_0_eth_buf_0_stub.v:153]
+INFO: [Synth 8-13127] previous definition of module 'bd_5d9f_0_eth_buf_0' is here [./.Xil/Vivado-53390-archlinux/realtime/bd_5d9f_0_eth_buf_0_stub.v:133]
+CRITICAL WARNING: [Synth 8-9873] overwriting previous definition of module 'bd_5d9f_0_mac_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/bd_5d9f_0_mac_0_stub.v:94]
+INFO: [Synth 8-13127] previous definition of module 'bd_5d9f_0_mac_0' is here [./.Xil/Vivado-53390-archlinux/realtime/bd_5d9f_0_mac_0_stub.v:78]
+CRITICAL WARNING: [Synth 8-9873] overwriting previous definition of module 'bd_5d9f_0_c_shift_ram_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_2/bd_5d9f_0_c_shift_ram_0_0_stub.v:27]
+INFO: [Synth 8-13127] previous definition of module 'bd_5d9f_0_c_shift_ram_0_0' is here [./.Xil/Vivado-53390-archlinux/realtime/bd_5d9f_0_c_shift_ram_0_0_stub.v:14]
+CRITICAL WARNING: [Synth 8-9873] overwriting previous definition of module 'bd_5d9f_0_c_counter_binary_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_3/bd_5d9f_0_c_counter_binary_0_0_stub.v:26]
+INFO: [Synth 8-13127] previous definition of module 'bd_5d9f_0_c_counter_binary_0_0' is here [./.Xil/Vivado-53390-archlinux/realtime/bd_5d9f_0_c_counter_binary_0_0_stub.v:13]
+CRITICAL WARNING: [Synth 8-9873] overwriting previous definition of module 'bd_5d9f_0_util_vector_logic_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_5/bd_5d9f_0_util_vector_logic_0_0_stub.v:23]
+INFO: [Synth 8-13127] previous definition of module 'bd_5d9f_0_util_vector_logic_0_0' is here [./.Xil/Vivado-53390-archlinux/realtime/bd_5d9f_0_util_vector_logic_0_0_stub.v:11]
 INFO: [Synth 8-6157] synthesizing module 'axi_ethernet_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/synth/axi_ethernet_0.v:53]
 INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:10]
-INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_c_counter_binary_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_c_counter_binary_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'bd_5d9f_0_c_counter_binary_0_0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_c_counter_binary_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_c_counter_binary_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_3/bd_5d9f_0_c_counter_binary_0_0_stub.v:17]
 WARNING: [Synth 8-7071] port 'Q' of module 'bd_5d9f_0_c_counter_binary_0_0' is unconnected for instance 'c_counter_binary_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:234]
 WARNING: [Synth 8-7023] instance 'c_counter_binary_0' of module 'bd_5d9f_0_c_counter_binary_0_0' has 4 connections declared, but only 3 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:234]
-INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_c_shift_ram_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_c_shift_ram_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'bd_5d9f_0_c_shift_ram_0_0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_c_shift_ram_0_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_eth_buf_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_eth_buf_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'bd_5d9f_0_eth_buf_0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_eth_buf_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_c_shift_ram_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_2/bd_5d9f_0_c_shift_ram_0_0_stub.v:17]
+INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_eth_buf_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_0/bd_5d9f_0_eth_buf_0_stub.v:17]
 WARNING: [Synth 8-7071] port 'RESET2PCSPMA' of module 'bd_5d9f_0_eth_buf_0' is unconnected for instance 'eth_buf' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:244]
 WARNING: [Synth 8-7071] port 'PHY_RST_N' of module 'bd_5d9f_0_eth_buf_0' is unconnected for instance 'eth_buf' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:244]
 WARNING: [Synth 8-7071] port 'mdio_o_top' of module 'bd_5d9f_0_eth_buf_0' is unconnected for instance 'eth_buf' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:244]
@@ -50,31 +63,29 @@ WARNING: [Synth 8-7071] port 'mdio_t_top' of module 'bd_5d9f_0_eth_buf_0' is unc
 WARNING: [Synth 8-7071] port 'mdc_top' of module 'bd_5d9f_0_eth_buf_0' is unconnected for instance 'eth_buf' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:244]
 WARNING: [Synth 8-7071] port 'mdio_i_temac' of module 'bd_5d9f_0_eth_buf_0' is unconnected for instance 'eth_buf' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:244]
 WARNING: [Synth 8-7023] instance 'eth_buf' of module 'bd_5d9f_0_eth_buf_0' has 102 connections declared, but only 96 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:244]
-INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_mac_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_mac_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'bd_5d9f_0_mac_0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_mac_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_mac_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_1/bd_5d9f_0_mac_0_stub.v:17]
 WARNING: [Synth 8-7071] port 'rx_axis_filter_tuser' of module 'bd_5d9f_0_mac_0' is unconnected for instance 'mac' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:342]
 WARNING: [Synth 8-7071] port 'tx_enable' of module 'bd_5d9f_0_mac_0' is unconnected for instance 'mac' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:342]
 WARNING: [Synth 8-7071] port 'tx_statistics_vector' of module 'bd_5d9f_0_mac_0' is unconnected for instance 'mac' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:342]
 WARNING: [Synth 8-7071] port 'tx_statistics_valid' of module 'bd_5d9f_0_mac_0' is unconnected for instance 'mac' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:342]
 WARNING: [Synth 8-7071] port 'speedis100' of module 'bd_5d9f_0_mac_0' is unconnected for instance 'mac' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:342]
 WARNING: [Synth 8-7023] instance 'mac' of module 'bd_5d9f_0_mac_0' has 60 connections declared, but only 55 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:342]
-INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_util_vector_logic_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_util_vector_logic_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'bd_5d9f_0_util_vector_logic_0_0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/.Xil/Vivado-24564-archlinux/realtime/bd_5d9f_0_util_vector_logic_0_0_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'bd_5d9f_0_util_vector_logic_0_0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_5/bd_5d9f_0_util_vector_logic_0_0_stub.v:17]
 INFO: [Synth 8-6155] done synthesizing module 'bd_5d9f_0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/synth/bd_5d9f_0.v:10]
 INFO: [Synth 8-6155] done synthesizing module 'axi_ethernet_0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/synth/axi_ethernet_0.v:53]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2310.859 ; gain = 570.812 ; free physical = 5281 ; free virtual = 12728
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2277.172 ; gain = 573.781 ; free physical = 2515 ; free virtual = 14161
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2316.797 ; gain = 576.750 ; free physical = 5283 ; free virtual = 12728
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2283.109 ; gain = 579.719 ; free physical = 2514 ; free virtual = 14160
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2316.797 ; gain = 576.750 ; free physical = 5283 ; free virtual = 12728
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2283.109 ; gain = 579.719 ; free physical = 2514 ; free virtual = 14160
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2316.797 ; gain = 0.000 ; free physical = 5283 ; free virtual = 12728
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2283.109 ; gain = 0.000 ; free physical = 2514 ; free virtual = 14160
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -102,30 +113,30 @@ Parsing XDC File [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/Univ
 Finished Parsing XDC File [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2380.457 ; gain = 0.000 ; free physical = 5271 ; free virtual = 12720
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2296.754 ; gain = 0.000 ; free physical = 2545 ; free virtual = 14193
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2380.492 ; gain = 0.000 ; free physical = 5271 ; free virtual = 12720
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2296.789 ; gain = 0.000 ; free physical = 2545 ; free virtual = 14193
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2380.492 ; gain = 640.445 ; free physical = 5269 ; free virtual = 12728
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2296.789 ; gain = 593.398 ; free physical = 2598 ; free virtual = 14232
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2388.461 ; gain = 648.414 ; free physical = 5269 ; free virtual = 12728
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2298.758 ; gain = 595.367 ; free physical = 2598 ; free virtual = 14232
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2388.461 ; gain = 648.414 ; free physical = 5269 ; free virtual = 12728
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2298.758 ; gain = 595.367 ; free physical = 2596 ; free virtual = 14230
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2388.461 ; gain = 648.414 ; free physical = 5267 ; free virtual = 12727
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2298.758 ; gain = 595.367 ; free physical = 2595 ; free virtual = 14231
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -147,26 +158,26 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2388.461 ; gain = 648.414 ; free physical = 5287 ; free virtual = 12730
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2298.758 ; gain = 595.367 ; free physical = 2578 ; free virtual = 14214
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-565] redefining clock 'mii_rx_clk'
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2489.461 ; gain = 749.414 ; free physical = 5203 ; free virtual = 12636
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 2397.758 ; gain = 694.367 ; free physical = 2476 ; free virtual = 14124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2489.461 ; gain = 749.414 ; free physical = 5203 ; free virtual = 12636
+Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 2397.758 ; gain = 694.367 ; free physical = 2476 ; free virtual = 14124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2498.477 ; gain = 758.430 ; free physical = 5198 ; free virtual = 12632
+Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 2407.773 ; gain = 704.383 ; free physical = 2468 ; free virtual = 14116
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -184,37 +195,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2685.289 ; gain = 945.242 ; free physical = 5016 ; free virtual = 12456
+Finished IO Insertion : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.586 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2685.289 ; gain = 945.242 ; free physical = 5016 ; free virtual = 12456
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.586 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2685.289 ; gain = 945.242 ; free physical = 5016 ; free virtual = 12456
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.586 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2685.289 ; gain = 945.242 ; free physical = 5016 ; free virtual = 12456
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.586 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2685.289 ; gain = 945.242 ; free physical = 5016 ; free virtual = 12456
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.586 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2685.289 ; gain = 945.242 ; free physical = 5016 ; free virtual = 12456
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.586 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -232,39 +243,38 @@ Report BlackBoxes:
 +------+--------------------------------+----------+
 
 Report Cell Usage: 
-+------+------------------------------+------+
-|      |Cell                          |Count |
-+------+------------------------------+------+
-|1     |bd_5d9f_0_c_counter_binary_0  |     1|
-|2     |bd_5d9f_0_c_shift_ram_0       |     1|
-|3     |bd_5d9f_0_eth_buf             |     1|
-|4     |bd_5d9f_0_mac                 |     1|
-|5     |bd_5d9f_0_util_vector_logic_0 |     1|
-+------+------------------------------+------+
++------+-------------------------------------+------+
+|      |Cell                                 |Count |
++------+-------------------------------------+------+
+|1     |bd_5d9f_0_c_counter_binary_0_0_bbox  |     1|
+|2     |bd_5d9f_0_c_shift_ram_0_0_bbox       |     1|
+|3     |bd_5d9f_0_eth_buf_0_bbox             |     1|
+|4     |bd_5d9f_0_mac_0_bbox                 |     1|
+|5     |bd_5d9f_0_util_vector_logic_0_0_bbox |     1|
++------+-------------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2685.289 ; gain = 945.242 ; free physical = 5016 ; free virtual = 12456
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.586 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 2685.289 ; gain = 881.547 ; free physical = 5022 ; free virtual = 12458
-Synthesis Optimization Complete : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 2685.297 ; gain = 945.242 ; free physical = 5022 ; free virtual = 12458
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 2594.586 ; gain = 877.516 ; free physical = 2385 ; free virtual = 14031
+Synthesis Optimization Complete : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2594.594 ; gain = 891.195 ; free physical = 2385 ; free virtual = 14031
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2685.297 ; gain = 0.000 ; free physical = 5022 ; free virtual = 12458
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2594.594 ; gain = 0.000 ; free physical = 2385 ; free virtual = 14031
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2685.297 ; gain = 0.000 ; free physical = 5201 ; free virtual = 12624
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2594.594 ; gain = 0.000 ; free physical = 2556 ; free virtual = 14201
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 Synth Design complete | Checksum: 5839e845
 INFO: [Common 17-83] Releasing license: Synthesis
-28 Infos, 17 Warnings, 0 Critical Warnings and 0 Errors encountered.
+28 Infos, 17 Warnings, 5 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:20 . Memory (MB): peak = 2685.324 ; gain = 1127.238 ; free physical = 5191 ; free virtual = 12625
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1823.146; main = 1823.146; forked = 283.038
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3377.527; main = 2685.293; forked = 989.062
-INFO: [Common 17-1381] The checkpoint '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0.dcp' has been generated.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP axi_ethernet_0, cache-ID = 8ee63476dc8a8291
+synth_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:21 . Memory (MB): peak = 2594.621 ; gain = 1042.520 ; free physical = 2574 ; free virtual = 14220
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1789.648; main = 1789.648; forked = 279.436
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3275.828; main = 2594.590; forked = 977.066
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
 INFO: [Coretcl 2-1174] Renamed 6 cell refs.
 INFO: [Common 17-1381] The checkpoint '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/axi_ethernet_0_synth_1/axi_ethernet_0.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file axi_ethernet_0_utilization_synth.rpt -pb axi_ethernet_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Jun  1 22:29:42 2026...
+INFO: [Common 17-206] Exiting Vivado at Sun Jun  7 12:10:21 2026...

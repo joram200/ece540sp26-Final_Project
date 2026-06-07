@@ -131,3 +131,7 @@ set_property -dict { PACKAGE_PIN D9  IOSTANDARD LVCMOS33 } [get_ports { CRS_DV }
 set_property -dict { PACKAGE_PIN B8  IOSTANDARD LVCMOS33 } [get_ports { nINT }];
 
 set_property -dict { PACKAGE_PIN D5  IOSTANDARD LVCMOS33 } [get_ports { CLKIN }];
+
+# Ethernet RMII reference clock (50MHz from PHY)
+create_clock -add -name eth_rmii_clk -period 20.000 -waveform {0 10} [get_ports { CLKIN }];
+set_clock_groups -asynchronous -group [get_clocks sys_clk_pin] -group [get_clocks eth_rmii_clk];

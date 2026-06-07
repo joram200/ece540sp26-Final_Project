@@ -4,8 +4,8 @@
 // Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
 // Date        : Mon Jun  1 22:29:02 2026
 // Host        : archlinux running 64-bit unknown
-// Command     : write_verilog -force -mode synth_stub
-//               /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_3/bd_5d9f_0_c_counter_binary_0_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top bd_5d9f_0_c_counter_binary_0_0 -prefix
+//               bd_5d9f_0_c_counter_binary_0_0_ bd_5d9f_0_c_counter_binary_0_0_stub.v
 // Design      : bd_5d9f_0_c_counter_binary_0_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a100tcsg324-1

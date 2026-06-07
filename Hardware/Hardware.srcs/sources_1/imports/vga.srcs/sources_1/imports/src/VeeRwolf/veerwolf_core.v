@@ -152,6 +152,45 @@ module veerwolf_core
     input wire 	       i_ram_rlast,
     input wire 	       i_ram_rvalid,
     output wire        o_ram_rready,
+    output wire [5:0]  o_eth_awid,
+    output wire [31:0] o_eth_awaddr,
+    output wire [7:0]  o_eth_awlen,
+    output wire [2:0]  o_eth_awsize,
+    output wire [1:0]  o_eth_awburst,
+    output wire        o_eth_awlock,
+    output wire [3:0]  o_eth_awcache,
+    output wire [2:0]  o_eth_awprot,
+    output wire [3:0]  o_eth_awregion,
+    output wire [3:0]  o_eth_awqos,
+    output wire        o_eth_awvalid,
+    input  wire        i_eth_awready,
+    output wire [5:0]  o_eth_arid,
+    output wire [31:0] o_eth_araddr,
+    output wire [7:0]  o_eth_arlen,
+    output wire [2:0]  o_eth_arsize,
+    output wire [1:0]  o_eth_arburst,
+    output wire        o_eth_arlock,
+    output wire [3:0]  o_eth_arcache,
+    output wire [2:0]  o_eth_arprot,
+    output wire [3:0]  o_eth_arregion,
+    output wire [3:0]  o_eth_arqos,
+    output wire        o_eth_arvalid,
+    input  wire        i_eth_arready,
+    output wire [63:0] o_eth_wdata,
+    output wire [7:0]  o_eth_wstrb,
+    output wire        o_eth_wlast,
+    output wire        o_eth_wvalid,
+    input  wire        i_eth_wready,
+    input  wire [5:0]  i_eth_bid,
+    input  wire [1:0]  i_eth_bresp,
+    input  wire        i_eth_bvalid,
+    output wire        o_eth_bready,
+    input  wire [5:0]  i_eth_rid,
+    input  wire [63:0] i_eth_rdata,
+    input  wire [1:0]  i_eth_rresp,
+    input  wire        i_eth_rlast,
+    input  wire        i_eth_rvalid,
+    output wire        o_eth_rready,
     input wire 	       i_ram_init_done,
     input wire 	       i_ram_init_error,
     output wire [ 7          :0] AN,
@@ -222,6 +261,46 @@ module veerwolf_core
    assign ram_rlast      = i_ram_rlast;
    assign ram_rvalid     = i_ram_rvalid;
    assign o_ram_rready   = ram_rready;
+
+   assign o_eth_awid     = eth_awid;
+   assign o_eth_awaddr   = eth_awaddr;
+   assign o_eth_awlen    = eth_awlen;
+   assign o_eth_awsize   = eth_awsize;
+   assign o_eth_awburst  = eth_awburst;
+   assign o_eth_awlock   = eth_awlock;
+   assign o_eth_awcache  = eth_awcache;
+   assign o_eth_awprot   = eth_awprot;
+   assign o_eth_awregion = eth_awregion;
+   assign o_eth_awqos    = eth_awqos;
+   assign o_eth_awvalid  = eth_awvalid;
+   assign eth_awready    = i_eth_awready;
+   assign o_eth_arid     = eth_arid;
+   assign o_eth_araddr   = eth_araddr;
+   assign o_eth_arlen    = eth_arlen;
+   assign o_eth_arsize   = eth_arsize;
+   assign o_eth_arburst  = eth_arburst;
+   assign o_eth_arlock   = eth_arlock;
+   assign o_eth_arcache  = eth_arcache;
+   assign o_eth_arprot   = eth_arprot;
+   assign o_eth_arregion = eth_arregion;
+   assign o_eth_arqos    = eth_arqos;
+   assign o_eth_arvalid  = eth_arvalid;
+   assign eth_arready    = i_eth_arready;
+   assign o_eth_wdata    = eth_wdata;
+   assign o_eth_wstrb    = eth_wstrb;
+   assign o_eth_wlast    = eth_wlast;
+   assign o_eth_wvalid   = eth_wvalid;
+   assign eth_wready     = i_eth_wready;
+   assign eth_bid        = i_eth_bid;
+   assign eth_bresp      = i_eth_bresp;
+   assign eth_bvalid     = i_eth_bvalid;
+   assign o_eth_bready   = eth_bready;
+   assign eth_rid        = i_eth_rid;
+   assign eth_rdata      = i_eth_rdata;
+   assign eth_rresp      = i_eth_rresp;
+   assign eth_rlast      = i_eth_rlast;
+   assign eth_rvalid     = i_eth_rvalid;
+   assign o_eth_rready   = eth_rready;
 
    wire 		      wb_clk = clk;
    wire 		      wb_rst = ~rst_n;

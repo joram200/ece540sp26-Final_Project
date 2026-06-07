@@ -3,8 +3,8 @@
 # SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Thu May 28 14:26:47 2026
-# Process ID         : 4018998
+# Start of session at: Sun Jun  7 12:10:23 2026
+# Process ID         : 53618
 # Current directory  : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/synth_1
 # Command line       : vivado -log rvfpganexys.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source rvfpganexys.tcl
 # Log file           : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/synth_1/rvfpganexys.vds
@@ -13,13 +13,13 @@
 # Platform           : unknown
 # Operating System   : unknown
 # Processor Detail   : 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
-# CPU Frequency      : 4448.422 MHz
+# CPU Frequency      : 3175.963 MHz
 # CPU Physical cores : 8
 # CPU Logical cores  : 16
-# Host memory        : 16535 MB
+# Host memory        : 16533 MB
 # Swap memory        : 8266 MB
-# Total Virtual      : 24802 MB
-# Available Virtual  : 15730 MB
+# Total Virtual      : 24800 MB
+# Available Virtual  : 16472 MB
 #-----------------------------------------------------------
 source rvfpganexys.tcl -notrace
 Command: synth_design -top rvfpganexys -part xc7a100tcsg324-1
@@ -29,9 +29,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 4019469
+INFO: [Synth 8-7075] Helper process launched with PID 53680
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2211.406 ; gain = 482.188 ; free physical = 469 ; free virtual = 13683
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2189.238 ; gain = 479.875 ; free physical = 2620 ; free virtual = 14288
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-6901] identifier 'Enables_Reg' is used before its declaration [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/SystemController/veerwolf_syscon.sv:217]
 WARNING: [Synth 8-6901] identifier 'Digits_Reg' is used before its declaration [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/SystemController/veerwolf_syscon.sv:220]
@@ -61,12 +61,26 @@ INFO: [Synth 8-6157] synthesizing module 'AXI_BUS' [/run/media/sackb/Windows-SSD
 	Parameter AXI_ID_WIDTH bound to: 32'b00000000000000000000000000000110 
 	Parameter AXI_USER_WIDTH bound to: 32'b00000000000000000000000000000001 
 INFO: [Synth 8-6155] done synthesizing module 'AXI_BUS' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_intf.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'AXI_BUS' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_intf.sv:20]
+	Parameter AXI_ADDR_WIDTH bound to: 32'b00000000000000000000000000100000 
+	Parameter AXI_DATA_WIDTH bound to: 32'b00000000000000000000000001000000 
+	Parameter AXI_ID_WIDTH bound to: 32'b00000000000000000000000000000110 
+	Parameter AXI_USER_WIDTH bound to: 32'b00000000000000000000000000000001 
+INFO: [Synth 8-6155] done synthesizing module 'AXI_BUS' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_intf.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'AXI_BUS' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_intf.sv:20]
+	Parameter AXI_ADDR_WIDTH bound to: 32'b00000000000000000000000000100000 
+	Parameter AXI_DATA_WIDTH bound to: 32'b00000000000000000000000001000000 
+	Parameter AXI_ID_WIDTH bound to: 32'b00000000000000000000000000000110 
+	Parameter AXI_USER_WIDTH bound to: 32'b00000000000000000000000000000001 
+INFO: [Synth 8-6155] done synthesizing module 'AXI_BUS' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_intf.sv:20]
 INFO: [Synth 8-6157] synthesizing module 'clk_gen_nexys' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/clk_gen_nexys.v:24]
 INFO: [Synth 8-6157] synthesizing module 'PLLE2_BASE' [/tools/Xilinx/2025.2/Vivado/scripts/rt/data/unisim_comp.v:133986]
 	Parameter BANDWIDTH bound to: OPTIMIZED - type: string 
-	Parameter CLKFBOUT_MULT bound to: 16 - type: integer 
+	Parameter CLKFBOUT_MULT bound to: 15 - type: integer 
 	Parameter CLKIN1_PERIOD bound to: 1.000000e+01 - type: double 
-	Parameter CLKOUT0_DIVIDE bound to: 64 - type: integer 
+	Parameter CLKOUT0_DIVIDE bound to: 60 - type: integer 
+	Parameter CLKOUT1_DIVIDE bound to: 15 - type: integer 
+	Parameter CLKOUT2_DIVIDE bound to: 12 - type: integer 
 	Parameter DIVCLK_DIVIDE bound to: 1 - type: integer 
 	Parameter STARTUP_WAIT bound to: FALSE - type: string 
 INFO: [Synth 8-6155] done synthesizing module 'PLLE2_BASE' (0#1) [/tools/Xilinx/2025.2/Vivado/scripts/rt/data/unisim_comp.v:133986]
@@ -125,6 +139,12 @@ INFO: [Synth 8-6155] done synthesizing module 'cdc_fifo_gray_dst__parameterized1
 INFO: [Synth 8-6155] done synthesizing module 'cdc_fifo_gray__parameterized1' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/cdc_fifo_gray.sv:78]
 INFO: [Synth 8-6155] done synthesizing module 'axi_cdc' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_cdc.sv:23]
 INFO: [Synth 8-6155] done synthesizing module 'axi_cdc_intf' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_cdc.sv:133]
+INFO: [Synth 8-6157] synthesizing module 'axi_cdc_intf__parameterized0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_cdc.sv:133]
+	Parameter AXI_ID_WIDTH bound to: 32'b00000000000000000000000000000110 
+	Parameter AXI_ADDR_WIDTH bound to: 32'b00000000000000000000000000100000 
+	Parameter AXI_DATA_WIDTH bound to: 32'b00000000000000000000000001000000 
+	Parameter AXI_USER_WIDTH bound to: 32'b00000000000000000000000000000001 
+INFO: [Synth 8-6155] done synthesizing module 'axi_cdc_intf__parameterized0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_cdc.sv:133]
 INFO: [Synth 8-6157] synthesizing module 'litedram_top' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_top.v:27]
 	Parameter ID_WIDTH bound to: 6 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'litedram_core' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:4]
@@ -411,7 +431,7 @@ INFO: [Synth 8-6157] synthesizing module 'FDPE' [/tools/Xilinx/2025.2/Vivado/scr
 INFO: [Synth 8-6155] done synthesizing module 'FDPE' (0#1) [/tools/Xilinx/2025.2/Vivado/scripts/rt/data/unisim_comp.v:49336]
 INFO: [Synth 8-6155] done synthesizing module 'litedram_core' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:4]
 INFO: [Synth 8-6155] done synthesizing module 'litedram_top' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_top.v:27]
-WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/rvfpganexys.sv:176]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/rvfpganexys.sv:230]
 INFO: [Synth 8-6157] synthesizing module 'STARTUPE2' [/tools/Xilinx/2025.2/Vivado/scripts/rt/data/unisim_comp.v:165504]
 INFO: [Synth 8-6155] done synthesizing module 'STARTUPE2' (0#1) [/tools/Xilinx/2025.2/Vivado/scripts/rt/data/unisim_comp.v:165504]
 INFO: [Synth 8-6157] synthesizing module 'bscan_tap' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/bscan_tap.sv:16]
@@ -431,7 +451,7 @@ INFO: [Synth 8-6157] synthesizing module 'veerwolf_core' [/run/media/sackb/Windo
 INFO: [Synth 8-6157] synthesizing module 'axi_intercon' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:4]
 INFO: [Synth 8-6157] synthesizing module 'axi_xbar' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_xbar.sv:15]
 	Parameter Cfg[NoSlvPorts] bound to: 32'b00000000000000000000000000000011 
-	Parameter Cfg[NoMstPorts] bound to: 32'b00000000000000000000000000000010 
+	Parameter Cfg[NoMstPorts] bound to: 32'b00000000000000000000000000000011 
 	Parameter Cfg[MaxMstTrans] bound to: 32'b00000000000000000000000000001010 
 	Parameter Cfg[MaxSlvTrans] bound to: 32'b00000000000000000000000000000110 
 	Parameter Cfg[FallThrough] bound to: 1'b0 
@@ -440,15 +460,15 @@ INFO: [Synth 8-6157] synthesizing module 'axi_xbar' [/run/media/sackb/Windows-SS
 	Parameter Cfg[AxiIdUsedSlvPorts] bound to: 32'b00000000000000000000000000000100 
 	Parameter Cfg[AxiAddrWidth] bound to: 32'b00000000000000000000000000100000 
 	Parameter Cfg[AxiDataWidth] bound to: 32'b00000000000000000000000001000000 
-	Parameter Cfg[NoAddrRules] bound to: 32'b00000000000000000000000000000010 
+	Parameter Cfg[NoAddrRules] bound to: 32'b00000000000000000000000000000011 
 	Parameter ATOPs bound to: 1'b0 
 INFO: [Synth 8-6157] synthesizing module 'addr_decode' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/addr_decode.sv:30]
-	Parameter NoIndices bound to: 32'b00000000000000000000000000000010 
-	Parameter NoRules bound to: 32'b00000000000000000000000000000010 
+	Parameter NoIndices bound to: 32'b00000000000000000000000000000011 
+	Parameter NoRules bound to: 32'b00000000000000000000000000000011 
 INFO: [Synth 8-6155] done synthesizing module 'addr_decode' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/addr_decode.sv:30]
 INFO: [Synth 8-6157] synthesizing module 'axi_demux' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/src/axi_demux.sv:17]
 	Parameter AxiIdWidth bound to: 32'b00000000000000000000000000000100 
-	Parameter NoMstPorts bound to: 32'b00000000000000000000000000000011 
+	Parameter NoMstPorts bound to: 32'b00000000000000000000000000000100 
 	Parameter MaxTrans bound to: 32'b00000000000000000000000000001010 
 	Parameter AxiLookBits bound to: 32'b00000000000000000000000000000100 
 	Parameter FallThrough bound to: 1'b0 
@@ -495,11 +515,11 @@ INFO: [Synth 8-6157] synthesizing module 'spill_register__parameterized4' [/run/
 	Parameter Bypass bound to: 1'b1 
 INFO: [Synth 8-6155] done synthesizing module 'spill_register__parameterized4' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/spill_register.sv:17]
 INFO: [Synth 8-6157] synthesizing module 'rr_arb_tree' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/rr_arb_tree.sv:47]
-	Parameter NumIn bound to: 32'b00000000000000000000000000000011 
+	Parameter NumIn bound to: 32'b00000000000000000000000000000100 
 	Parameter AxiVldRdy bound to: 1'b1 
 	Parameter LockIn bound to: 1'b1 
 INFO: [Synth 8-6157] synthesizing module 'lzc' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/lzc.sv:25]
-	Parameter WIDTH bound to: 32'b00000000000000000000000000000011 
+	Parameter WIDTH bound to: 32'b00000000000000000000000000000100 
 	Parameter MODE bound to: 1'b0 
 INFO: [Synth 8-6155] done synthesizing module 'lzc' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/lzc.sv:25]
 INFO: [Synth 8-6155] done synthesizing module 'rr_arb_tree' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/rr_arb_tree.sv:47]
@@ -510,7 +530,7 @@ INFO: [Synth 8-6157] synthesizing module 'spill_register__parameterized6' [/run/
 	Parameter Bypass bound to: 1'b1 
 INFO: [Synth 8-6155] done synthesizing module 'spill_register__parameterized6' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/spill_register.sv:17]
 INFO: [Synth 8-6157] synthesizing module 'rr_arb_tree__parameterized0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/rr_arb_tree.sv:47]
-	Parameter NumIn bound to: 32'b00000000000000000000000000000011 
+	Parameter NumIn bound to: 32'b00000000000000000000000000000100 
 	Parameter AxiVldRdy bound to: 1'b1 
 	Parameter LockIn bound to: 1'b1 
 INFO: [Synth 8-6155] done synthesizing module 'rr_arb_tree__parameterized0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/rr_arb_tree.sv:47]
@@ -559,6 +579,10 @@ INFO: [Synth 8-6157] synthesizing module 'rr_arb_tree__parameterized1' [/run/med
 	Parameter NumIn bound to: 32'b00000000000000000000000000000011 
 	Parameter AxiVldRdy bound to: 1'b1 
 	Parameter LockIn bound to: 1'b1 
+INFO: [Synth 8-6157] synthesizing module 'lzc__parameterized0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/lzc.sv:25]
+	Parameter WIDTH bound to: 32'b00000000000000000000000000000011 
+	Parameter MODE bound to: 1'b0 
+INFO: [Synth 8-6155] done synthesizing module 'lzc__parameterized0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/lzc.sv:25]
 INFO: [Synth 8-6155] done synthesizing module 'rr_arb_tree__parameterized1' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/rr_arb_tree.sv:47]
 INFO: [Synth 8-6157] synthesizing module 'fifo_v3__parameterized3' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/OtherSources/pulp-platform.org__common_cells_1.20.0/src/fifo_v3.sv:13]
 	Parameter FALL_THROUGH bound to: 1'b0 
@@ -626,41 +650,33 @@ INFO: [Synth 8-6157] synthesizing module 'SevSegMux' [/run/media/sackb/Windows-S
 	Parameter N_IN bound to: 8 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'SevSegMux' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/SystemController/veerwolf_syscon.sv:400]
 INFO: [Synth 8-6157] synthesizing module 'SevSegMux__parameterized0' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/SystemController/veerwolf_syscon.sv:400]
+INFO: [Common 17-14] Message 'Synth 8-6157' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 	Parameter DATA_WIDTH bound to: 4 - type: integer 
 	Parameter N_IN bound to: 8 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'SevSegMux__parameterized0' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/SystemController/veerwolf_syscon.sv:400]
 INFO: [Synth 8-6155] done synthesizing module 'SevSegDisplays_Controller' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/SystemController/veerwolf_syscon.sv:299]
 INFO: [Synth 8-6155] done synthesizing module 'veerwolf_syscon' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/SystemController/veerwolf_syscon.sv:24]
-INFO: [Synth 8-6157] synthesizing module 'simple_spi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/spi/simple_spi_top.v:69]
-INFO: [Synth 8-6157] synthesizing module 'fifo4' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/spi/fifo4.v:54]
 	Parameter dw bound to: 8 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'fifo4' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/spi/fifo4.v:54]
 INFO: [Synth 8-6155] done synthesizing module 'simple_spi' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/spi/simple_spi_top.v:69]
-INFO: [Synth 8-6157] synthesizing module 'pwmTop' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:225]
-INFO: [Synth 8-6157] synthesizing module 'pwm' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:19]
-INFO: [Common 17-14] Message 'Synth 8-6157' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-6155] done synthesizing module 'pwm' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:19]
+INFO: [Common 17-14] Message 'Synth 8-6155' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:174]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:199]
-INFO: [Synth 8-6155] done synthesizing module 'wb_slave_agent' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:144]
 WARNING: [Synth 8-7023] instance 'wishbone_agent' of module 'wb_slave_agent' has 10 connections declared, but only 9 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:254]
-INFO: [Synth 8-6155] done synthesizing module 'registerFile' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:71]
-INFO: [Synth 8-6155] done synthesizing module 'pwmTop' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:225]
-INFO: [Common 17-14] Message 'Synth 8-6155' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-WARNING: [Synth 8-689] width (8) of port connection 'wb_adr_i' does not match port width (32) of module 'pwmTop' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:359]
+WARNING: [Synth 8-689] width (8) of port connection 'wb_adr_i' does not match port width (32) of module 'pwmTop' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:438]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:107]
 INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:132]
 WARNING: [Synth 8-7023] instance 'vgaAgent' of module 'vga_wb_slave_agent' has 10 connections declared, but only 9 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:305]
-WARNING: [Synth 8-689] width (8) of port connection 'wb_adr_i' does not match port width (32) of module 'vgaTop' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:376]
-WARNING: [Synth 8-315] illegal expression in output port connection [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:459]
-WARNING: [Synth 8-315] illegal expression in output port connection [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:470]
-WARNING: [Synth 8-315] illegal expression in output port connection [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:473]
-WARNING: [Synth 8-7023] instance 'gpio_module2' of module 'gpio_top' has 17 connections declared, but only 15 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:447]
-WARNING: [Synth 8-7023] instance 'gpio_module' of module 'gpio_top' has 17 connections declared, but only 15 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:475]
+WARNING: [Synth 8-689] width (8) of port connection 'wb_adr_i' does not match port width (32) of module 'vgaTop' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:455]
+WARNING: [Synth 8-315] illegal expression in output port connection [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:538]
+WARNING: [Synth 8-315] illegal expression in output port connection [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:549]
+WARNING: [Synth 8-315] illegal expression in output port connection [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:552]
+WARNING: [Synth 8-7023] instance 'gpio_module2' of module 'gpio_top' has 17 connections declared, but only 15 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:526]
+WARNING: [Synth 8-7023] instance 'gpio_module' of module 'gpio_top' has 17 connections declared, but only 15 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:554]
 WARNING: [Synth 8-693] zero replication count - replication ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/ptc/ptc_top.v:313]
 WARNING: [Synth 8-693] zero replication count - replication ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/ptc/ptc_top.v:314]
 WARNING: [Synth 8-693] zero replication count - replication ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/ptc/ptc_top.v:317]
-WARNING: [Synth 8-689] width (8) of port connection 'wb_adr_i' does not match port width (16) of module 'ptc_top' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:511]
+WARNING: [Synth 8-689] width (8) of port connection 'wb_adr_i' does not match port width (16) of module 'ptc_top' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:590]
 	Parameter SIM bound to: 0 - type: integer 
 	Parameter SIM bound to: 0 - type: integer 
 	Parameter addr_width bound to: 4 - type: integer 
@@ -6917,12 +6933,14 @@ WARNING: [Synth 8-689] width (2) of port connection 'trace_rv_i_interrupt_ip' do
 	Parameter WIDTH bound to: 39 - type: integer 
 	Parameter WIDTH bound to: 9'b000000011 
 	Parameter WIDTH bound to: 9'b000000011 
-WARNING: [Synth 8-689] width (64) of port connection 'trace_rv_i_address_ip' does not match port width (32) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:668]
-WARNING: [Synth 8-689] width (3) of port connection 'trace_rv_i_valid_ip' does not match port width (2) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:669]
-WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_awid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:679]
-WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_bid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:699]
-WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_arid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:703]
-WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_rid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:716]
+WARNING: [Synth 8-689] width (64) of port connection 'trace_rv_i_address_ip' does not match port width (32) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:747]
+WARNING: [Synth 8-689] width (3) of port connection 'trace_rv_i_valid_ip' does not match port width (2) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:748]
+WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_awid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:758]
+WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_bid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:778]
+WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_arid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:782]
+WARNING: [Synth 8-689] width (4) of port connection 'lsu_axi_rid' does not match port width (3) of module 'veer_wrapper_dmi' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/veerwolf_core.v:795]
+WARNING: [Synth 8-315] illegal expression in output port connection [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/new/ethernet_top.sv:229]
+WARNING: [Synth 8-7023] instance 'u_ethernet_top' of module 'ethernet_top' has 54 connections declared, but only 44 given [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/rvfpganexys.sv:401]
 WARNING: [Synth 8-6014] Unused sequential element sdram_bankmachine0_cmd_buffer_source_first_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:14657]
 WARNING: [Synth 8-6014] Unused sequential element sdram_bankmachine0_cmd_buffer_source_last_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:14658]
 WARNING: [Synth 8-6014] Unused sequential element sdram_bankmachine1_cmd_buffer_source_first_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:14703]
@@ -7025,19 +7043,21 @@ WARNING: [Synth 8-3936] Found unconnected internal register 'a7ddrphy_bitslip04_
 WARNING: [Synth 8-3936] Found unconnected internal register 'a7ddrphy_bitslip152_reg' and it is trimmed from '8' to '4' bits. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:4241]
 WARNING: [Synth 8-6014] Unused sequential element sdram_dfi_p1_cs_n_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:4323]
 WARNING: [Synth 8-6014] Unused sequential element memadr_2_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:18937]
-WARNING: [Synth 8-3848] Net masters_req[2][aw][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[2][w][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[2][ar][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[1][aw][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[1][w][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[1][ar][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[0][aw][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[0][w][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net masters_req[0][ar][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:236]
-WARNING: [Synth 8-3848] Net slaves_resp[1][b][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:239]
-WARNING: [Synth 8-3848] Net slaves_resp[1][r][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:239]
-WARNING: [Synth 8-3848] Net slaves_resp[0][b][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:239]
-WARNING: [Synth 8-3848] Net slaves_resp[0][r][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:239]
+WARNING: [Synth 8-3848] Net masters_req[2][aw][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[2][w][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[2][ar][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[1][aw][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[1][w][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[1][ar][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[0][aw][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[0][w][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net masters_req[0][ar][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:276]
+WARNING: [Synth 8-3848] Net slaves_resp[2][b][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:279]
+WARNING: [Synth 8-3848] Net slaves_resp[2][r][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:279]
+WARNING: [Synth 8-3848] Net slaves_resp[1][b][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:279]
+WARNING: [Synth 8-3848] Net slaves_resp[1][r][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:279]
+WARNING: [Synth 8-3848] Net slaves_resp[0][b][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:279]
+WARNING: [Synth 8-3848] Net slaves_resp[0][r][user] in module/entity axi_intercon does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiInterconnect/axi_intercon.sv:279]
 WARNING: [Synth 8-6014] Unused sequential element aw_req_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiToWb/axi2wb.v:130]
 WARNING: [Synth 8-6014] Unused sequential element w_req_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiToWb/axi2wb.v:131]
 WARNING: [Synth 8-6014] Unused sequential element ar_req_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Interconnect/AxiToWb/axi2wb.v:132]
@@ -7141,8 +7161,6 @@ WARNING: [Synth 8-3848] Net iccm_ext_in_pkt[3][TEST_RNM] in module/entity veer_w
 WARNING: [Synth 8-3848] Net iccm_ext_in_pkt[3][BC1] in module/entity veer_wrapper_dmi does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/VeeR_EL2CoreComplex/veer_el2_wrapper.sv:361]
 WARNING: [Synth 8-3848] Net iccm_ext_in_pkt[3][BC2] in module/entity veer_wrapper_dmi does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/VeeR_EL2CoreComplex/veer_el2_wrapper.sv:361]
 WARNING: [Synth 8-3848] Net iccm_ext_in_pkt[2][TEST1] in module/entity veer_wrapper_dmi does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/VeeR_EL2CoreComplex/veer_el2_wrapper.sv:361]
-WARNING: [Synth 8-3848] Net iccm_ext_in_pkt[2][RME] in module/entity veer_wrapper_dmi does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/VeeR_EL2CoreComplex/veer_el2_wrapper.sv:361]
-WARNING: [Synth 8-3848] Net iccm_ext_in_pkt[2][RM] in module/entity veer_wrapper_dmi does not have driver. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/VeeR_EL2CoreComplex/veer_el2_wrapper.sv:361]
 INFO: [Common 17-14] Message 'Synth 8-3848' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 WARNING: [Synth 8-7129] Port en in module rvoclkhdr is either unconnected or has no load
 WARNING: [Synth 8-7129] Port scan_mode in module rvoclkhdr is either unconnected or has no load
@@ -7246,24 +7264,26 @@ WARNING: [Synth 8-7129] Port ic_debug_wr_data[68] in module EL2_IC_TAG is either
 WARNING: [Synth 8-7129] Port ic_debug_wr_data[67] in module EL2_IC_TAG is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2690.195 ; gain = 960.977 ; free physical = 204 ; free virtual = 13261
+Finished RTL Elaboration : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2677.027 ; gain = 967.664 ; free physical = 2159 ; free virtual = 13837
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2690.195 ; gain = 960.977 ; free physical = 199 ; free virtual = 13257
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2677.027 ; gain = 967.664 ; free physical = 2164 ; free virtual = 13843
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2690.195 ; gain = 960.977 ; free physical = 199 ; free virtual = 13257
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2677.027 ; gain = 967.664 ; free physical = 2164 ; free virtual = 13843
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.51 ; elapsed = 00:00:00.5 . Memory (MB): peak = 2690.195 ; gain = 0.000 ; free physical = 187 ; free virtual = 13245
-INFO: [Netlist 29-17] Analyzing 62 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.59 ; elapsed = 00:00:00.58 . Memory (MB): peak = 2677.027 ; gain = 0.000 ; free physical = 2198 ; free virtual = 13876
+INFO: [Netlist 29-17] Analyzing 63 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
+Parsing XDC File [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0/axi_ethernet_0_in_context.xdc] for cell 'u_ethernet_top/u_axi_ethernet_0'
+Finished Parsing XDC File [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0/axi_ethernet_0_in_context.xdc] for cell 'u_ethernet_top/u_axi_ethernet_0'
 Parsing XDC File [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc]
 Finished Parsing XDC File [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/rvfpganexys_propImpl.xdc].
@@ -7275,31 +7295,31 @@ Resolution: To avoid this warning, move constraints listed in [.Xil/rvfpganexys_
 INFO: [Timing 38-2] Deriving generated clocks
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2829.809 ; gain = 0.000 ; free physical = 191 ; free virtual = 13185
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2781.789 ; gain = 0.000 ; free physical = 2187 ; free virtual = 13869
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 28 instances were transformed.
+  A total of 29 instances were transformed.
   FD => FDRE: 8 instances
-  IOBUF => IOBUF (IBUF, OBUFT): 16 instances
+  IOBUF => IOBUF (IBUF, OBUFT): 17 instances
   IOBUFDS => IOBUFDS (IBUFDS, INV, OBUFTDS(x2)): 2 instances
   OBUFDS => OBUFDS_DUAL_BUF (INV, OBUFDS(x2)): 1 instance 
   PLLE2_BASE => PLLE2_ADV: 1 instance 
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.12 . Memory (MB): peak = 2841.730 ; gain = 0.000 ; free physical = 176 ; free virtual = 13171
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.16 . Memory (MB): peak = 2787.711 ; gain = 0.000 ; free physical = 2173 ; free virtual = 13855
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:28 ; elapsed = 00:00:27 . Memory (MB): peak = 2841.730 ; gain = 1112.512 ; free physical = 229 ; free virtual = 11813
+Finished Constraint Validation : Time (s): cpu = 00:00:31 ; elapsed = 00:00:30 . Memory (MB): peak = 2787.711 ; gain = 1078.348 ; free physical = 711 ; free virtual = 12392
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:28 ; elapsed = 00:00:27 . Memory (MB): peak = 2849.734 ; gain = 1120.516 ; free physical = 229 ; free virtual = 11813
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:31 ; elapsed = 00:00:30 . Memory (MB): peak = 2789.715 ; gain = 1080.352 ; free physical = 711 ; free virtual = 12392
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:28 ; elapsed = 00:00:27 . Memory (MB): peak = 2849.734 ; gain = 1120.516 ; free physical = 204 ; free virtual = 11788
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:31 ; elapsed = 00:00:30 . Memory (MB): peak = 2789.715 ; gain = 1080.352 ; free physical = 696 ; free virtual = 12376
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'subfragments_refresher_state_reg' in module 'litedram_core'
 INFO: [Synth 8-802] inferred FSM for state register 'litedramcore_state_reg' in module 'litedram_core'
@@ -7408,7 +7428,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'tstate_reg' using encoding
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'rstate_reg' using encoding 'sequential' in module 'uart_receiver'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:40 ; elapsed = 00:00:39 . Memory (MB): peak = 2849.734 ; gain = 1120.516 ; free physical = 189 ; free virtual = 7397
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:43 ; elapsed = 00:00:42 . Memory (MB): peak = 2789.715 ; gain = 1080.352 ; free physical = 319 ; free virtual = 8653
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-223] decloning instance 'swervolf/rvtop/veer/ifu/mem_ctl/ifu_iccm_reg_acc_ff' (rvdff_fpga) to 'swervolf/rvtop/veer/ifu/mem_ctl/rgn_acc_ff'
 INFO: [Synth 8-223] decloning instance 'swervolf/rvtop/veer/lsu/bus_intf/bus_buffer/lsu_axi_bready_ff' (rvdff_fpga) to 'swervolf/rvtop/veer/lsu/bus_intf/bus_buffer/lsu_axi_rready_ff'
@@ -7454,14 +7474,14 @@ Detailed RTL Component Info :
 	  32 Input    6 Bit       Adders := 1     
 	   2 Input    5 Bit       Adders := 29    
 	   3 Input    5 Bit       Adders := 96    
-	   2 Input    4 Bit       Adders := 63    
+	   2 Input    4 Bit       Adders := 65    
 	   6 Input    4 Bit       Adders := 1     
 	   7 Input    4 Bit       Adders := 1     
 	   5 Input    4 Bit       Adders := 1     
-	   2 Input    3 Bit       Adders := 63    
+	   2 Input    3 Bit       Adders := 65    
 	   4 Input    3 Bit       Adders := 4     
 	   3 Input    2 Bit       Adders := 5     
-	   2 Input    2 Bit       Adders := 53    
+	   2 Input    2 Bit       Adders := 63    
 	   2 Input    1 Bit       Adders := 11    
 +---XORs : 
 	  32 Input     63 Bit         XORs := 1     
@@ -7480,8 +7500,8 @@ Detailed RTL Component Info :
 	   2 Input      6 Bit         XORs := 2     
 	   3 Input      4 Bit         XORs := 4     
 	   2 Input      4 Bit         XORs := 5     
-	   2 Input      2 Bit         XORs := 20    
-	   2 Input      1 Bit         XORs := 79    
+	   2 Input      2 Bit         XORs := 40    
+	   2 Input      1 Bit         XORs := 80    
 	   4 Input      1 Bit         XORs := 8     
 	  16 Input      1 Bit         XORs := 12    
 	  19 Input      1 Bit         XORs := 4     
@@ -7499,13 +7519,13 @@ Detailed RTL Component Info :
 	                7 Bit    Wide XORs := 5     
 	                6 Bit    Wide XORs := 5     
 	                5 Bit    Wide XORs := 1     
-	                2 Bit    Wide XORs := 20    
+	                2 Bit    Wide XORs := 40    
 +---Registers : 
 	              136 Bit    Registers := 6     
 	               80 Bit    Registers := 1     
-	               74 Bit    Registers := 13    
+	               74 Bit    Registers := 25    
 	               71 Bit    Registers := 1     
-	               68 Bit    Registers := 4     
+	               68 Bit    Registers := 8     
 	               64 Bit    Registers := 10    
 	               57 Bit    Registers := 1     
 	               56 Bit    Registers := 1     
@@ -7518,7 +7538,7 @@ Detailed RTL Component Info :
 	               37 Bit    Registers := 1     
 	               34 Bit    Registers := 1     
 	               33 Bit    Registers := 4     
-	               32 Bit    Registers := 231   
+	               32 Bit    Registers := 235   
 	               31 Bit    Registers := 19    
 	               30 Bit    Registers := 1     
 	               29 Bit    Registers := 2     
@@ -7538,15 +7558,15 @@ Detailed RTL Component Info :
 	               12 Bit    Registers := 4     
 	               11 Bit    Registers := 5     
 	               10 Bit    Registers := 23    
-	                9 Bit    Registers := 11    
-	                8 Bit    Registers := 80    
+	                9 Bit    Registers := 15    
+	                8 Bit    Registers := 85    
 	                7 Bit    Registers := 6     
-	                6 Bit    Registers := 33    
+	                6 Bit    Registers := 39    
 	                5 Bit    Registers := 135   
-	                4 Bit    Registers := 203   
-	                3 Bit    Registers := 168   
-	                2 Bit    Registers := 331   
-	                1 Bit    Registers := 847   
+	                4 Bit    Registers := 228   
+	                3 Bit    Registers := 174   
+	                2 Bit    Registers := 378   
+	                1 Bit    Registers := 891   
 +---RAMs : 
 	             900K Bit	(76800 X 12 bit)          RAMs := 1     
 	              64K Bit	(2048 X 32 bit)          RAMs := 1     
@@ -7569,11 +7589,11 @@ Detailed RTL Component Info :
 	   2 Input  136 Bit        Muxes := 11    
 	   2 Input   80 Bit        Muxes := 1     
 	   2 Input   78 Bit        Muxes := 1     
-	   2 Input   74 Bit        Muxes := 6     
+	   2 Input   74 Bit        Muxes := 12    
 	   2 Input   71 Bit        Muxes := 2     
-	   2 Input   68 Bit        Muxes := 4     
-	   2 Input   64 Bit        Muxes := 52    
-	   3 Input   64 Bit        Muxes := 3     
+	   2 Input   68 Bit        Muxes := 6     
+	   2 Input   64 Bit        Muxes := 55    
+	   3 Input   64 Bit        Muxes := 4     
 	   4 Input   64 Bit        Muxes := 2     
 	  10 Input   64 Bit        Muxes := 1     
 	   2 Input   57 Bit        Muxes := 1     
@@ -7588,7 +7608,7 @@ Detailed RTL Component Info :
 	   2 Input   37 Bit        Muxes := 1     
 	   2 Input   34 Bit        Muxes := 1     
 	   2 Input   33 Bit        Muxes := 5     
-	   2 Input   32 Bit        Muxes := 399   
+	   2 Input   32 Bit        Muxes := 405   
 	   4 Input   32 Bit        Muxes := 9     
 	   8 Input   32 Bit        Muxes := 4     
 	  10 Input   32 Bit        Muxes := 4     
@@ -7620,41 +7640,41 @@ Detailed RTL Component Info :
 	  11 Input   11 Bit        Muxes := 1     
 	   2 Input   10 Bit        Muxes := 37    
 	   8 Input   10 Bit        Muxes := 1     
-	   2 Input    9 Bit        Muxes := 16    
-	   2 Input    8 Bit        Muxes := 226   
+	   2 Input    9 Bit        Muxes := 18    
+	   2 Input    8 Bit        Muxes := 233   
 	   4 Input    8 Bit        Muxes := 6     
-	   3 Input    8 Bit        Muxes := 8     
+	   3 Input    8 Bit        Muxes := 9     
 	  11 Input    8 Bit        Muxes := 2     
 	   2 Input    7 Bit        Muxes := 4     
 	   6 Input    7 Bit        Muxes := 2     
-	   2 Input    6 Bit        Muxes := 75    
+	   2 Input    6 Bit        Muxes := 84    
 	   2 Input    5 Bit        Muxes := 318   
 	   3 Input    5 Bit        Muxes := 1     
 	   4 Input    5 Bit        Muxes := 1     
 	   6 Input    5 Bit        Muxes := 1     
-	   2 Input    4 Bit        Muxes := 203   
+	   2 Input    4 Bit        Muxes := 285   
 	   4 Input    4 Bit        Muxes := 9     
 	  11 Input    4 Bit        Muxes := 3     
 	   6 Input    4 Bit        Muxes := 1     
 	   8 Input    4 Bit        Muxes := 1     
 	   3 Input    3 Bit        Muxes := 9     
 	   7 Input    3 Bit        Muxes := 8     
-	   2 Input    3 Bit        Muxes := 252   
+	   2 Input    3 Bit        Muxes := 240   
 	   4 Input    3 Bit        Muxes := 12    
 	   6 Input    3 Bit        Muxes := 4     
 	  11 Input    3 Bit        Muxes := 2     
 	   5 Input    3 Bit        Muxes := 1     
 	   8 Input    3 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 337   
-	   3 Input    2 Bit        Muxes := 19    
+	   2 Input    2 Bit        Muxes := 350   
+	   3 Input    2 Bit        Muxes := 31    
 	   4 Input    2 Bit        Muxes := 10    
 	  11 Input    2 Bit        Muxes := 2     
 	   8 Input    2 Bit        Muxes := 4     
 	   6 Input    2 Bit        Muxes := 96    
-	   2 Input    1 Bit        Muxes := 1740  
-	   4 Input    1 Bit        Muxes := 46    
+	   2 Input    1 Bit        Muxes := 1788  
+	   4 Input    1 Bit        Muxes := 52    
 	  11 Input    1 Bit        Muxes := 28    
-	   3 Input    1 Bit        Muxes := 41    
+	   3 Input    1 Bit        Muxes := 37    
 	   7 Input    1 Bit        Muxes := 88    
 	   6 Input    1 Bit        Muxes := 205   
 	   8 Input    1 Bit        Muxes := 41    
@@ -8125,7 +8145,7 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (\axi_inte
 INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:09 ; elapsed = 00:02:23 . Memory (MB): peak = 2865.746 ; gain = 1136.527 ; free physical = 193 ; free virtual = 4818
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:21 ; elapsed = 00:02:34 . Memory (MB): peak = 2793.727 ; gain = 1084.363 ; free physical = 262 ; free virtual = 5524
 ---------------------------------------------------------------------------------
  Sort Area is el2_exu prod_x0_0 : 0 0 : 2701 5008 : Used 1 time 0
  Sort Area is el2_exu prod_x0_0 : 0 1 : 2307 5008 : Used 1 time 0
@@ -8220,13 +8240,13 @@ Start Applying XDC Timing Constraints
 WARNING: [Synth 8-3321] set_false_path : Empty from list for constraint at line 8 of /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc:8]
 WARNING: [Synth 8-3321] set_false_path : Empty through list for constraint at line 206 of /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/constrs_1/imports/src/LiteDRAM/liteDRAM.xdc. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/constrs_1/imports/src/LiteDRAM/liteDRAM.xdc:206]
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:04:15 ; elapsed = 00:02:33 . Memory (MB): peak = 2865.746 ; gain = 1136.527 ; free physical = 1496 ; free virtual = 7346
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:04:53 ; elapsed = 00:02:45 . Memory (MB): peak = 2793.727 ; gain = 1084.363 ; free physical = 2470 ; free virtual = 7935
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:05:10 ; elapsed = 00:03:29 . Memory (MB): peak = 3285.316 ; gain = 1556.098 ; free physical = 977 ; free virtual = 6872
+Finished Timing Optimization : Time (s): cpu = 00:05:53 ; elapsed = 00:03:48 . Memory (MB): peak = 3211.727 ; gain = 1502.363 ; free physical = 1497 ; free virtual = 7478
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -8374,7 +8394,7 @@ INFO: [Synth 8-7052] The timing for the instance swervolfi_4/swervolf/myVga/myBu
 INFO: [Synth 8-7052] The timing for the instance swervolfi_4/swervolf/myVga/myBuff/frameBuffer_reg_1_10__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance swervolfi_4/swervolf/myVga/myBuff/frameBuffer_reg_1_11__0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:05:18 ; elapsed = 00:03:43 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 206 ; free virtual = 4763
+Finished Technology Mapping : Time (s): cpu = 00:06:03 ; elapsed = 00:04:03 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 300 ; free virtual = 5392
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -8433,37 +8453,37 @@ INFO: [Common 17-14] Message 'Synth 8-7052' appears 100 times and further instan
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:05:24 ; elapsed = 00:03:49 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 173 ; free virtual = 4744
+Finished IO Insertion : Time (s): cpu = 00:06:09 ; elapsed = 00:04:10 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 263 ; free virtual = 5437
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:05:24 ; elapsed = 00:03:49 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 173 ; free virtual = 4744
+Finished Renaming Generated Instances : Time (s): cpu = 00:06:10 ; elapsed = 00:04:10 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 263 ; free virtual = 5437
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:05:29 ; elapsed = 00:03:54 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 167 ; free virtual = 4739
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:06:15 ; elapsed = 00:04:16 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 224 ; free virtual = 5402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:05:30 ; elapsed = 00:03:55 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 166 ; free virtual = 4738
+Finished Renaming Generated Ports : Time (s): cpu = 00:06:16 ; elapsed = 00:04:17 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 227 ; free virtual = 5405
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:05:30 ; elapsed = 00:03:56 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 166 ; free virtual = 4738
+Finished Handling Custom Attributes : Time (s): cpu = 00:06:17 ; elapsed = 00:04:18 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 236 ; free virtual = 5411
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:05:31 ; elapsed = 00:03:56 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 166 ; free virtual = 4738
+Finished Renaming Generated Nets : Time (s): cpu = 00:06:17 ; elapsed = 00:04:18 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 238 ; free virtual = 5413
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -8499,70 +8519,72 @@ DSP Final Report (the ' indicates corresponding REG is set)
 
 
 Report BlackBoxes: 
-+-+--------------+----------+
-| |BlackBox name |Instances |
-+-+--------------+----------+
-+-+--------------+----------+
++------+---------------+----------+
+|      |BlackBox name  |Instances |
++------+---------------+----------+
+|1     |axi_ethernet_0 |         1|
++------+---------------+----------+
 
 Report Cell Usage: 
-+------+-----------+------+
-|      |Cell       |Count |
-+------+-----------+------+
-|1     |BSCANE2    |     3|
-|2     |BUFG       |    11|
-|3     |CARRY4     |  1019|
-|4     |DSP48E1    |     6|
-|8     |IDELAYCTRL |     1|
-|9     |IDELAYE2   |    16|
-|10    |ISERDESE2  |    16|
-|11    |LUT1       |   505|
-|12    |LUT2       |  2907|
-|13    |LUT3       |  3760|
-|14    |LUT4       |  4943|
-|15    |LUT5       |  6645|
-|16    |LUT6       | 15846|
-|17    |MUXF7      |   563|
-|18    |MUXF8      |    79|
-|19    |OSERDESE2  |    44|
-|20    |PLLE2_ADV  |     1|
-|21    |PLLE2_BASE |     1|
-|22    |RAM256X1S  |   272|
-|23    |RAM32M     |    55|
-|24    |RAM32X1D   |    31|
-|25    |RAM64X1S   |    44|
-|26    |RAMB18E1   |    14|
-|30    |RAMB36E1   |    53|
-|45    |SRL16E     |     3|
-|46    |STARTUPE2  |     1|
-|47    |FD         |     8|
-|48    |FDCE       | 12302|
-|49    |FDPE       |    56|
-|50    |FDRE       |  3426|
-|51    |FDSE       |   217|
-|52    |LD         |     6|
-|53    |IBUF       |     5|
-|54    |IOBUF      |    37|
-|55    |IOBUFDS    |     2|
-|56    |OBUF       |    81|
-|57    |OBUFDS     |     1|
-+------+-----------+------+
++------+-------------+------+
+|      |Cell         |Count |
++------+-------------+------+
+|1     |axi_ethernet |     1|
+|2     |BSCANE2      |     3|
+|3     |BUFG         |    12|
+|4     |CARRY4       |  1049|
+|5     |DSP48E1      |     6|
+|9     |IDELAYCTRL   |     1|
+|10    |IDELAYE2     |    16|
+|11    |ISERDESE2    |    16|
+|12    |LUT1         |   516|
+|13    |LUT2         |  3050|
+|14    |LUT3         |  4004|
+|15    |LUT4         |  5250|
+|16    |LUT5         |  6774|
+|17    |LUT6         | 15809|
+|18    |MUXF7        |   563|
+|19    |MUXF8        |    79|
+|20    |OSERDESE2    |    44|
+|21    |PLLE2_ADV    |     1|
+|22    |PLLE2_BASE   |     1|
+|23    |RAM256X1S    |   272|
+|24    |RAM32M       |    55|
+|25    |RAM32X1D     |    31|
+|26    |RAM64X1S     |    44|
+|27    |RAMB18E1     |    14|
+|31    |RAMB36E1     |    53|
+|46    |SRL16E       |     3|
+|47    |STARTUPE2    |     1|
+|48    |FD           |     8|
+|49    |FDCE         | 12746|
+|50    |FDPE         |    61|
+|51    |FDRE         |  3638|
+|52    |FDSE         |   217|
+|53    |LD           |     6|
+|54    |IBUF         |    10|
+|55    |IOBUF        |    38|
+|56    |IOBUFDS      |     2|
+|57    |OBUF         |    86|
+|58    |OBUFDS       |     1|
++------+-------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:05:31 ; elapsed = 00:03:56 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 166 ; free virtual = 4738
+Finished Writing Synthesis Report : Time (s): cpu = 00:06:17 ; elapsed = 00:04:18 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 236 ; free virtual = 5412
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 164 critical warnings and 583 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:05:19 ; elapsed = 00:03:52 . Memory (MB): peak = 3305.250 ; gain = 1424.496 ; free physical = 5772 ; free virtual = 12033
-Synthesis Optimization Complete : Time (s): cpu = 00:05:31 ; elapsed = 00:04:01 . Memory (MB): peak = 3305.250 ; gain = 1576.031 ; free physical = 5772 ; free virtual = 12028
+Synthesis finished with 0 errors, 164 critical warnings and 658 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:06:04 ; elapsed = 00:04:08 . Memory (MB): peak = 3225.660 ; gain = 1405.613 ; free physical = 6928 ; free virtual = 12715
+Synthesis Optimization Complete : Time (s): cpu = 00:06:17 ; elapsed = 00:04:19 . Memory (MB): peak = 3225.660 ; gain = 1516.297 ; free physical = 6927 ; free virtual = 12703
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.56 ; elapsed = 00:00:00.56 . Memory (MB): peak = 3305.250 ; gain = 0.000 ; free physical = 5751 ; free virtual = 12015
-INFO: [Netlist 29-17] Analyzing 2225 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.62 ; elapsed = 00:00:00.62 . Memory (MB): peak = 3225.660 ; gain = 0.000 ; free physical = 6905 ; free virtual = 12691
+INFO: [Netlist 29-17] Analyzing 2256 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 3 inverter(s) to 34 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3349.352 ; gain = 0.000 ; free physical = 5761 ; free virtual = 12042
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3233.762 ; gain = 0.000 ; free physical = 6856 ; free virtual = 12661
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 457 instances were transformed.
+  A total of 458 instances were transformed.
   FD => FDRE: 8 instances
-  IOBUF => IOBUF (IBUF, OBUFT): 37 instances
+  IOBUF => IOBUF (IBUF, OBUFT): 38 instances
   IOBUFDS => IOBUFDS (IBUFDS, INV, OBUFTDS(x2)): 2 instances
   LD => LDCE: 6 instances
   OBUFDS => OBUFDS_DUAL_BUF (INV, OBUFDS(x2)): 1 instance 
@@ -8572,16 +8594,16 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM32X1D => RAM32X1D (RAMD32(x2)): 31 instances
   RAM64X1S => RAM64X1S (RAMS64E): 44 instances
 
-Synth Design complete | Checksum: af71eb3f
+Synth Design complete | Checksum: 67cf4848
 INFO: [Common 17-83] Releasing license: Synthesis
-632 Infos, 575 Warnings, 164 Critical Warnings and 0 Errors encountered.
+632 Infos, 577 Warnings, 164 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:05:43 ; elapsed = 00:04:14 . Memory (MB): peak = 3349.387 ; gain = 1764.441 ; free physical = 5757 ; free virtual = 12049
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 6673.106; main = 2116.051; forked = 5609.266
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 18803.750; main = 3349.355; forked = 15941.918
+synth_design: Time (s): cpu = 00:06:31 ; elapsed = 00:04:33 . Memory (MB): peak = 3233.797 ; gain = 1681.691 ; free physical = 6770 ; free virtual = 12665
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 9192.938; main = 1919.939; forked = 7880.137
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 18562.922; main = 3233.766; forked = 15773.109
 INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3373.363 ; gain = 0.000 ; free physical = 5752 ; free virtual = 12050
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.16 ; elapsed = 00:00:00.06 . Memory (MB): peak = 3239.773 ; gain = 0.000 ; free physical = 6764 ; free virtual = 12667
 INFO: [Common 17-1381] The checkpoint '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.runs/synth_1/rvfpganexys.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 3373.363 ; gain = 23.977 ; free physical = 5496 ; free virtual = 11969
+write_checkpoint: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 3239.773 ; gain = 5.977 ; free physical = 6401 ; free virtual = 12585
 INFO: [Vivado 12-24828] Executing command : report_utilization -file rvfpganexys_utilization_synth.rpt -pb rvfpganexys_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu May 28 14:31:10 2026...
+INFO: [Common 17-206] Exiting Vivado at Sun Jun  7 12:15:06 2026...

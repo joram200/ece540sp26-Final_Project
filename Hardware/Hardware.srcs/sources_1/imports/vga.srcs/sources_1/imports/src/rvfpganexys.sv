@@ -59,7 +59,20 @@ module rvfpganexys
     output wire        o_accel_cs_n,
     output wire        o_accel_mosi,
     input wire         i_accel_miso,
-    output wire        accel_sclk
+    output wire        accel_sclk,
+    // Ethernet PHY (RMII)
+    input  wire        CLKIN,
+    input  wire        CRS_DV,
+    input  wire        RXD0,
+    input  wire        RXD1,
+    input  wire        RXERR,
+    output wire        TXD0,
+    output wire        TXD1,
+    output wire        TXEN,
+    output wire        MDC,
+    inout  wire        MDIO,
+    output wire        nRST,
+    input  wire        nINT
     );
 
    wire [15:0]         gpio_out;
@@ -74,17 +87,29 @@ module rvfpganexys
    wire    rst_core;
    wire    user_clk;
    wire    user_rst;
+   wire    clk_eth;        // 100 MHz for AXI-Lite / AXIS clock domain
+   wire    clk_gtx;        // 125 MHz GTX reference for axi_ethernet_0
+   // MDIO tristate signals
+   wire    mdio_i, mdio_o, mdio_t;
+   // Narrow read-data wire: AXI4-Lite returns 32-bit; padded to 64-bit for eth CDC bus
+   wire [31:0] eth_rdata_narrow;
 
 
 
    clk_gen_nexys clk_gen
-     (.i_clk (user_clk),
-      .i_rst (user_rst),
+     (.i_clk     (user_clk),
+      .i_rst     (user_rst),
       .o_clk_core (clk_core),
-      .o_rst_core (rst_core));
+      .o_rst_core (rst_core),
+      .o_clk_eth  (clk_eth),
+      .o_clk_gtx  (clk_gtx));
 
    AXI_BUS #(32, 64, 6, 1) mem();
    AXI_BUS #(32, 64, 6, 1) cpu();
+   // eth_cpu: clk_core-domain eth slave bus driven by veerwolf_core
+   // eth_cdc_bus: clk_eth-domain eth slave bus driving ethernet_top
+   AXI_BUS #(32, 64, 6, 1) eth_cpu();
+   AXI_BUS #(32, 64, 6, 1) eth_cdc_bus();
 
    assign cpu.aw_atop = 6'd0;
    assign cpu.aw_user = 1'b0;
@@ -94,6 +119,20 @@ module rvfpganexys
    assign cpu.r_user = 1'b0;
    assign mem.b_user = 1'b0;
    assign mem.r_user = 1'b0;
+
+   // eth_cpu master-side user/atop fields (veerwolf_core does not set them)
+   assign eth_cpu.aw_atop = 6'd0;
+   assign eth_cpu.aw_user = 1'b0;
+   assign eth_cpu.ar_user = 1'b0;
+   assign eth_cpu.w_user  = 1'b0;
+   // eth_cdc_bus slave-side fields not driven by AXI4-Lite ethernet_top
+   assign eth_cdc_bus.b_id   = 6'd0;
+   assign eth_cdc_bus.b_user = 1'b0;
+   assign eth_cdc_bus.r_id   = 6'd0;
+   assign eth_cdc_bus.r_last = 1'b1;
+   assign eth_cdc_bus.r_user = 1'b0;
+   // Zero-pad upper 32 bits of 64-bit read data (AXI4-Lite returns 32 bits)
+   assign eth_cdc_bus.r_data = {32'h0, eth_rdata_narrow};
 
    axi_cdc_intf
      #(.AXI_USER_WIDTH (1),
@@ -108,6 +147,21 @@ module rvfpganexys
       .dst_clk_i  (user_clk),
       .dst_rst_ni (~user_rst),
       .dst        (mem));
+
+   // Clock-domain crossing: clk_core (25 MHz) -> clk_eth (100 MHz)
+   axi_cdc_intf
+     #(.AXI_USER_WIDTH (1),
+       .AXI_ADDR_WIDTH (32),
+       .AXI_DATA_WIDTH (64),
+       .AXI_ID_WIDTH   (6))
+   eth_cdc
+     (
+      .src_clk_i  (clk_core),
+      .src_rst_ni (~rst_core),
+      .src        (eth_cpu),
+      .dst_clk_i  (clk_eth),
+      .dst_rst_ni (~user_rst),
+      .dst        (eth_cdc_bus));
 
    litedram_top
      #(.ID_WIDTH (6))
@@ -275,7 +329,46 @@ module rvfpganexys
       .o_accel_sclk   (accel_sclk),
       .o_accel_cs_n   (o_accel_cs_n),
       .o_accel_mosi   (o_accel_mosi),
-      .i_accel_miso   (i_accel_miso));
+      .i_accel_miso   (i_accel_miso),
+      .o_eth_awid     (eth_cpu.aw_id),
+      .o_eth_awaddr   (eth_cpu.aw_addr),
+      .o_eth_awlen    (eth_cpu.aw_len),
+      .o_eth_awsize   (eth_cpu.aw_size),
+      .o_eth_awburst  (eth_cpu.aw_burst),
+      .o_eth_awlock   (eth_cpu.aw_lock),
+      .o_eth_awcache  (eth_cpu.aw_cache),
+      .o_eth_awprot   (eth_cpu.aw_prot),
+      .o_eth_awregion (eth_cpu.aw_region),
+      .o_eth_awqos    (eth_cpu.aw_qos),
+      .o_eth_awvalid  (eth_cpu.aw_valid),
+      .i_eth_awready  (eth_cpu.aw_ready),
+      .o_eth_arid     (eth_cpu.ar_id),
+      .o_eth_araddr   (eth_cpu.ar_addr),
+      .o_eth_arlen    (eth_cpu.ar_len),
+      .o_eth_arsize   (eth_cpu.ar_size),
+      .o_eth_arburst  (eth_cpu.ar_burst),
+      .o_eth_arlock   (eth_cpu.ar_lock),
+      .o_eth_arcache  (eth_cpu.ar_cache),
+      .o_eth_arprot   (eth_cpu.ar_prot),
+      .o_eth_arregion (eth_cpu.ar_region),
+      .o_eth_arqos    (eth_cpu.ar_qos),
+      .o_eth_arvalid  (eth_cpu.ar_valid),
+      .i_eth_arready  (eth_cpu.ar_ready),
+      .o_eth_wdata    (eth_cpu.w_data),
+      .o_eth_wstrb    (eth_cpu.w_strb),
+      .o_eth_wlast    (eth_cpu.w_last),
+      .o_eth_wvalid   (eth_cpu.w_valid),
+      .i_eth_wready   (eth_cpu.w_ready),
+      .i_eth_bid      (eth_cpu.b_id),
+      .i_eth_bresp    (eth_cpu.b_resp),
+      .i_eth_bvalid   (eth_cpu.b_valid),
+      .o_eth_bready   (eth_cpu.b_ready),
+      .i_eth_rid      (eth_cpu.r_id),
+      .i_eth_rdata    (eth_cpu.r_data),
+      .i_eth_rresp    (eth_cpu.r_resp),
+      .i_eth_rlast    (eth_cpu.r_last),
+      .i_eth_rvalid   (eth_cpu.r_valid),
+      .o_eth_rready   (eth_cpu.r_ready));
 
    always @(posedge clk_core) begin
       o_led[15:0] <= gpio_out[15:0];
@@ -288,5 +381,76 @@ module rvfpganexys
 
 
    assign o_uart_tx = 1'b0 ? litedram_tx : cpu_tx;
+
+   // -------------------------------------------------------------------------
+   // MDIO bidirectional pad
+   // -------------------------------------------------------------------------
+   IOBUF mdio_iobuf
+     (.IO (MDIO),
+      .I  (mdio_o),
+      .O  (mdio_i),
+      .T  (mdio_t));
+
+   // -------------------------------------------------------------------------
+   // Ethernet top-level (axi_ethernet_0 + rmii_phy_if)
+   // AXI4-Lite control connects to eth_cdc_bus (clk_eth domain, 100 MHz).
+   // Data width adaptation: bus is 64-bit AXI4; MAC needs 32-bit AXI4-Lite.
+   //   Write path : eth_cdc_bus.w_data[31:0]  -> s_axi_wdata
+   //   Read  path : s_axi_rdata -> eth_rdata_narrow -> eth_cdc_bus.r_data (zero-extended)
+   // -------------------------------------------------------------------------
+   ethernet_top u_ethernet_top
+     (// Clocks and resets
+      .s_axi_lite_clk    (clk_eth),
+      .s_axi_lite_resetn (~user_rst),
+      .gtx_clk           (clk_gtx),
+      .phy_rmii_ref_clk  (CLKIN),
+      // AXI4-Lite slave control (from eth_cdc_bus, 100 MHz domain)
+      .s_axi_awaddr      (eth_cdc_bus.aw_addr[17:0]),
+      .s_axi_awvalid     (eth_cdc_bus.aw_valid),
+      .s_axi_awready     (eth_cdc_bus.aw_ready),
+      .s_axi_wdata       (eth_cdc_bus.w_data[31:0]),
+      .s_axi_wstrb       (eth_cdc_bus.w_strb[3:0]),
+      .s_axi_wvalid      (eth_cdc_bus.w_valid),
+      .s_axi_wready      (eth_cdc_bus.w_ready),
+      .s_axi_bresp       (eth_cdc_bus.b_resp),
+      .s_axi_bvalid      (eth_cdc_bus.b_valid),
+      .s_axi_bready      (eth_cdc_bus.b_ready),
+      .s_axi_araddr      (eth_cdc_bus.ar_addr[17:0]),
+      .s_axi_arvalid     (eth_cdc_bus.ar_valid),
+      .s_axi_arready     (eth_cdc_bus.ar_ready),
+      .s_axi_rdata       (eth_rdata_narrow),
+      .s_axi_rresp       (eth_cdc_bus.r_resp),
+      .s_axi_rvalid      (eth_cdc_bus.r_valid),
+      .s_axi_rready      (eth_cdc_bus.r_ready),
+      // AXI-Stream TX (tied off — no DMA yet)
+      .s_axis_txd_tdata  (32'd0),
+      .s_axis_txd_tkeep  (4'd0),
+      .s_axis_txd_tlast  (1'b0),
+      .s_axis_txd_tvalid (1'b0),
+      .s_axis_txc_tdata  (32'd0),
+      .s_axis_txc_tkeep  (4'd0),
+      .s_axis_txc_tlast  (1'b0),
+      .s_axis_txc_tvalid (1'b0),
+      // AXI-Stream RX (drop received frames — no DMA yet)
+      .m_axis_rxd_tready (1'b1),
+      .m_axis_rxs_tready (1'b1),
+      // RMII PHY interface
+      .phy_rmii_crsdv    (CRS_DV),
+      .phy_rmii_rxd      ({RXD1, RXD0}),
+      .phy_rmii_rxer     (RXERR),
+      .phy_rmii_txen     (TXEN),
+      .phy_rmii_txd      ({TXD1, TXD0}),
+      // MDIO management interface
+      .mdio_mdc          (MDC),
+      .mdio_mdio_i       (mdio_i),
+      .mdio_mdio_o       (mdio_o),
+      .mdio_mdio_t       (mdio_t),
+      // PHY reset
+      .phy_rst_n         (nRST),
+      // Speed mode: 1 = 100 Mbps
+      .mode_speed        (1'b1),
+      // Interrupts (unconnected for now)
+      .mac_irq           (),
+      .interrupt         ());
 
 endmodule

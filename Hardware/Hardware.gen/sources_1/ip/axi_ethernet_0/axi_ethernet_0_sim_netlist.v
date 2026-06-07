@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-// Date        : Mon Jun  1 22:29:42 2026
+// Date        : Sun Jun  7 12:10:20 2026
 // Host        : archlinux running 64-bit unknown
 // Command     : write_verilog -force -mode funcsim
 //               /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.gen/sources_1/ip/axi_ethernet_0/axi_ethernet_0_sim_netlist.v
@@ -498,7 +498,10 @@ module axi_ethernet_0_bd_5d9f_0
   wire [31:0]NLW_mac_tx_statistics_vector_UNCONNECTED;
 
   (* CHECK_LICENSE_TYPE = "bd_5d9f_0_c_counter_binary_0_0,c_counter_binary_v12_0_22,{}" *) 
+  (* black_box_pad_pin = "SCLR,THRESH0,Q[23:0]" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
+  (* syn_black_box = "1" *) 
+  (* syn_force_seq_prim = "CLK" *) 
   (* x_core_info = "c_counter_binary_v12_0_22,Vivado 2025.2" *) 
   axi_ethernet_0_bd_5d9f_0_c_counter_binary_0_0 c_counter_binary_0
        (.CLK(s_axi_lite_clk),
@@ -506,7 +509,10 @@ module axi_ethernet_0_bd_5d9f_0
         .SCLR(util_vector_logic_0_Res),
         .THRESH0(c_counter_binary_0_THRESH0));
   (* CHECK_LICENSE_TYPE = "bd_5d9f_0_c_shift_ram_0_0,c_shift_ram_v12_0_20,{}" *) 
+  (* black_box_pad_pin = "D[0:0],CE,SCLR,Q[0:0]" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
+  (* syn_black_box = "1" *) 
+  (* syn_force_seq_prim = "CLK" *) 
   (* x_core_info = "c_shift_ram_v12_0_20,Vivado 2025.2" *) 
   axi_ethernet_0_bd_5d9f_0_c_shift_ram_0_0 c_shift_ram_0
        (.CE(c_counter_binary_0_THRESH0),
@@ -515,7 +521,10 @@ module axi_ethernet_0_bd_5d9f_0
         .Q(phy_rst_n),
         .SCLR(util_vector_logic_0_Res));
   (* CHECK_LICENSE_TYPE = "bd_5d9f_0_eth_buf_0,axi_ethernet_buffer_v2_0_26,{}" *) 
+  (* black_box_pad_pin = "INTERRUPT,S_AXI_ARESETN,S_AXI_AWADDR[17:0],S_AXI_AWVALID,S_AXI_AWREADY,S_AXI_WDATA[31:0],S_AXI_WSTRB[3:0],S_AXI_WVALID,S_AXI_WREADY,S_AXI_BRESP[1:0],S_AXI_BVALID,S_AXI_BREADY,S_AXI_ARADDR[17:0],S_AXI_ARVALID,S_AXI_ARREADY,S_AXI_RDATA[31:0],S_AXI_RRESP[1:0],S_AXI_RVALID,S_AXI_RREADY,EMAC_CLIENT_AUTONEG_INT,EMAC_RESET_DONE_INT,EMAC_RX_DCM_LOCKED_INT,PCSPMA_STATUS_VECTOR[15:0],AXI_STR_TXD_ARESETN,AXI_STR_TXD_TVALID,AXI_STR_TXD_TREADY,AXI_STR_TXD_TLAST,AXI_STR_TXD_TKEEP[3:0],AXI_STR_TXD_TDATA[31:0],AXI_STR_TXC_ARESETN,AXI_STR_TXC_TVALID,AXI_STR_TXC_TREADY,AXI_STR_TXC_TLAST,AXI_STR_TXC_TKEEP[3:0],AXI_STR_TXC_TDATA[31:0],AXI_STR_RXD_ARESETN,AXI_STR_RXD_VALID,AXI_STR_RXD_READY,AXI_STR_RXD_LAST,AXI_STR_RXD_KEEP[3:0],AXI_STR_RXD_DATA[31:0],AXI_STR_RXS_ARESETN,AXI_STR_RXS_VALID,AXI_STR_RXS_READY,AXI_STR_RXS_LAST,AXI_STR_RXS_KEEP[3:0],AXI_STR_RXS_DATA[31:0],pause_req,pause_val[16:31],S_AXI_2TEMAC_AWADDR[11:0],S_AXI_2TEMAC_AWVALID,S_AXI_2TEMAC_AWREADY,S_AXI_2TEMAC_WDATA[31:0],S_AXI_2TEMAC_WVALID,S_AXI_2TEMAC_WREADY,S_AXI_2TEMAC_BRESP[1:0],S_AXI_2TEMAC_BVALID,S_AXI_2TEMAC_BREADY,S_AXI_2TEMAC_ARADDR[11:0],S_AXI_2TEMAC_ARVALID,S_AXI_2TEMAC_ARREADY,S_AXI_2TEMAC_RDATA[31:0],S_AXI_2TEMAC_RRESP[1:0],S_AXI_2TEMAC_RVALID,S_AXI_2TEMAC_RREADY,RX_CLK_ENABLE_IN,rx_statistics_vector[27:0],rx_statistics_valid,rx_reset,rx_axis_mac_tdata[7:0],rx_axis_mac_tvalid,rx_axis_mac_tlast,rx_axis_mac_tuser,tx_ifg_delay[24:31],tx_reset,tx_axis_mac_tdata[7:0],tx_axis_mac_tvalid,tx_axis_mac_tlast,tx_axis_mac_tuser[0:0],tx_axis_mac_tready,speed_is_10_100,RESET2PCSPMA,RESET2TEMACn,PHY_RST_N,mdio_i_top,mdio_o_top,mdio_t_top,mdc_top,mdio_t_pcspma,mdio_o_pcspma,mdio_i_temac,mdio_o_temac,mdio_t_temac,mdc_temac" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
+  (* syn_black_box = "1" *) 
+  (* syn_force_seq_prim = "GTX_CLK" *) 
   (* x_core_info = "axi_ethernet_buffer_v2_0_26,Vivado 2025.2" *) 
   axi_ethernet_0_bd_5d9f_0_eth_buf_0 eth_buf
        (.AXI_STR_RXD_ACLK(axis_clk),
@@ -620,7 +629,10 @@ module axi_ethernet_0_bd_5d9f_0
         .tx_ifg_delay(eth_buf_tx_ifg_delay),
         .tx_mac_aclk(mac_tx_mac_aclk),
         .tx_reset(mac_tx_reset));
+  (* black_box_pad_pin = "glbl_rstn,rx_axi_rstn,tx_axi_rstn,rx_enable,rx_statistics_vector[27:0],rx_statistics_valid,rx_reset,rx_axis_mac_tdata[7:0],rx_axis_mac_tvalid,rx_axis_mac_tlast,rx_axis_mac_tuser,rx_axis_filter_tuser[4:0],tx_enable,tx_ifg_delay[7:0],tx_statistics_vector[31:0],tx_statistics_valid,tx_reset,tx_axis_mac_tdata[7:0],tx_axis_mac_tvalid,tx_axis_mac_tlast,tx_axis_mac_tuser,tx_axis_mac_tready,pause_req,pause_val[15:0],speedis100,speedis10100,mii_txd[3:0],mii_tx_en,mii_tx_er,mii_rxd[3:0],mii_rx_dv,mii_rx_er,mii_rx_clk,mii_tx_clk,mdio_i,mdio_o,mdio_t,mdc,s_axi_resetn,s_axi_awaddr[11:0],s_axi_awvalid,s_axi_awready,s_axi_wdata[31:0],s_axi_wvalid,s_axi_wready,s_axi_bresp[1:0],s_axi_bvalid,s_axi_bready,s_axi_araddr[11:0],s_axi_arvalid,s_axi_arready,s_axi_rdata[31:0],s_axi_rresp[1:0],s_axi_rvalid,s_axi_rready,mac_irq" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
+  (* syn_black_box = "1" *) 
+  (* syn_force_seq_prim = "s_axi_aclk" *) 
   (* x_core_info = "bd_5d9f_0_mac_0_block,Vivado 2025.2" *) 
   axi_ethernet_0_bd_5d9f_0_mac_0 mac
        (.glbl_rstn(eth_buf_RESET2TEMACn),
@@ -684,49 +696,46 @@ module axi_ethernet_0_bd_5d9f_0
         .tx_statistics_valid(NLW_mac_tx_statistics_valid_UNCONNECTED),
         .tx_statistics_vector(NLW_mac_tx_statistics_vector_UNCONNECTED[31:0]));
   (* CHECK_LICENSE_TYPE = "bd_5d9f_0_util_vector_logic_0_0,util_vector_logic_v2_0_5_util_vector_logic,{}" *) 
+  (* black_box_pad_pin = "Op1[0:0],Res[0:0]" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
+  (* syn_black_box = "1" *) 
   (* x_core_info = "util_vector_logic_v2_0_5_util_vector_logic,Vivado 2025.2" *) 
   axi_ethernet_0_bd_5d9f_0_util_vector_logic_0_0 util_vector_logic_0
        (.Op1(s_axi_lite_resetn),
         .Res(util_vector_logic_0_Res));
 endmodule
 
-(* CHECK_LICENSE_TYPE = "bd_5d9f_0_c_counter_binary_0_0,c_counter_binary_v12_0_22,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "bd_5d9f_0_c_counter_binary_0_0" *) 
-(* X_CORE_INFO = "c_counter_binary_v12_0_22,Vivado 2025.2" *) 
+(* CHECK_LICENSE_TYPE = "bd_5d9f_0_c_counter_binary_0_0,c_counter_binary_v12_0_22,{}" *) (* ORIG_REF_NAME = "bd_5d9f_0_c_counter_binary_0_0" *) 
 module axi_ethernet_0_bd_5d9f_0_c_counter_binary_0_0
    (CLK,
     SCLR,
     THRESH0,
     Q);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clk_intf CLK" *) (* X_INTERFACE_MODE = "slave clk_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clk_intf, ASSOCIATED_BUSIF q_intf:thresh0_intf:l_intf:load_intf:up_intf:sinit_intf:sset_intf, ASSOCIATED_RESET SCLR, ASSOCIATED_CLKEN CE, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_s_axi_lite_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input CLK;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 sclr_intf RST" *) (* X_INTERFACE_MODE = "slave sclr_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME sclr_intf, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *) input SCLR;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 thresh0_intf DATA" *) (* X_INTERFACE_MODE = "master thresh0_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME thresh0_intf, LAYERED_METADATA undef" *) output THRESH0;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 q_intf DATA" *) (* X_INTERFACE_MODE = "master q_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME q_intf, LAYERED_METADATA xilinx.com:interface:datatypes:1.0 {DATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value data} bitwidth {attribs {resolve_type generated dependency bitwidth format long minimum {} maximum {}} value 24} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} integer {signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}} DATA_WIDTH 24}" *) output [23:0]Q;
+  input CLK;
+  input SCLR;
+  output THRESH0;
+  output [23:0]Q;
 
 
 endmodule
 
-(* CHECK_LICENSE_TYPE = "bd_5d9f_0_c_shift_ram_0_0,c_shift_ram_v12_0_20,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "bd_5d9f_0_c_shift_ram_0_0" *) 
-(* X_CORE_INFO = "c_shift_ram_v12_0_20,Vivado 2025.2" *) 
+(* CHECK_LICENSE_TYPE = "bd_5d9f_0_c_shift_ram_0_0,c_shift_ram_v12_0_20,{}" *) (* ORIG_REF_NAME = "bd_5d9f_0_c_shift_ram_0_0" *) 
 module axi_ethernet_0_bd_5d9f_0_c_shift_ram_0_0
    (D,
     CLK,
     CE,
     SCLR,
     Q);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 d_intf DATA" *) (* X_INTERFACE_MODE = "slave d_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME d_intf, LAYERED_METADATA undef" *) input [0:0]D;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clk_intf CLK" *) (* X_INTERFACE_MODE = "slave clk_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clk_intf, ASSOCIATED_BUSIF q_intf:sinit_intf:sset_intf:d_intf:a_intf, ASSOCIATED_RESET SCLR, ASSOCIATED_CLKEN CE, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_s_axi_lite_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input CLK;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clockenable:1.0 ce_intf CE" *) (* X_INTERFACE_MODE = "slave ce_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME ce_intf, POLARITY ACTIVE_HIGH" *) input CE;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 sclr_intf RST" *) (* X_INTERFACE_MODE = "slave sclr_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME sclr_intf, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *) input SCLR;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 q_intf DATA" *) (* X_INTERFACE_MODE = "master q_intf" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME q_intf, LAYERED_METADATA xilinx.com:interface:datatypes:1.0 {DATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value data} bitwidth {attribs {resolve_type generated dependency data_bitwidth format long minimum {} maximum {}} value 1} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0}}} DATA_WIDTH 1}" *) output [0:0]Q;
+  input [0:0]D;
+  input CLK;
+  input CE;
+  input SCLR;
+  output [0:0]Q;
 
 
 endmodule
 
-(* CHECK_LICENSE_TYPE = "bd_5d9f_0_eth_buf_0,axi_ethernet_buffer_v2_0_26,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "bd_5d9f_0_eth_buf_0" *) 
-(* X_CORE_INFO = "axi_ethernet_buffer_v2_0_26,Vivado 2025.2" *) 
+(* CHECK_LICENSE_TYPE = "bd_5d9f_0_eth_buf_0,axi_ethernet_buffer_v2_0_26,{}" *) (* ORIG_REF_NAME = "bd_5d9f_0_eth_buf_0" *) 
 module axi_ethernet_0_bd_5d9f_0_eth_buf_0
    (INTERRUPT,
     S_AXI_ACLK,
@@ -830,121 +839,113 @@ module axi_ethernet_0_bd_5d9f_0_eth_buf_0
     mdio_t_temac,
     mdc_temac,
     GTX_CLK);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:interrupt:1.0 interrupt INTERRUPT" *) (* X_INTERFACE_MODE = "master interrupt" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME interrupt, SENSITIVITY LEVEL_HIGH, PortWidth 1" *) output INTERRUPT;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 S_AXI_ACLK CLK" *) (* X_INTERFACE_MODE = "slave S_AXI_ACLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI_ACLK, ASSOCIATED_BUSIF S_AXI:S_AXI_2TEMAC, ASSOCIATED_RESET S_AXI_ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_s_axi_lite_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input S_AXI_ACLK;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 S_AXI_ARESETN RST" *) (* X_INTERFACE_MODE = "slave S_AXI_ARESETN" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input S_AXI_ARESETN;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI AWADDR" *) (* X_INTERFACE_MODE = "slave S_AXI" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI, FREQ_HZ 100000000, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 18, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_s_axi_lite_clk, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [17:0]S_AXI_AWADDR;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI AWVALID" *) input S_AXI_AWVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI AWREADY" *) output S_AXI_AWREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI WDATA" *) input [31:0]S_AXI_WDATA;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI WSTRB" *) input [3:0]S_AXI_WSTRB;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI WVALID" *) input S_AXI_WVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI WREADY" *) output S_AXI_WREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI BRESP" *) output [1:0]S_AXI_BRESP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI BVALID" *) output S_AXI_BVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI BREADY" *) input S_AXI_BREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI ARADDR" *) input [17:0]S_AXI_ARADDR;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI ARVALID" *) input S_AXI_ARVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI ARREADY" *) output S_AXI_ARREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RDATA" *) output [31:0]S_AXI_RDATA;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RRESP" *) output [1:0]S_AXI_RRESP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RVALID" *) output S_AXI_RVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *) input S_AXI_RREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:interrupt:1.0 EMAC_CLIENT_AUTONEG_INT INTERRUPT" *) (* X_INTERFACE_MODE = "slave EMAC_CLIENT_AUTONEG_INT" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME EMAC_CLIENT_AUTONEG_INT, SENSITIVITY EDGE_RISING, PortWidth 1" *) input EMAC_CLIENT_AUTONEG_INT;
+  output INTERRUPT;
+  input S_AXI_ACLK;
+  input S_AXI_ARESETN;
+  input [17:0]S_AXI_AWADDR;
+  input S_AXI_AWVALID;
+  output S_AXI_AWREADY;
+  input [31:0]S_AXI_WDATA;
+  input [3:0]S_AXI_WSTRB;
+  input S_AXI_WVALID;
+  output S_AXI_WREADY;
+  output [1:0]S_AXI_BRESP;
+  output S_AXI_BVALID;
+  input S_AXI_BREADY;
+  input [17:0]S_AXI_ARADDR;
+  input S_AXI_ARVALID;
+  output S_AXI_ARREADY;
+  output [31:0]S_AXI_RDATA;
+  output [1:0]S_AXI_RRESP;
+  output S_AXI_RVALID;
+  input S_AXI_RREADY;
+  input EMAC_CLIENT_AUTONEG_INT;
   input EMAC_RESET_DONE_INT;
   input EMAC_RX_DCM_LOCKED_INT;
   input [15:0]PCSPMA_STATUS_VECTOR;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 AXI_STR_TXD_ACLK CLK" *) (* X_INTERFACE_MODE = "slave AXI_STR_TXD_ACLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_TXD_ACLK, ASSOCIATED_BUSIF AXI_STR_TXD, ASSOCIATED_RESET AXI_STR_TXD_ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input AXI_STR_TXD_ACLK;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 AXI_STR_TXD_ARESETN RST" *) (* X_INTERFACE_MODE = "slave AXI_STR_TXD_ARESETN" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_TXD_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_TXD_ARESETN;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TVALID" *) (* X_INTERFACE_MODE = "slave AXI_STR_TXD" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_TXD, FREQ_HZ 100000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, LAYERED_METADATA undef, INSERT_VIP 0" *) input AXI_STR_TXD_TVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TREADY" *) output AXI_STR_TXD_TREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TLAST" *) input AXI_STR_TXD_TLAST;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TKEEP" *) input [3:0]AXI_STR_TXD_TKEEP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXD TDATA" *) input [31:0]AXI_STR_TXD_TDATA;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 AXI_STR_TXC_ACLK CLK" *) (* X_INTERFACE_MODE = "slave AXI_STR_TXC_ACLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_TXC_ACLK, ASSOCIATED_BUSIF AXI_STR_TXC, ASSOCIATED_RESET AXI_STR_TXC_ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input AXI_STR_TXC_ACLK;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 AXI_STR_TXC_ARESETN RST" *) (* X_INTERFACE_MODE = "slave AXI_STR_TXC_ARESETN" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_TXC_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_TXC_ARESETN;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TVALID" *) (* X_INTERFACE_MODE = "slave AXI_STR_TXC" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_TXC, FREQ_HZ 100000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, LAYERED_METADATA undef, INSERT_VIP 0" *) input AXI_STR_TXC_TVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TREADY" *) output AXI_STR_TXC_TREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TLAST" *) input AXI_STR_TXC_TLAST;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TKEEP" *) input [3:0]AXI_STR_TXC_TKEEP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_TXC TDATA" *) input [31:0]AXI_STR_TXC_TDATA;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 AXI_STR_RXD_ACLK CLK" *) (* X_INTERFACE_MODE = "slave AXI_STR_RXD_ACLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_RXD_ACLK, ASSOCIATED_BUSIF AXI_STR_RXD, ASSOCIATED_RESET AXI_STR_RXD_ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input AXI_STR_RXD_ACLK;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 AXI_STR_RXD_ARESETN RST" *) (* X_INTERFACE_MODE = "slave AXI_STR_RXD_ARESETN" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_RXD_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_RXD_ARESETN;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TVALID" *) (* X_INTERFACE_MODE = "master AXI_STR_RXD" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_RXD, FREQ_HZ 100000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, LAYERED_METADATA undef, INSERT_VIP 0" *) output AXI_STR_RXD_VALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TREADY" *) input AXI_STR_RXD_READY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TLAST" *) output AXI_STR_RXD_LAST;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TKEEP" *) output [3:0]AXI_STR_RXD_KEEP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXD TDATA" *) output [31:0]AXI_STR_RXD_DATA;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 AXI_STR_RXS_ACLK CLK" *) (* X_INTERFACE_MODE = "slave AXI_STR_RXS_ACLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_RXS_ACLK, ASSOCIATED_BUSIF AXI_STR_RXS, ASSOCIATED_RESET AXI_STR_RXS_ARESETN, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input AXI_STR_RXS_ACLK;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 AXI_STR_RXS_ARESETN RST" *) (* X_INTERFACE_MODE = "slave AXI_STR_RXS_ARESETN" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_RXS_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input AXI_STR_RXS_ARESETN;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TVALID" *) (* X_INTERFACE_MODE = "master AXI_STR_RXS" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_STR_RXS, FREQ_HZ 100000000, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_axis_clk, LAYERED_METADATA undef, INSERT_VIP 0" *) output AXI_STR_RXS_VALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TREADY" *) input AXI_STR_RXS_READY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TLAST" *) output AXI_STR_RXS_LAST;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TKEEP" *) output [3:0]AXI_STR_RXS_KEEP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 AXI_STR_RXS TDATA" *) output [31:0]AXI_STR_RXS_DATA;
+  input AXI_STR_TXD_ACLK;
+  input AXI_STR_TXD_ARESETN;
+  input AXI_STR_TXD_TVALID;
+  output AXI_STR_TXD_TREADY;
+  input AXI_STR_TXD_TLAST;
+  input [3:0]AXI_STR_TXD_TKEEP;
+  input [31:0]AXI_STR_TXD_TDATA;
+  input AXI_STR_TXC_ACLK;
+  input AXI_STR_TXC_ARESETN;
+  input AXI_STR_TXC_TVALID;
+  output AXI_STR_TXC_TREADY;
+  input AXI_STR_TXC_TLAST;
+  input [3:0]AXI_STR_TXC_TKEEP;
+  input [31:0]AXI_STR_TXC_TDATA;
+  input AXI_STR_RXD_ACLK;
+  input AXI_STR_RXD_ARESETN;
+  output AXI_STR_RXD_VALID;
+  input AXI_STR_RXD_READY;
+  output AXI_STR_RXD_LAST;
+  output [3:0]AXI_STR_RXD_KEEP;
+  output [31:0]AXI_STR_RXD_DATA;
+  input AXI_STR_RXS_ACLK;
+  input AXI_STR_RXS_ARESETN;
+  output AXI_STR_RXS_VALID;
+  input AXI_STR_RXS_READY;
+  output AXI_STR_RXS_LAST;
+  output [3:0]AXI_STR_RXS_KEEP;
+  output [31:0]AXI_STR_RXS_DATA;
   output pause_req;
   output [16:31]pause_val;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC AWADDR" *) (* X_INTERFACE_MODE = "master S_AXI_2TEMAC" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI_2TEMAC, FREQ_HZ 100000000, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 12, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 0, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.0, CLK_DOMAIN bd_5d9f_0_s_axi_lite_clk, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [11:0]S_AXI_2TEMAC_AWADDR;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC AWVALID" *) output S_AXI_2TEMAC_AWVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC AWREADY" *) input S_AXI_2TEMAC_AWREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC WDATA" *) output [31:0]S_AXI_2TEMAC_WDATA;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC WVALID" *) output S_AXI_2TEMAC_WVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC WREADY" *) input S_AXI_2TEMAC_WREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC BRESP" *) input [1:0]S_AXI_2TEMAC_BRESP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC BVALID" *) input S_AXI_2TEMAC_BVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC BREADY" *) output S_AXI_2TEMAC_BREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC ARADDR" *) output [11:0]S_AXI_2TEMAC_ARADDR;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC ARVALID" *) output S_AXI_2TEMAC_ARVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC ARREADY" *) input S_AXI_2TEMAC_ARREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC RDATA" *) input [31:0]S_AXI_2TEMAC_RDATA;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC RRESP" *) input [1:0]S_AXI_2TEMAC_RRESP;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC RVALID" *) input S_AXI_2TEMAC_RVALID;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_2TEMAC RREADY" *) output S_AXI_2TEMAC_RREADY;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clockenable:1.0 RX_CLK_ENABLE_IN CE" *) (* X_INTERFACE_MODE = "slave RX_CLK_ENABLE_IN" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RX_CLK_ENABLE_IN, POLARITY ACTIVE_LOW" *) input RX_CLK_ENABLE_IN;
+  output [11:0]S_AXI_2TEMAC_AWADDR;
+  output S_AXI_2TEMAC_AWVALID;
+  input S_AXI_2TEMAC_AWREADY;
+  output [31:0]S_AXI_2TEMAC_WDATA;
+  output S_AXI_2TEMAC_WVALID;
+  input S_AXI_2TEMAC_WREADY;
+  input [1:0]S_AXI_2TEMAC_BRESP;
+  input S_AXI_2TEMAC_BVALID;
+  output S_AXI_2TEMAC_BREADY;
+  output [11:0]S_AXI_2TEMAC_ARADDR;
+  output S_AXI_2TEMAC_ARVALID;
+  input S_AXI_2TEMAC_ARREADY;
+  input [31:0]S_AXI_2TEMAC_RDATA;
+  input [1:0]S_AXI_2TEMAC_RRESP;
+  input S_AXI_2TEMAC_RVALID;
+  output S_AXI_2TEMAC_RREADY;
+  input RX_CLK_ENABLE_IN;
   input [27:0]rx_statistics_vector;
   input rx_statistics_valid;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 rx_mac_aclk CLK" *) (* X_INTERFACE_MODE = "slave rx_mac_aclk" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME rx_mac_aclk, ASSOCIATED_BUSIF RX_AXIS_MAC, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /mac/rx_mac_aclk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input rx_mac_aclk;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 rx_reset RST" *) (* X_INTERFACE_MODE = "slave rx_reset" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME rx_reset, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *) input rx_reset;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 RX_AXIS_MAC TDATA" *) (* X_INTERFACE_MODE = "slave RX_AXIS_MAC" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RX_AXIS_MAC, FREQ_HZ 125000000, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 0, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, PHASE 0.0, CLK_DOMAIN /mac/rx_mac_aclk, LAYERED_METADATA undef, INSERT_VIP 0" *) input [7:0]rx_axis_mac_tdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 RX_AXIS_MAC TVALID" *) input rx_axis_mac_tvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 RX_AXIS_MAC TLAST" *) input rx_axis_mac_tlast;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 RX_AXIS_MAC TUSER" *) input rx_axis_mac_tuser;
+  input rx_mac_aclk;
+  input rx_reset;
+  input [7:0]rx_axis_mac_tdata;
+  input rx_axis_mac_tvalid;
+  input rx_axis_mac_tlast;
+  input rx_axis_mac_tuser;
   output [24:31]tx_ifg_delay;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 tx_mac_aclk CLK" *) (* X_INTERFACE_MODE = "slave tx_mac_aclk" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME tx_mac_aclk, ASSOCIATED_BUSIF TX_AXIS_MAC, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN /mac/tx_mac_aclk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input tx_mac_aclk;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 tx_reset RST" *) (* X_INTERFACE_MODE = "slave tx_reset" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME tx_reset, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *) input tx_reset;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 TX_AXIS_MAC TDATA" *) (* X_INTERFACE_MODE = "master TX_AXIS_MAC" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME TX_AXIS_MAC, FREQ_HZ 125000000, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, PHASE 0.0, CLK_DOMAIN /mac/tx_mac_aclk, LAYERED_METADATA undef, INSERT_VIP 0" *) output [7:0]tx_axis_mac_tdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 TX_AXIS_MAC TVALID" *) output tx_axis_mac_tvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 TX_AXIS_MAC TLAST" *) output tx_axis_mac_tlast;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 TX_AXIS_MAC TUSER" *) output [0:0]tx_axis_mac_tuser;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 TX_AXIS_MAC TREADY" *) input tx_axis_mac_tready;
+  input tx_mac_aclk;
+  input tx_reset;
+  output [7:0]tx_axis_mac_tdata;
+  output tx_axis_mac_tvalid;
+  output tx_axis_mac_tlast;
+  output [0:0]tx_axis_mac_tuser;
+  input tx_axis_mac_tready;
   input speed_is_10_100;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RESET2PCSPMA RST" *) (* X_INTERFACE_MODE = "master RESET2PCSPMA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RESET2PCSPMA, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *) output RESET2PCSPMA;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RESET2TEMACn RST" *) (* X_INTERFACE_MODE = "master RESET2TEMACn" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RESET2TEMACn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) output RESET2TEMACn;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 PHY_RST_N RST" *) (* X_INTERFACE_MODE = "master PHY_RST_N" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME PHY_RST_N, BOARD.ASSOCIATED_PARAM PHYRST_BOARD_INTERFACE, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) output PHY_RST_N;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_to_top MDIO_I" *) (* X_INTERFACE_MODE = "master mdio_to_top" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME mdio_to_top, BOARD.ASSOCIATED_PARAM MDIO_BOARD_INTERFACE, CAN_DEBUG false" *) input mdio_i_top;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_to_top MDIO_O" *) output mdio_o_top;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_to_top MDIO_T" *) output mdio_t_top;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_to_top MDC" *) output mdc_top;
+  output RESET2PCSPMA;
+  output RESET2TEMACn;
+  output PHY_RST_N;
+  input mdio_i_top;
+  output mdio_o_top;
+  output mdio_t_top;
+  output mdc_top;
   input mdio_t_pcspma;
   input mdio_o_pcspma;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_temac MDIO_I" *) (* X_INTERFACE_MODE = "mirroredMaster mdio_temac" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME mdio_temac, CAN_DEBUG false" *) output mdio_i_temac;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_temac MDIO_O" *) input mdio_o_temac;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_temac MDIO_T" *) input mdio_t_temac;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:mdio:1.0 mdio_temac MDC" *) input mdc_temac;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 GTX_CLK CLK" *) (* X_INTERFACE_MODE = "slave GTX_CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME GTX_CLK, FREQ_HZ 125000000, FREQ_TOLERANCE_HZ 0, PHASE 0, CLK_DOMAIN bd_5d9f_0_gtx_clk, INSERT_VIP 0" *) 
-  (* syn_isclock = "1" *) input GTX_CLK;
+  output mdio_i_temac;
+  input mdio_o_temac;
+  input mdio_t_temac;
+  input mdc_temac;
+  input GTX_CLK;
 
 
 endmodule
 
-(* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "bd_5d9f_0_mac_0" *) (* X_CORE_INFO = "bd_5d9f_0_mac_0_block,Vivado 2025.2" *) 
+(* ORIG_REF_NAME = "bd_5d9f_0_mac_0" *) 
 module axi_ethernet_0_bd_5d9f_0_mac_0
    (gtx_clk,
     glbl_rstn,
@@ -1006,14 +1007,14 @@ module axi_ethernet_0_bd_5d9f_0_mac_0
     s_axi_rvalid,
     s_axi_rready,
     mac_irq);
-  (* syn_isclock = "1" *) input gtx_clk;
+  input gtx_clk;
   input glbl_rstn;
   input rx_axi_rstn;
   input tx_axi_rstn;
   output rx_enable;
   output [27:0]rx_statistics_vector;
   output rx_statistics_valid;
-  (* syn_isclock = "1" *) output rx_mac_aclk;
+  output rx_mac_aclk;
   output rx_reset;
   output [7:0]rx_axis_mac_tdata;
   output rx_axis_mac_tvalid;
@@ -1024,7 +1025,7 @@ module axi_ethernet_0_bd_5d9f_0_mac_0
   input [7:0]tx_ifg_delay;
   output [31:0]tx_statistics_vector;
   output tx_statistics_valid;
-  (* syn_isclock = "1" *) output tx_mac_aclk;
+  output tx_mac_aclk;
   output tx_reset;
   input [7:0]tx_axis_mac_tdata;
   input tx_axis_mac_tvalid;
@@ -1047,7 +1048,7 @@ module axi_ethernet_0_bd_5d9f_0_mac_0
   output mdio_o;
   output mdio_t;
   output mdc;
-  (* syn_isclock = "1" *) input s_axi_aclk;
+  input s_axi_aclk;
   input s_axi_resetn;
   input [11:0]s_axi_awaddr;
   input s_axi_awvalid;
@@ -1070,8 +1071,7 @@ module axi_ethernet_0_bd_5d9f_0_mac_0
 
 endmodule
 
-(* CHECK_LICENSE_TYPE = "bd_5d9f_0_util_vector_logic_0_0,util_vector_logic_v2_0_5_util_vector_logic,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "bd_5d9f_0_util_vector_logic_0_0" *) 
-(* X_CORE_INFO = "util_vector_logic_v2_0_5_util_vector_logic,Vivado 2025.2" *) 
+(* CHECK_LICENSE_TYPE = "bd_5d9f_0_util_vector_logic_0_0,util_vector_logic_v2_0_5_util_vector_logic,{}" *) (* ORIG_REF_NAME = "bd_5d9f_0_util_vector_logic_0_0" *) 
 module axi_ethernet_0_bd_5d9f_0_util_vector_logic_0_0
    (Op1,
     Res);
