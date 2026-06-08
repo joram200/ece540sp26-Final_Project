@@ -91,8 +91,8 @@ module rvfpganexys
    wire    clk_gtx;        // 125 MHz GTX reference for axi_ethernet_0
    // MDIO tristate signals
    wire    mdio_i, mdio_o, mdio_t;
-   // Narrow read-data wire: AXI4-Lite returns 32-bit; padded to 64-bit for eth CDC bus
-   wire [31:0] eth_rdata_narrow;
+   // 64-bit read-data wire: ethernet_top performs lane conversion internally
+   wire [63:0] eth_rdata_wide;
 
 
 
@@ -131,8 +131,8 @@ module rvfpganexys
    assign eth_cdc_bus.r_id   = 6'd0;
    assign eth_cdc_bus.r_last = 1'b1;
    assign eth_cdc_bus.r_user = 1'b0;
-   // Zero-pad upper 32 bits of 64-bit read data (AXI4-Lite returns 32 bits)
-   assign eth_cdc_bus.r_data = {32'h0, eth_rdata_narrow};
+   // Read data: lane conversion is handled inside ethernet_top
+   assign eth_cdc_bus.r_data = eth_rdata_wide;
 
    axi_cdc_intf
      #(.AXI_USER_WIDTH (1),
@@ -394,9 +394,8 @@ module rvfpganexys
    // -------------------------------------------------------------------------
    // Ethernet top-level (axi_ethernet_0 + rmii_phy_if)
    // AXI4-Lite control connects to eth_cdc_bus (clk_eth domain, 100 MHz).
-   // Data width adaptation: bus is 64-bit AXI4; MAC needs 32-bit AXI4-Lite.
-   //   Write path : eth_cdc_bus.w_data[31:0]  -> s_axi_wdata
-   //   Read  path : s_axi_rdata -> eth_rdata_narrow -> eth_cdc_bus.r_data (zero-extended)
+   // Data width adaptation (64-bit bus <-> 32-bit MAC) is handled inside
+   // ethernet_top by the axi_lite_64to32 converter instance.
    // -------------------------------------------------------------------------
    ethernet_top u_ethernet_top
      (// Clocks and resets
@@ -408,8 +407,8 @@ module rvfpganexys
       .s_axi_awaddr      (eth_cdc_bus.aw_addr[17:0]),
       .s_axi_awvalid     (eth_cdc_bus.aw_valid),
       .s_axi_awready     (eth_cdc_bus.aw_ready),
-      .s_axi_wdata       (eth_cdc_bus.w_data[31:0]),
-      .s_axi_wstrb       (eth_cdc_bus.w_strb[3:0]),
+      .s_axi_wdata       (eth_cdc_bus.w_data),
+      .s_axi_wstrb       (eth_cdc_bus.w_strb),
       .s_axi_wvalid      (eth_cdc_bus.w_valid),
       .s_axi_wready      (eth_cdc_bus.w_ready),
       .s_axi_bresp       (eth_cdc_bus.b_resp),
@@ -418,7 +417,7 @@ module rvfpganexys
       .s_axi_araddr      (eth_cdc_bus.ar_addr[17:0]),
       .s_axi_arvalid     (eth_cdc_bus.ar_valid),
       .s_axi_arready     (eth_cdc_bus.ar_ready),
-      .s_axi_rdata       (eth_rdata_narrow),
+      .s_axi_rdata       (eth_rdata_wide),
       .s_axi_rresp       (eth_cdc_bus.r_resp),
       .s_axi_rvalid      (eth_cdc_bus.r_valid),
       .s_axi_rready      (eth_cdc_bus.r_ready),

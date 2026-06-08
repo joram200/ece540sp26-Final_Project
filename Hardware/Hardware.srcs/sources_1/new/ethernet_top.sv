@@ -33,9 +33,9 @@ module ethernet_top (
     input  wire [17:0] s_axi_awaddr,
     input  wire        s_axi_awvalid,
     output wire        s_axi_awready,
-    // Write data channel
-    input  wire [31:0] s_axi_wdata,
-    input  wire  [3:0] s_axi_wstrb,
+    // Write data channel (64-bit: width-converted internally to 32-bit MAC)
+    input  wire [63:0] s_axi_wdata,
+    input  wire  [7:0] s_axi_wstrb,
     input  wire        s_axi_wvalid,
     output wire        s_axi_wready,
     // Write response channel
@@ -46,8 +46,8 @@ module ethernet_top (
     input  wire [17:0] s_axi_araddr,
     input  wire        s_axi_arvalid,
     output wire        s_axi_arready,
-    // Read data channel
-    output wire [31:0] s_axi_rdata,
+    // Read data channel (64-bit: MAC 32-bit result lane-extended internally)
+    output wire [63:0] s_axi_rdata,
     output wire  [1:0] s_axi_rresp,
     output wire        s_axi_rvalid,
     input  wire        s_axi_rready,
@@ -133,6 +133,41 @@ module ethernet_top (
     not (mii_txrstn, mii_txrst);
     
     // =========================================================================
+    // AXI4-Lite 64->32 data-width converter
+    // Converts the 64-bit CPU bus lanes to the 32-bit AXI4-Lite port that
+    // axi_ethernet_0 expects.  All address and handshake signals are wired
+    // directly through; only wdata, wstrb, and rdata are converted.
+    // =========================================================================
+
+    wire [31:0] mac_wdata;
+    wire  [3:0] mac_wstrb;
+    wire [31:0] mac_rdata;
+
+    axi_lite_64to32 u_width_conv (
+        .aclk       (s_axi_lite_clk),
+        .aresetn    (s_axi_lite_resetn),
+        // Write address channel observation
+        .s_awaddr2  (s_axi_awaddr[2]),
+        .s_awvalid  (s_axi_awvalid),
+        .m_awready  (s_axi_awready),
+        // Write data channel observation
+        .s_wvalid   (s_axi_wvalid),
+        .m_wready   (s_axi_wready),
+        // 64->32 write conversion
+        .s_wdata    (s_axi_wdata),
+        .s_wstrb    (s_axi_wstrb),
+        .m_wdata    (mac_wdata),
+        .m_wstrb    (mac_wstrb),
+        // Read address channel observation
+        .s_araddr2  (s_axi_araddr[2]),
+        .s_arvalid  (s_axi_arvalid),
+        .m_arready  (s_axi_arready),
+        // 32->64 read conversion
+        .m_rdata    (mac_rdata),
+        .s_rdata    (s_axi_rdata)
+    );
+
+    // =========================================================================
     // Instantiations of the AXI Ethernet Subsystem and MII-to-RMII modules
     // =========================================================================
 
@@ -152,8 +187,8 @@ module ethernet_top (
         .s_axi_awaddr       (s_axi_awaddr),
         .s_axi_awvalid      (s_axi_awvalid),
         .s_axi_awready      (s_axi_awready),
-        .s_axi_wdata        (s_axi_wdata),
-        .s_axi_wstrb        (s_axi_wstrb),
+        .s_axi_wdata        (mac_wdata),
+        .s_axi_wstrb        (mac_wstrb),
         .s_axi_wvalid       (s_axi_wvalid),
         .s_axi_wready       (s_axi_wready),
         .s_axi_bresp        (s_axi_bresp),
@@ -162,7 +197,7 @@ module ethernet_top (
         .s_axi_araddr       (s_axi_araddr),
         .s_axi_arvalid      (s_axi_arvalid),
         .s_axi_arready      (s_axi_arready),
-        .s_axi_rdata        (s_axi_rdata),
+        .s_axi_rdata        (mac_rdata),
         .s_axi_rresp        (s_axi_rresp),
         .s_axi_rvalid       (s_axi_rvalid),
         .s_axi_rready       (s_axi_rready),
