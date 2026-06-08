@@ -1,0 +1,139 @@
+xilinx rtfpga
+rt::do_reinfer_area_combined 1
+WARNING: [Synth 8-3936] Found unconnected internal register 'memdat_4_reg' and it is trimmed from '10' to '8' bits. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:16750]
+WARNING: [Synth 8-3936] Found unconnected internal register 'memdat_2_reg' and it is trimmed from '10' to '8' bits. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:16733]
+INFO: [Synth 8-5546] ROM "sdram_cmd_payload_a1" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "sdram_cmd_payload_a1" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "sdram_choose_req_want_writes" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sdram_choose_req_want_reads" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+WARNING: [Synth 8-7129] Port i_ibus_rdt[1] in module serv_rf_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_ibus_rdt[0] in module serv_rf_top is either unconnected or has no load
+INFO: [Synth 8-4652] Swapped enable and write-enable on 1 RAM instances of RAM rf_ram/memory_reg to conserve power
+INFO: [Synth 8-12589] Found 8 bits of RAM  (i_381) with no load. RAM width may be reduced from 74 to 66 
+WARNING: [Synth 8-3936] Found unconnected internal register 'memdat_18_reg' and it is trimmed from '74' to '66' bits. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/LiteDRAM/litedram_core.v:18819]
+RAM Pipeline Warning: Read Address Register Found For RAM mem_1_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM mem_1_reg. We will not be able to pipeline it. This may degrade performance. 
+RAM Pipeline Warning: Read Address Register Found For RAM mem_1_reg. We will not be able to pipeline it. This may degrade performance. 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_79) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_85) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_96) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_106) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_119) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_128) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_139) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_148) with no load. RAM width may be reduced from 24 to 22 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_279) with no load. RAM width may be reduced from 8 to 6 
+INFO: [Synth 8-12589] Found 2 bits of RAM  (i_280) with no load. RAM width may be reduced from 10 to 8 
+RAM Pipeline Warning: Read Address Register Found For RAM mem_1_reg. We will not be able to pipeline it. This may degrade performance. 
+INFO: [Synth 8-7067] Removed DRAM instance i_121/i_0/storage_12_reg_0_15_6_7 from module extram__60 due to constant propagation
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (serv_rf_top/\cpu/csr/timer_irq_r_reg )
+INFO: [Synth 8-3886] merging instance 'serv_rf_top/cpu/decode/o_rf_rs2_addr_reg[0]' (FDE) to 'serv_rf_top/cpu/decode/op20_reg'
+INFO: [Synth 8-3886] merging instance 'serv_rf_top/cpu/decode/o_rf_rs2_addr_reg[1]' (FDE) to 'serv_rf_top/cpu/decode/op21_reg'
+INFO: [Synth 8-3886] merging instance 'serv_rf_top/cpu/decode/o_rf_rs2_addr_reg[2]' (FDE) to 'serv_rf_top/cpu/decode/op22_reg'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (serv_rf_top/\cpu/state/irq_sync_reg )
+INFO: [Synth 8-3886] merging instance 'litedramcore_interface1_bank_bus_dat_r_reg[7]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'litedramcore_interface1_bank_bus_dat_r_reg[1]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'litedramcore_interface1_bank_bus_dat_r_reg[3]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (sdram_postponer_count_reg)
+INFO: [Synth 8-3886] merging instance 'litedramcore_interface1_bank_bus_dat_r_reg[5]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'litedramcore_interface1_bank_bus_dat_r_reg[4]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'litedramcore_interface1_bank_bus_dat_r_reg[2]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'litedramcore_interface1_bank_bus_dat_r_reg[6]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_dqspattern_o1_reg[7]' (FD) to 'a7ddrphy_dqspattern_o1_reg[5]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[15]' (FD) to 'a7ddrphy_bitslip0_r0_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[15]' (FD) to 'a7ddrphy_bitslip1_r0_reg[13]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[7]' (FD) to 'a7ddrphy_bitslip0_r0_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[7]' (FD) to 'a7ddrphy_bitslip1_r0_reg[5]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_dqspattern_o1_reg[6]' (FD) to 'a7ddrphy_dqspattern_o1_reg[4]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[14]' (FD) to 'a7ddrphy_bitslip0_r0_reg[14]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[14]' (FD) to 'a7ddrphy_bitslip1_r0_reg[12]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[6]' (FD) to 'a7ddrphy_bitslip0_r0_reg[6]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[6]' (FD) to 'a7ddrphy_bitslip1_r0_reg[4]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_dqspattern_o1_reg[5]' (FD) to 'a7ddrphy_dqspattern_o1_reg[3]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[13]' (FD) to 'a7ddrphy_bitslip0_r0_reg[13]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[13]' (FD) to 'a7ddrphy_bitslip1_r0_reg[11]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[5]' (FD) to 'a7ddrphy_bitslip0_r0_reg[5]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[5]' (FD) to 'a7ddrphy_bitslip1_r0_reg[3]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_dqspattern_o1_reg[4]' (FD) to 'a7ddrphy_dqspattern_o1_reg[2]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[12]' (FD) to 'a7ddrphy_bitslip0_r0_reg[12]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[12]' (FD) to 'a7ddrphy_bitslip1_r0_reg[10]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[4]' (FD) to 'a7ddrphy_bitslip0_r0_reg[4]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[4]' (FD) to 'a7ddrphy_bitslip1_r0_reg[2]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_dqspattern_o1_reg[3]' (FD) to 'a7ddrphy_dqspattern_o1_reg[1]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[11]' (FD) to 'a7ddrphy_bitslip0_r0_reg[11]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[11]' (FD) to 'a7ddrphy_bitslip1_r0_reg[9]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[3]' (FD) to 'a7ddrphy_bitslip0_r0_reg[3]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip0_r0_reg[3]' (FD) to 'a7ddrphy_bitslip1_r0_reg[1]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[10]' (FD) to 'a7ddrphy_bitslip0_r0_reg[10]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[2]' (FD) to 'a7ddrphy_bitslip0_r0_reg[2]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_dqspattern_o1_reg[1]' (FD) to 'sdram_cmd_payload_ba_reg[2]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[9]' (FD) to 'a7ddrphy_bitslip0_r0_reg[9]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[1]' (FD) to 'a7ddrphy_bitslip0_r0_reg[1]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip1_r0_reg[8]' (FD) to 'a7ddrphy_bitslip0_r0_reg[8]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_ba_reg[0]' (FD) to 'sdram_cmd_payload_ba_reg[2]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_ba_reg[1]' (FD) to 'sdram_cmd_payload_ba_reg[2]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\sdram_cmd_payload_ba_reg[2] )
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[0]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[1]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[2]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[3]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[4]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[5]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[6]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[7]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[8]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[9]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[11]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'sdram_cmd_payload_a_reg[12]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (sdram_sequencer_count_reg)
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[15]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[7]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[14]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[6]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[13]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[5]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[12]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip15_r0_reg[4]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[15]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[7]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[14]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[6]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[13]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[5]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[12]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip14_r0_reg[4]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[15]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[7]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[14]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[6]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[13]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[5]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[12]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip13_r0_reg[4]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[15]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[7]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[14]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[6]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[13]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[5]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[12]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip12_r0_reg[4]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[15]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[7]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[14]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[6]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[13]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[5]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[12]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip11_r0_reg[4]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip10_r0_reg[15]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip10_r0_reg[7]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip10_r0_reg[14]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip10_r0_reg[6]' (FD) to 'a7ddrphy_bitslip0_r2_reg[7]'
+INFO: [Synth 8-3886] merging instance 'a7ddrphy_bitslip10_r0_reg[13]' (FDR) to 'a7ddrphy_bitslip0_r2_reg[15]'
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\a7ddrphy_bitslip1_r1_reg[12] )
+INFO: [Synth 8-7067] Removed DRAM instance i_121/i_0/storage_12_reg_0_15_6_7 from module extram__60 due to constant propagation
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (serv_rf_top/\cpu/state/o_pending_irq_reg )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\a7ddrphy_bitslip0_r0_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\a7ddrphy_bitslip0_r0_reg[9] )

@@ -1,0 +1,417 @@
+xilinx rtfpga
+rt::do_reinfer_area_combined 1
+INFO: [Synth 8-5544] ROM "SevSegDec/seg" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "clkcnt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+DSP Report: Generating DSP myBuff/writeAddr, operation Mode is: C+A*(B:0x140).
+DSP Report: operator myBuff/writeAddr is absorbed into DSP myBuff/writeAddr.
+DSP Report: operator p_0_out is absorbed into DSP myBuff/writeAddr.
+DSP Report: Generating DSP myBuff/readAddr, operation Mode is: C+A2*(B:0x140).
+DSP Report: register myBuff/readAddr is absorbed into DSP myBuff/readAddr.
+DSP Report: operator myBuff/readAddr is absorbed into DSP myBuff/readAddr.
+DSP Report: operator myBuff/readAddr0 is absorbed into DSP myBuff/readAddr.
+INFO: [Synth 8-5544] ROM "clkcnt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "regs/receiver/toc_value" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "regs/receiver/" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "regs/receiver/toc_value" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "regs/receiver/" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "regs/trigger_level" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+WARNING: [Synth 8-7129] Port wb_sel_i[3] in module uart_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_sel_i[2] in module uart_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_sel_i[1] in module uart_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_sel_i[0] in module uart_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[15] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[14] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[13] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[12] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[11] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[10] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[9] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[8] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[7] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[6] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[5] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[1] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[0] in module ptc_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[31] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[30] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[29] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[28] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[27] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[26] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[25] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[24] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[23] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[22] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[21] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[20] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[19] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[18] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[17] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[16] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[15] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[14] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[13] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[12] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[11] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[10] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[9] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[8] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[7] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[6] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[1] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_adr_i[0] in module vgaTop is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[31] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[30] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[29] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[28] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[27] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[26] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[25] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[24] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[23] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[22] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[21] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[20] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[19] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[18] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[17] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[16] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[15] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[14] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[13] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[12] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[11] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[10] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[9] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[8] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[7] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[6] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[1] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port addrIn[0] in module registerFile is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_wb_adr[1] in module veerwolf_syscon is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_wb_adr[0] in module veerwolf_syscon is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_rst_i in module wb_mux is either unconnected or has no load
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_clk_reg' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/clk_s_reg' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module/sync_clk_reg' (FDC) to 'gpio_module/wb_err_o_reg'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[30]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[30]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[14]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[14]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[22]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[22]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[6]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[6]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[26]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[26]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[10]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[10]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[18]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[18]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[28]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[28]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[12]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[12]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[20]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[20]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[24]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[24]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[8]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[8]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[16]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[16]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[29]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[29]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[13]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[13]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[21]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[21]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[5]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[5]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[25]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[25]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[9]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[9]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[17]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[17]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[27]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[27]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[11]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[11]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[19]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[19]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[23]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[23]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[7]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[7]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[15]' (FDC) to 'gpio_module2/sync_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[15]' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/sync_reg[31]' (FDC) to 'gpio_module2/wb_err_o_reg'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__0' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__0' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__1' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__1' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__2' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__2' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__3' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__3' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__4' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__4' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__5' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__5' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__6' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__6' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__7' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__7' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__8' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__8' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__9' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_1__10'
+INFO: [Synth 8-3886] merging instance 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__9' (FD) to 'myVga/i_0/myBuff/frameBuffer_reg_mux_sel_b_pos_0__10'
+INFO: [Synth 8-3886] merging instance 'uart16550_0/regs/delayed_modem_signals_reg[2]' (FDC) to 'uart16550_0/regs/delayed_modem_signals_reg[3]'
+INFO: [Synth 8-3886] merging instance 'uart16550_0/regs/delayed_modem_signals_reg[0]' (FDC) to 'uart16550_0/regs/delayed_modem_signals_reg[3]'
+INFO: [Synth 8-3886] merging instance 'uart16550_0/regs/delayed_modem_signals_reg[1]' (FDC) to 'uart16550_0/regs/delayed_modem_signals_reg[3]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (spi2/\spcr_reg[4] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (spi/\spcr_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/wb_err_o_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/wb_err_o_reg)
+INFO: [Synth 8-3886] merging instance 'gpio_module/wb_err_o_reg' (FDC) to 'gpio_module/clk_s_reg'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/clk_s_reg)
+INFO: [Synth 8-3886] merging instance 'gpio_module/clk_r_reg' (FDC) to 'gpio_module/clk_s_reg'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/wb_err_o_reg' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\ext_pad_s_reg[31] )
+INFO: [Synth 8-3886] merging instance 'gpio_module2/clk_r_reg' (FDC) to 'gpio_module2/ext_pad_s_reg[31]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\ext_pad_s_reg[31] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/clk_s_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[16] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[16] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[17] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[17] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[18] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[18] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[19] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[19] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[20] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[20] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[21] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[21] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[22] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[22] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[23] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[23] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[24] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[24] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[25] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[25] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[26] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[26] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[27] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[27] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[28] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[28] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[29] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[29] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[30] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[30] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\pextc_sampled_reg[31] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module/\pextc_sampled_reg[31] )
+INFO: [Synth 8-3886] merging instance 'gpio_module2/rgpio_in_reg[5]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/ext_pad_s_reg[31]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[0]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[1]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[2]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[3]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[4]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[5]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[6]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[7]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[8]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[9]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[10]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[11]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Synth 8-3886] merging instance 'gpio_module2/pextc_sampled_reg[12]' (FDC) to 'gpio_module2/rgpio_in_reg[31]'
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gpio_module2/\rgpio_in_reg[31] )
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][31]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][30]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][29]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][28]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][27]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][26]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][25]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][24]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][23]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][22]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][21]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][20]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][19]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][18]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][17]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][16]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][15]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][14]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][13]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][12]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][11]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][10]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][9]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][8]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][7]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'ledPwm/myRegFile/registerFile_reg[1][6]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/pwm/pwm.sv:106]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][31]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][30]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][29]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][28]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][27]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][26]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][25]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][24]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][23]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][22]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][21]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][20]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][19]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][18]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][17]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][16]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][15]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][14]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][13]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'myVga/vgaRegFile/registerFile_reg[1][12]/Q' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_540/ece540sp26-Final_Project/Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/src/VeeRwolf/Peripherals/vga/vga.sv:41]
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__0) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__1) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__2) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__3) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__4) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__5) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__6) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__7) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__8) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__9) is unused and will be removed from module vgaTop.
+WARNING: [Synth 8-3332] Sequential element (myBuff/frameBuffer_reg_mux_sel_a_pos_1__10) is unused and will be removed from module vgaTop.

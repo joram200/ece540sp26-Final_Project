@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="bd_5d9f_0_util_vector_logic_0_0_synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1780859383">
-  <File Type="VDS-TIMINGSUMMARY" Name="bd_5d9f_0_util_vector_logic_0_0_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="bd_5d9f_0_util_vector_logic_0_0.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="bd_5d9f_0_util_vector_logic_0_0_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="bd_5d9f_0_util_vector_logic_0_0_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="bd_5d9f_0_util_vector_logic_0_0_drc_synth.rpt"/>
   <File Type="RDS-RDS" Name="bd_5d9f_0_util_vector_logic_0_0.vds"/>
   <File Type="REPORTS-TCL" Name="bd_5d9f_0_util_vector_logic_0_0_reports.tcl"/>
-  <File Type="VDS-TIMING-PB" Name="bd_5d9f_0_util_vector_logic_0_0_timing_summary_synth.pb"/>
   <File Type="PA-TCL" Name="bd_5d9f_0_util_vector_logic_0_0.tcl"/>
+  <File Type="RDS-UTIL" Name="bd_5d9f_0_util_vector_logic_0_0_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="bd_5d9f_0_util_vector_logic_0_0_utilization_synth.pb"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/bd_5d9f_0_util_vector_logic_0_0" RelGenDir="$PGENDIR/bd_5d9f_0_util_vector_logic_0_0">
     <File Path="$PGENDIR/sources_1/ip/axi_ethernet_0/bd_0/ip/ip_5/bd_5d9f_0_util_vector_logic_0_0.xci">
       <FileInfo>

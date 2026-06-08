@@ -1,0 +1,46 @@
+The path is wired correctly — until the very last hop
+
+  CPU access to 0x80040000–0x8007FFFF is decoded by the crossbar to slave port 2 (axi_intercon.sv:275), driven out the core's dedicated o_eth_* master, crossed to the 100 MHz domain by eth_cdc, and lands on ethernet_top's
+  AXI4‑Lite port. Address truncation eth_cdc_bus.aw_addr[17:0] is fine (0x8004000C → offset 0x0C, 0x80040404 → 0x404). So routing and addressing are correct.
+
+  The break is the 64‑bit ↔ 32‑bit data-width adaptation in rvfpganexys.sv. It is byte‑lane‑blind:
+
+  rvfpganexys.sv:135   assign eth_cdc_bus.r_data = {32'h0, eth_rdata_narrow};
+  rvfpganexys.sv:411     .s_axi_wdata  (eth_cdc_bus.w_data[31:0]),
+  rvfpganexys.sv:412     .s_axi_wstrb  (eth_cdc_bus.w_strb[3:0]),
+  rvfpganexys.sv:421     .s_axi_rdata  (eth_rdata_narrow),
+
+  This hardwires the MAC's 32 bits to the low word of the 64‑bit bus and ignores AXI address bit 2. But on a 64‑bit bus, a 32‑bit access chooses its lane from addr[2]:
+
+  ┌─────────┬───────────────────────────┬───────────────┐
+  │ addr[2] │     active byte lanes     │ data lives in │
+  ├─────────┼───────────────────────────┼───────────────┤
+  │ 0       │ wstrb[3:0] / wdata[31:0]  │ r_data[31:0]  │
+  ├─────────┼───────────────────────────┼───────────────┤
+  │ 1       │ wstrb[7:4] / wdata[63:32] │ r_data[63:32] │
+  └─────────┴───────────────────────────┴───────────────┘
+
+  Now look at every register the test app touches:
+
+  - ETH_IS = 0x...0C → addr[2] = 1 → high lane
+  - ETH_RCW1 = 0x...404 → addr[2] = 1 → high lane
+
+  The IP's register map is 4‑byte strided (IS @0x0C, IP @0x10, IE @0x14…), so consecutive registers alternate lanes. The adaptation only ever serves the low lane, so 100% of the app's accesses hit the wrong lane.
+
+Reads never return the real register. The MAC drives s_axi_rdata → r_data[31:0], but for these addresses the CPU samples r_data[63:32], which is tied to 32'h0. The app can never see RXCMPLT (bit 2) or RXRJECT (bit 3)
+
+The fix
+
+  Mux on addr[2] (the AR/AW address bit reaches ethernet_top already). Conceptually:
+
+  // write: pick the active 32-bit half
+  wire aw2 = eth_cdc_bus.aw_addr[2];
+  assign s_axi_wdata = aw2 ? eth_cdc_bus.w_data[63:32] : eth_cdc_bus.w_data[31:0];
+  assign s_axi_wstrb = aw2 ? eth_cdc_bus.w_strb[7:4]   : eth_cdc_bus.w_strb[3:0];
+
+  // read: place the MAC data in the half the master will sample (register ar[2]
+  // alongside the read response so it lines up with r_valid)
+  assign eth_cdc_bus.r_data = ar2_q ? {eth_rdata_narrow, 32'h0}
+                                     : {32'h0, eth_rdata_narrow};
+
+  A simpler, lane‑agnostic variant: replicate write data to both halves and OR the two strobe nibbles for the slave; replicate read data to both halves. The clean long‑term option is a proper AXI4‑Lite width converter (or Xilinx AXI Interconnect/SmartConnect) instead of hand‑wiring.
