@@ -132,6 +132,23 @@ set_property -dict { PACKAGE_PIN B8  IOSTANDARD LVCMOS33 } [get_ports { nINT }];
 
 set_property -dict { PACKAGE_PIN D5  IOSTANDARD LVCMOS33 } [get_ports { CLKIN }];
 
-# Ethernet RMII reference clock (50MHz from PHY)
+# Ethernet RMII reference clock (50 MHz from PHY on CLKIN)
 create_clock -add -name eth_rmii_clk -period 20.000 -waveform {0 10} [get_ports { CLKIN }];
-set_clock_groups -asynchronous -group [get_clocks sys_clk_pin] -group [get_clocks eth_rmii_clk];
+
+# MII RX/TX clocks are toggle FFs in rmii_phy_if driven by eth_rmii_clk (50 MHz),
+# producing 25 MHz. Defining them as generated clocks lets the MAC IP's
+# bd_5d9f_0_mac_0_clocks.xdc resolve $rx_clk/$ip_mii_tx_clk so that
+# set_input_delay on mii_rxd/mii_rx_dv/mii_rx_er is properly applied.
+create_generated_clock -name mii_rx_clk \
+    -source [get_pins { u_ethernet_top/u_rmii_phy_if/mac_mii_rxc_reg/C }] \
+    -divide_by 2 \
+    [get_pins { u_ethernet_top/u_rmii_phy_if/mac_mii_rxc_reg/Q }]
+
+create_generated_clock -name mii_tx_clk \
+    -source [get_pins { u_ethernet_top/u_rmii_phy_if/mac_mii_txc_reg/C }] \
+    -divide_by 2 \
+    [get_pins { u_ethernet_top/u_rmii_phy_if/mac_mii_txc_reg/Q }]
+
+set_clock_groups -asynchronous \
+    -group [get_clocks sys_clk_pin] \
+    -group [get_clocks { eth_rmii_clk mii_rx_clk mii_tx_clk }];
