@@ -21,6 +21,9 @@ set top  [get_property top  [current_fileset]]
 puts "INFO: top=$top  part=$part"
 
 # ---- Synthesis ---------------------------------------------------------------
+# Limit to 1 thread to avoid HARTS thread-manager crash (SIGABRT in
+# HARTSJobManager::thisThreadWaitForChildError) seen on this NTFS-mounted host.
+set_param general.maxThreads 1
 puts "INFO: synth_design ..."
 synth_design -top $top -part $part -flatten_hierarchy rebuilt
 

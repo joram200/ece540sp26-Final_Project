@@ -27,6 +27,8 @@ module clk_gen_nexys
    output wire     o_clk_core,
    output wire     o_clk_eth,
    output wire     o_clk_gtx,
+   output wire     o_clk_eth_ref,      // 50 MHz, 0 deg : RMII reference for rmii_phy_if
+   output wire     o_clk_eth_ref_phy,  // 50 MHz, 45 deg: forwarded out to PHY CLKIN pin
    output reg o_rst_core);
 
    wire   clkfb;
@@ -40,14 +42,17 @@ module clk_gen_nexys
        .CLKOUT0_DIVIDE(60),  // 100*15/60 = 25MHz core clock
        .CLKOUT1_DIVIDE(15),  // 100*15/15 = 100MHz eth clock
        .CLKOUT2_DIVIDE(12),  // 100*15/12 = 125MHz gtx clock
+       .CLKOUT3_DIVIDE(30),  // 100*15/30 = 50MHz RMII ref (0 deg)  -> rmii_phy_if
+       .CLKOUT4_DIVIDE(30),  // 100*15/30 = 50MHz RMII ref (45 deg) -> PHY CLKIN pin
+       .CLKOUT4_PHASE(45.0), // RMII RX-window skew per Digilent guidance (tune if needed)
        .DIVCLK_DIVIDE(1),
        .STARTUP_WAIT("FALSE"))
    PLLE2_BASE_inst
      (.CLKOUT0(o_clk_core),
       .CLKOUT1(o_clk_eth),
       .CLKOUT2(o_clk_gtx),
-      .CLKOUT3(),
-      .CLKOUT4(),
+      .CLKOUT3(o_clk_eth_ref),
+      .CLKOUT4(o_clk_eth_ref_phy),
       .CLKOUT5(),
       .CLKFBOUT(clkfb),
       .LOCKED(locked),

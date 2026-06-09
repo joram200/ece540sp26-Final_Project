@@ -61,7 +61,7 @@ module rvfpganexys
     input wire         i_accel_miso,
     output wire        accel_sclk,
     // Ethernet PHY (RMII)
-    input  wire        CLKIN,
+    output wire        CLKIN,      // 50 MHz RMII ref driven OUT to PHY (D5, REF_CLK-In mode)
     input  wire        CRS_DV,
     input  wire        RXD0,
     input  wire        RXD1,
@@ -89,6 +89,8 @@ module rvfpganexys
    wire    user_rst;
    wire    clk_eth;        // 100 MHz for AXI-Lite / AXIS clock domain
    wire    clk_gtx;        // 125 MHz GTX reference for axi_ethernet_0
+   wire    clk_eth_ref;     // 50 MHz, 0 deg : RMII reference into rmii_phy_if
+   wire    clk_eth_ref_phy; // 50 MHz, 45 deg: forwarded out to PHY on CLKIN (D5)
    // MDIO tristate signals
    wire    mdio_i, mdio_o, mdio_t;
    // 64-bit read-data wire: ethernet_top performs lane conversion internally
@@ -102,7 +104,26 @@ module rvfpganexys
       .o_clk_core (clk_core),
       .o_rst_core (rst_core),
       .o_clk_eth  (clk_eth),
-      .o_clk_gtx  (clk_gtx));
+      .o_clk_gtx  (clk_gtx),
+      .o_clk_eth_ref     (clk_eth_ref),
+      .o_clk_eth_ref_phy (clk_eth_ref_phy));
+
+   // Forward the 50 MHz RMII reference out to the LAN8720A CLKIN pin (D5).  The Nexys
+   // PHY is strapped in REF_CLK-In mode, so the FPGA must SOURCE this clock.  ODDR
+   // clock forwarding gives a clean, low-jitter output.  The forwarded copy is phase-
+   // shifted 45 deg (clk_eth_ref_phy) per the Digilent reference manual to center the
+   // RMII RX window; rmii_phy_if samples RXD on the 0 deg clk_eth_ref.
+   ODDR #(.DDR_CLK_EDGE ("SAME_EDGE"),
+          .INIT         (1'b0),
+          .SRTYPE       ("ASYNC"))
+   eth_refclk_oddr
+     (.Q  (CLKIN),
+      .C  (clk_eth_ref_phy),
+      .CE (1'b1),
+      .D1 (1'b1),
+      .D2 (1'b0),
+      .R  (1'b0),
+      .S  (1'b0));
 
    AXI_BUS #(32, 64, 6, 1) mem();
    AXI_BUS #(32, 64, 6, 1) cpu();
@@ -402,7 +423,7 @@ module rvfpganexys
       .s_axi_lite_clk    (clk_eth),
       .s_axi_lite_resetn (~user_rst),
       .gtx_clk           (clk_gtx),
-      .phy_rmii_ref_clk  (CLKIN),
+      .phy_rmii_ref_clk  (clk_eth_ref),
       // AXI4-Lite slave control (from eth_cdc_bus, 100 MHz domain)
       .s_axi_awaddr      (eth_cdc_bus.aw_addr[17:0]),
       .s_axi_awvalid     (eth_cdc_bus.aw_valid),
