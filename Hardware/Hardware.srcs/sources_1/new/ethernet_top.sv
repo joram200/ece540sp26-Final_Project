@@ -2,21 +2,26 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Company: Portland State Univeristy
 // Engineer: Jose Ramirez
-// 
+//
 // Create Date: 06/01/2026 10:25:34 PM
 // Design Name: Top module for Ethernet
 // Module Name: ethernet_top
 // Project Name: ECE 540 Spring 2026 Final Project
 // Target Devices: xc7a100tcsg324-1
 // Tool Versions: Vivado v2025.2
-// Description: 
-// 
+// Description:
+//
 // Dependencies: axi_ethernet_0.v, rmii_phy_if.v
-// 
+//
 // Revision: 1.0
 // Revision 0.01 - File Created
+// Revision 2.0 - Added 256x32 RX capture FIFO with AXI-Lite register interface.
+//                m_axis_rxd/rxs ports removed; RX stream is now captured internally.
+//                ETH_RXDATA  @ offset 0x1000 (pops one 32-bit word from FIFO)
+//                ETH_RXSTATUS@ offset 0x1008 (word count, frame count, empty/full)
+//
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -66,20 +71,6 @@ module ethernet_top (
     output wire        s_axis_txc_tready,
     input  wire        s_axis_txc_tvalid,
 
-    // ---- AXI-Stream RX Data  (Ethernet MAC -> DMA) -----------------------
-    output wire [31:0] m_axis_rxd_tdata,
-    output wire  [3:0] m_axis_rxd_tkeep,
-    output wire        m_axis_rxd_tlast,
-    input  wire        m_axis_rxd_tready,
-    output wire        m_axis_rxd_tvalid,
-
-    // ---- AXI-Stream RX Status  (Ethernet MAC -> DMA) ---------------------
-    output wire [31:0] m_axis_rxs_tdata,
-    output wire  [3:0] m_axis_rxs_tkeep,
-    output wire        m_axis_rxs_tlast,
-    input  wire        m_axis_rxs_tready,
-    output wire        m_axis_rxs_tvalid,
-
     // ---- RMII PHY Interface (external pins) ------------------------------
     input  wire        phy_rmii_crsdv,      // Carrier sense / RX data valid (muxed)
     input  wire        phy_rmii_rxer,       // RX error (optional on RMII)
@@ -127,11 +118,56 @@ module ethernet_top (
     wire        mii_rxrstn;   // inverted mac_mii_rxrst
     wire        mii_txrst;    // mac_mii_txrst -> drives ~axi_txd_arstn / ~axi_txc_arstn
     wire        mii_txrstn;   // inverted mac_mii_txrst
-    
+
     // Inverters for resets
     not (mii_rxrstn, mii_rxrst);
     not (mii_txrstn, mii_txrst);
-    
+
+    // =========================================================================
+    // Internal RX AXI-Stream wires (formerly external ports)
+    // These are captured by the FIFO below instead of being exported.
+    // =========================================================================
+    wire [31:0] rxd_tdata;
+    wire  [3:0] rxd_tkeep;
+    wire        rxd_tlast;
+    wire        rxd_tready;   // driven by ~fifo_full (backpressure)
+    wire        rxd_tvalid;
+
+    // RX status stream — accepted and discarded internally
+    wire [31:0] rxs_tdata;
+    wire  [3:0] rxs_tkeep;
+    wire        rxs_tlast;
+    wire        rxs_tvalid;
+
+    // =========================================================================
+    // AXI-Lite mux: split MAC register path from FIFO register path
+    //
+    // Address decode: s_axi_araddr[17:12] != 0 means offset >= 0x1000
+    //   Offset 0x1000 → ETH_RXDATA   (read pops one 32-bit word)
+    //   Offset 0x1008 → ETH_RXSTATUS (word count, frame count, empty, full)
+    //   Offset 0x000 .. 0xFFF → MAC AXI-Lite registers (forwarded as before)
+    //
+    // Write path: all writes forwarded to MAC unchanged (firmware does not write
+    // to FIFO register offsets; write path is not gated).
+    // =========================================================================
+
+    // Decode: is the incoming read address targeting the FIFO registers?
+    wire        fifo_sel_ar = (s_axi_araddr[17:12] != 6'h0);
+
+    // Internal wires for the MAC-side of the read channel
+    wire        mac_arvalid_i;    // arvalid gated to MAC (suppressed for FIFO reads)
+    wire        mac_arready_i;    // arready from MAC
+    wire        mac_rvalid_i;     // rvalid from MAC
+    wire  [1:0] mac_rresp_i;      // rresp from MAC
+    wire        mac_rready_i;     // rready to MAC (suppressed while FIFO response pending)
+    wire [31:0] mac_rdata_i;      // 32-bit rdata from MAC (before lane expansion)
+    wire [63:0] mac_rdata_wide_i; // 64-bit expanded rdata (from axi_lite_64to32)
+
+    // Gate MAC arvalid: do not forward FIFO-address reads to the MAC
+    assign mac_arvalid_i = s_axi_arvalid & ~fifo_sel_ar;
+    // Gate MAC rready: suppress while a FIFO response is being returned
+    assign mac_rready_i  = s_axi_rready & ~fifo_r_pending;
+
     // =========================================================================
     // AXI4-Lite 64->32 data-width converter
     // Converts the 64-bit CPU bus lanes to the 32-bit AXI4-Lite port that
@@ -141,7 +177,6 @@ module ethernet_top (
 
     wire [31:0] mac_wdata;
     wire  [3:0] mac_wstrb;
-    wire [31:0] mac_rdata;
 
     axi_lite_64to32 u_width_conv (
         .aclk       (s_axi_lite_clk),
@@ -158,14 +193,126 @@ module ethernet_top (
         .s_wstrb    (s_axi_wstrb),
         .m_wdata    (mac_wdata),
         .m_wstrb    (mac_wstrb),
-        // Read address channel observation
+        // Read address channel observation (uses mac_arvalid_i path)
         .s_araddr2  (s_axi_araddr[2]),
-        .s_arvalid  (s_axi_arvalid),
-        .m_arready  (s_axi_arready),
-        // 32->64 read conversion
-        .m_rdata    (mac_rdata),
-        .s_rdata    (s_axi_rdata)
+        .s_arvalid  (mac_arvalid_i),
+        .m_arready  (mac_arready_i),
+        // 32->64 read conversion (drives internal wire, not port directly)
+        .m_rdata    (mac_rdata_i),
+        .s_rdata    (mac_rdata_wide_i)
     );
+
+    // =========================================================================
+    // RX Capture FIFO (256 x 32-bit, synchronous, s_axi_lite_clk = 100 MHz)
+    // No CDC needed: MAC axis_clk is also s_axi_lite_clk.
+    // =========================================================================
+    localparam integer FIFO_DEPTH = 256;
+
+    reg [31:0] fifo_data [0:FIFO_DEPTH-1];
+    reg        fifo_last [0:FIFO_DEPTH-1]; // tlast tag per entry
+    reg  [7:0] fifo_wptr;
+    reg  [7:0] fifo_rptr;
+    reg  [8:0] fifo_count;   // 0 .. 256
+    reg  [7:0] fifo_frames;  // number of complete (tlast-terminated) frames in FIFO
+
+    wire fifo_empty = (fifo_count == 9'd0);
+    wire fifo_full  = (fifo_count == 9'd256);
+
+    // FIFO write: accept from MAC when not full; provides backpressure via rxd_tready
+    assign rxd_tready = ~fifo_full;
+    wire   fifo_wr    = rxd_tvalid & rxd_tready;
+
+    // FIFO read: pop occurs when a RXDATA read completes
+    wire   fifo_rd_en = fifo_r_pending & fifo_r_is_data & s_axi_rready & ~fifo_empty;
+
+    always @(posedge s_axi_lite_clk) begin
+        if (fifo_wr) begin
+            fifo_data[fifo_wptr] <= rxd_tdata;
+            fifo_last[fifo_wptr] <= rxd_tlast;
+            fifo_wptr            <= fifo_wptr + 8'd1;
+        end
+    end
+
+    // FIFO word count
+    always @(posedge s_axi_lite_clk or negedge s_axi_lite_resetn) begin
+        if (~s_axi_lite_resetn)
+            fifo_count <= 9'd0;
+        else
+            case ({fifo_wr, fifo_rd_en})
+                2'b10: fifo_count <= fifo_count + 9'd1;
+                2'b01: fifo_count <= fifo_count - 9'd1;
+                default: ;
+            endcase
+    end
+
+    // Frame counter: increment when tlast written, decrement when tlast read out
+    always @(posedge s_axi_lite_clk or negedge s_axi_lite_resetn) begin
+        if (~s_axi_lite_resetn) begin
+            fifo_frames <= 8'd0;
+        end else begin
+            if ((fifo_wr & rxd_tlast) & ~(fifo_rd_en & fifo_last[fifo_rptr]))
+                fifo_frames <= fifo_frames + 8'd1;
+            else if (~(fifo_wr & rxd_tlast) & (fifo_rd_en & fifo_last[fifo_rptr]))
+                fifo_frames <= fifo_frames - 8'd1;
+        end
+    end
+
+    // =========================================================================
+    // FIFO AXI-Lite read register interface
+    // Accepts AR immediately (arready = 1) when FIFO selected and not busy.
+    // Returns R data one cycle later (fifo_r_pending = 1 asserts rvalid).
+    // =========================================================================
+    reg fifo_r_pending;  // 1 = FIFO R response outstanding
+    reg fifo_r_is_data;  // 1 = RXDATA read (pops FIFO), 0 = RXSTATUS (no pop)
+
+    // FIFO arready: accept AR immediately when not already serving a FIFO read
+    wire fifo_arready = fifo_sel_ar & ~fifo_r_pending;
+
+    always @(posedge s_axi_lite_clk or negedge s_axi_lite_resetn) begin
+        if (~s_axi_lite_resetn) begin
+            fifo_r_pending <= 1'b0;
+            fifo_r_is_data <= 1'b0;
+            fifo_rptr      <= 8'd0;
+        end else begin
+            // Accept FIFO AR handshake
+            if (fifo_arready & s_axi_arvalid) begin
+                fifo_r_pending <= 1'b1;
+                // Offset 0x1000: addr[11:0] = 12'h000 → RXDATA (pop)
+                // Offset 0x1008: addr[11:0] = 12'h008 → RXSTATUS (no pop)
+                fifo_r_is_data <= (s_axi_araddr[11:0] == 12'h000);
+            end
+            // Complete FIFO R when master accepts the data
+            if (fifo_r_pending & s_axi_rready) begin
+                fifo_r_pending <= 1'b0;
+                if (fifo_r_is_data & ~fifo_empty)
+                    fifo_rptr <= fifo_rptr + 8'd1; // advance read pointer
+            end
+        end
+    end
+
+    // FIFO read data, 32-bit:
+    //   RXDATA   → head of FIFO (or 0xDEADBEEF if empty)
+    //   RXSTATUS → {frame_count[7:0], 6'h0, word_count[8:0], last_flag, full, empty}
+    wire [31:0] fifo_rdata_32 = fifo_r_is_data ?
+        (fifo_empty ? 32'hDEAD_BEEF : fifo_data[fifo_rptr]) :
+        {fifo_frames,               // [31:24] complete frame count
+         6'h0,                      // [23:18] reserved
+         fifo_count,                // [17:9]  word count (9 bits)
+         fifo_last[fifo_rptr],      // [8]     tlast flag of current head word
+         6'h0,                      // [7:2]   reserved
+         fifo_full,                 // [1]     FIFO full
+         fifo_empty};               // [0]     FIFO empty
+
+    // Expand to 64-bit: data in lower 32 bits (addr[2]=0 for both 0x1000 and 0x1008)
+    wire [63:0] fifo_rdata_wide = {32'h0, fifo_rdata_32};
+
+    // =========================================================================
+    // AXI-Lite output MUX: FIFO responses take priority when fifo_r_pending
+    // =========================================================================
+    assign s_axi_arready = fifo_sel_ar    ? fifo_arready    : mac_arready_i;
+    assign s_axi_rvalid  = fifo_r_pending ? 1'b1            : mac_rvalid_i;
+    assign s_axi_rdata   = fifo_r_pending ? fifo_rdata_wide : mac_rdata_wide_i;
+    assign s_axi_rresp   = fifo_r_pending ? 2'b00           : mac_rresp_i;  // OKAY for FIFO
 
     // =========================================================================
     // Instantiations of the AXI Ethernet Subsystem and MII-to-RMII modules
@@ -194,13 +341,14 @@ module ethernet_top (
         .s_axi_bresp        (s_axi_bresp),
         .s_axi_bvalid       (s_axi_bvalid),
         .s_axi_bready       (s_axi_bready),
+        // Read channel: gated arvalid, internal arready/rvalid/rresp/rdata
         .s_axi_araddr       (s_axi_araddr),
-        .s_axi_arvalid      (s_axi_arvalid),
-        .s_axi_arready      (s_axi_arready),
-        .s_axi_rdata        (mac_rdata),
-        .s_axi_rresp        (s_axi_rresp),
-        .s_axi_rvalid       (s_axi_rvalid),
-        .s_axi_rready       (s_axi_rready),
+        .s_axi_arvalid      (mac_arvalid_i),
+        .s_axi_arready      (mac_arready_i),
+        .s_axi_rdata        (mac_rdata_i),
+        .s_axi_rresp        (mac_rresp_i),
+        .s_axi_rvalid       (mac_rvalid_i),
+        .s_axi_rready       (mac_rready_i),
         // AXI-Stream TX data
         .s_axis_txd_tdata   (s_axis_txd_tdata),
         .s_axis_txd_tkeep   (s_axis_txd_tkeep),
@@ -213,18 +361,18 @@ module ethernet_top (
         .s_axis_txc_tlast   (s_axis_txc_tlast),
         .s_axis_txc_tready  (s_axis_txc_tready),
         .s_axis_txc_tvalid  (s_axis_txc_tvalid),
-        // AXI-Stream RX data
-        .m_axis_rxd_tdata   (m_axis_rxd_tdata),
-        .m_axis_rxd_tkeep   (m_axis_rxd_tkeep),
-        .m_axis_rxd_tlast   (m_axis_rxd_tlast),
-        .m_axis_rxd_tready  (m_axis_rxd_tready),
-        .m_axis_rxd_tvalid  (m_axis_rxd_tvalid),
-        // AXI-Stream RX status
-        .m_axis_rxs_tdata   (m_axis_rxs_tdata),
-        .m_axis_rxs_tkeep   (m_axis_rxs_tkeep),
-        .m_axis_rxs_tlast   (m_axis_rxs_tlast),
-        .m_axis_rxs_tready  (m_axis_rxs_tready),
-        .m_axis_rxs_tvalid  (m_axis_rxs_tvalid),
+        // AXI-Stream RX data → captured by internal FIFO
+        .m_axis_rxd_tdata   (rxd_tdata),
+        .m_axis_rxd_tkeep   (rxd_tkeep),
+        .m_axis_rxd_tlast   (rxd_tlast),
+        .m_axis_rxd_tready  (rxd_tready),   // backpressure from FIFO
+        .m_axis_rxd_tvalid  (rxd_tvalid),
+        // AXI-Stream RX status → accepted and discarded
+        .m_axis_rxs_tdata   (rxs_tdata),
+        .m_axis_rxs_tkeep   (rxs_tkeep),
+        .m_axis_rxs_tlast   (rxs_tlast),
+        .m_axis_rxs_tready  (1'b1),         // always drain
+        .m_axis_rxs_tvalid  (rxs_tvalid),
         // MII interface -> connects to rmii_phy_if mac_mii_* wires
         .mii_rx_clk         (mii_rx_clk),
         .mii_rx_dv          (mii_rx_dv),

@@ -451,9 +451,7 @@ module rvfpganexys
       .s_axis_txc_tkeep  (4'd0),
       .s_axis_txc_tlast  (1'b0),
       .s_axis_txc_tvalid (1'b0),
-      // AXI-Stream RX (drop received frames — no DMA yet)
-      .m_axis_rxd_tready (1'b1),
-      .m_axis_rxs_tready (1'b1),
+      // AXI-Stream RX captured internally by ethernet_top FIFO (no external ports)
       // RMII PHY interface
       .phy_rmii_crsdv    (CRS_DV),
       .phy_rmii_rxd      ({RXD1, RXD0}),
