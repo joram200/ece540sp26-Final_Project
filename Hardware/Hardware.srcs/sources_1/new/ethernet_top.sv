@@ -225,8 +225,10 @@ module ethernet_top (
     // FIFO read: pop occurs when a RXDATA read completes
     wire   fifo_rd_en = fifo_r_pending & fifo_r_is_data & s_axi_rready & ~fifo_empty;
 
-    always @(posedge s_axi_lite_clk) begin
-        if (fifo_wr) begin
+    always @(posedge s_axi_lite_clk or negedge s_axi_lite_resetn) begin
+        if (~s_axi_lite_resetn) begin
+            fifo_wptr <= 8'd0;
+        end else if (fifo_wr) begin
             fifo_data[fifo_wptr] <= rxd_tdata;
             fifo_last[fifo_wptr] <= rxd_tlast;
             fifo_wptr            <= fifo_wptr + 8'd1;
@@ -328,8 +330,8 @@ module ethernet_top (
         // AXI-Stream resets (active-low); driven by inverted MII reset strobes
         .axi_txd_arstn      (mii_txrstn),
         .axi_txc_arstn      (mii_txrstn),
-        .axi_rxd_arstn      (mii_rxrstn),
-        .axi_rxs_arstn      (mii_rxrstn),
+        .axi_rxd_arstn      (s_axi_lite_resetn),
+        .axi_rxs_arstn      (s_axi_lite_resetn),
         // AXI4-Lite slave control interface
         .s_axi_awaddr       (s_axi_awaddr),
         .s_axi_awvalid      (s_axi_awvalid),
