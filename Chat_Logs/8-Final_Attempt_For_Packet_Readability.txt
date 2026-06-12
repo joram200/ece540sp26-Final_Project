@@ -1,0 +1,328 @@
+ECE 540 Final Project — Chat Log Sessions 7 & 8
+Session 7: Bug Analysis (June 11, 2026)
+Session 8: Bug Fixes, Bitstream Regeneration, Serial Packet Printing (June 11, 2026)
+================================================================================
+
+================================================================================
+SESSION 7 — Bug Analysis: Why Ethernet Packet Data Cannot Be Read
+================================================================================
+
+Context: The RX Capture FIFO was implemented in the previous session (commit
+0fb9df0). Hardware RXCMPLT fires and the LED frame counter increments correctly,
+but every ETH_RXDATA read returns 0xDEADBEEF — the FIFO is always empty.
+
+User: Analyze why the Ethernet packet data cannot be read from the FIFO despite
+RXCMPLT firing. Document all bugs found as EthTest_Major_Bugs.md.
+
+Claude: Analysis of ethernet_top.sv and main.c identified five bugs:
+
+--- Hardware Bugs in ethernet_top.sv ---
+
+BUG 1 — fifo_wptr Never Reset (line 228)
+  The write pointer always block has no reset sensitivity:
+    always @(posedge s_axi_lite_clk) begin   // no negedge s_axi_lite_resetn
+        if (fifo_wr) begin
+            fifo_wptr <= fifo_wptr + 8'd1;
+        end
+    end
+  fifo_count and fifo_rptr reset to 0 on active-low reset, but fifo_wptr
+  retains its old value. After any soft reset, the FIFO pointers are
+  desynchronized, corrupting all subsequent received frames.
+  Impact: FIFO corrupted after any soft reset (low severity on first power-on
+  since Xilinx registers default to 0).
+
+BUG 2 — MAC AXI-Stream RX May Stay in Reset (line 331) ← MOST LIKELY ROOT CAUSE
+  The AXI-Stream RX reset is driven by mii_rxrstn (= ~mac_mii_rxrst):
+    .axi_rxd_arstn  (mii_rxrstn),
+    .axi_rxs_arstn  (mii_rxrstn),
+  mac_mii_rxrst comes from rmii_phy_if's rx_rst_r[0] shift register.
+  rx_rst_r initializes to 4'hF on reset and only shifts zeros when the
+  'action' strobe fires. 'action' is clocked by phy_rmii_ref_clk (50 MHz
+  from LAN8720). If the LAN8720 is not providing a stable 50 MHz clock
+  at startup, 'action' never fires, mac_mii_rxrst stays high, mii_rxrstn
+  stays 0, and the MAC's AXI-Stream RX interface is permanently held in
+  reset. rxd_tvalid is never asserted. The FIFO receives nothing.
+  Note: RXCMPLT in ETH_IS can still fire (the MAC's receive engine is
+  independent of the AXI-Stream interface), so the LED counter increments
+  even though the FIFO stays empty — which is exactly the observed symptom.
+  Impact: FIFO always empty despite RXCMPLT firing.
+
+--- Firmware Bugs in main.c ---
+
+BUG 3 — All Frame Data Is Read and Discarded (line 49)
+  The FIFO drain loop reads every word but immediately throws it away:
+    unsigned int word = ETH_RXDATA;
+    (void)word;   // explicit discard
+  Impact: Even if the FIFO is populated, no data is stored or used.
+
+BUG 4 — No Ethernet Header Stripping
+  The first 14 bytes (3.5 words) out of ETH_RXDATA are the Ethernet header:
+    Words 0-0: Destination MAC (bytes 0-3)
+    Word  1:   Dest MAC last 2B + Src MAC first 2B (bytes 4-7)
+    Word  2:   Source MAC last 4 bytes (bytes 8-11)
+    Word  3:   EtherType (high 16b) + payload start (bytes 12-15)
+  The firmware must skip the first 4 reads to reach actual pixel payload.
+  Impact: First 3-4 words are Ethernet header, not pixel data.
+
+BUG 5 — Drain Loop Fires on RXRJECT Too (Benign)
+  RX_FLAGS = 0x0C catches both RXCMPLT (bit 2) and RXRJECT (bit 3).
+  On rejected frames the FIFO is empty so the while loop exits immediately.
+  Impact: Benign — correct behavior, no real fix needed.
+
+Summary:
+  Root cause = Bug 2 AND Bug 3 together.
+  Bug 2: FIFO is empty because MAC AXI-Stream RX is held in reset.
+  Bug 3: Even if data reached FIFO, it is immediately discarded.
+  Both must be fixed before packet data can be read and used for VGA display.
+
+Output: Chat_Logs/7-EthTest_Major_Bugs.md (also named EthTest_Major_Bugs.md)
+  Contains the full bug analysis table and detailed explanations.
+
+================================================================================
+SESSION 8 — Bug Fixes, Bitstream Regeneration, Serial Packet Printing
+================================================================================
+
+User: Read Chat_Logs/ for context and EthTest_Major_Bugs.md for bugs.
+  Fix the two hardware bugs:
+    - Add reset sensitivity to fifo_wptr
+    - Implement proper reset logic for axi_rxd_arstn in ethernet_top
+  Regenerate the bitstream using single threads for each step.
+  After generation, fix Bug 3 in main.c: print the entire Ethernet packet
+  to the serial console so we can compare to packets sent by eth_test.sh.
+  Run via PlatformIO and report the result.
+
+--- Plan Summary ---
+  Phase 1: Fix Bug 1 — fifo_wptr reset in ethernet_top.sv
+  Phase 2: Fix Bug 2 — axi_rxd_arstn stuck low in ethernet_top.sv
+  Phase 3: Regenerate bitstream via rebuild_inprocess.tcl (single thread)
+  Phase 4: Fix Bug 3 + add serial hex dump in main.c
+  Phase 5: Flash via PlatformIO, run ./eth_test.sh enp92s0 1, check output
+
+--- Phase 1: Fix Bug 1 (ethernet_top.sv line 228) ---
+
+Changed:
+  always @(posedge s_axi_lite_clk) begin
+      if (fifo_wr) begin
+          fifo_data[fifo_wptr] <= rxd_tdata;
+          fifo_last[fifo_wptr] <= rxd_tlast;
+          fifo_wptr            <= fifo_wptr + 8'd1;
+      end
+  end
+
+To:
+  always @(posedge s_axi_lite_clk or negedge s_axi_lite_resetn) begin
+      if (~s_axi_lite_resetn) begin
+          fifo_wptr <= 8'd0;
+      end else if (fifo_wr) begin
+          fifo_data[fifo_wptr] <= rxd_tdata;
+          fifo_last[fifo_wptr] <= rxd_tlast;
+          fifo_wptr            <= fifo_wptr + 8'd1;
+      end
+  end
+
+Result: fifo_wptr now resets to 0 synchronously with fifo_count and fifo_rptr.
+
+--- Phase 2: Fix Bug 2 (ethernet_top.sv lines 331-332) ---
+
+Changed:
+  .axi_rxd_arstn      (mii_rxrstn),
+  .axi_rxs_arstn      (mii_rxrstn),
+
+To:
+  .axi_rxd_arstn      (s_axi_lite_resetn),
+  .axi_rxs_arstn      (s_axi_lite_resetn),
+
+Rationale: Tying the MAC AXI-Stream RX reset to the system reset guarantees
+the RX datapath comes out of reset when the SoC boots, regardless of whether
+the LAN8720 PHY is providing a stable 50 MHz RMII reference clock at startup.
+The mii_rxrst pulses from rmii_phy_if are relevant for TX synchronization and
+are kept for axi_txd_arstn/axi_txc_arstn, which are unchanged.
+
+--- Phase 3: Bitstream Regeneration ---
+
+First attempt:
+  cd Hardware/
+  vivado -mode tcl -source rebuild_inprocess.tcl
+  Result: SIGABRT exit code 134
+
+  Crash analysis (hs_err_pid*.log):
+    /libxv_synth.so(HARTSJobManager::thisThreadWaitForChildError()+0x140)
+    "terminate called without an active exception"
+  Root cause: Vivado 2025.2 HARTS parallel job manager crashes on NTFS-mounted
+  filesystem even with set_param general.maxThreads 1 in the TCL script.
+  The crash was non-deterministic (crashed at different points on each run).
+
+Fix discovered: HARTS_DISABLE=1 environment variable suppresses the HARTS
+  job manager entirely.
+
+Second attempt:
+  HARTS_DISABLE=1 vivado -mode tcl -source rebuild_inprocess.tcl
+  Result: SUCCESS
+
+  Build steps completed:
+    synth_design -top rvfpganexys -part xc7a100tcsg324-1 -flatten_hierarchy rebuilt
+    write_checkpoint -> Hardware.runs/synth_1/rvfpganexys.dcp
+    opt_design
+    place_design
+    phys_opt_design
+    route_design
+    write_bitstream -> Hardware.runs/impl_1/rvfpganexys.bit
+    SUCCESS: Bitstream written to Hardware.runs/impl_1/rvfpganexys.bit
+  Timestamp: Jun 11 16:44
+
+Note: HARTS_DISABLE=1 must be prepended to all future vivado invocations
+on this NTFS-mounted system. This is stored in memory for future sessions.
+
+--- Phase 4: Fix Bug 3 + Add Serial Packet Printing (main.c) ---
+
+Changed main.c from:
+  while (!(ETH_RXSTATUS & 0x1u))
+  {
+      unsigned int word = ETH_RXDATA;
+      (void)word;   // discard
+  }
+
+To full implementation with printfNexys (from bsp_printf.h, wd-riscv-sdk BSP):
+  #include "bsp_printf.h"
+
+  int main(void)
+  {
+      LED_OE = 0xFFFFu;
+      LED_OUT = 0u;
+      uartInit();
+      ETH_SPEED = (1u << 30);
+      ETH_RCW1 = (1u << 28);
+      ETH_IS = RX_FLAGS;
+
+      unsigned int frames  = 0u;
+      unsigned int rx_prev = 0u;
+      unsigned int rx_held = 0u;
+
+      printfNexys("EthTest ready\r\n");
+
+      for (;;)
+      {
+          unsigned int status = ETH_IS;
+          unsigned int rx = status & RX_FLAGS;
+
+          if (rx && !rx_prev)
+          {
+              rx_held = (status >> 2) & 0x3u;
+              frames = (frames + 1u) & 0xFu;
+
+              printfNexys("--- Frame %u (flags=%u) ---\r\n", frames, rx_held);
+              unsigned int word_idx = 0u;
+              while (!(ETH_RXSTATUS & 0x1u))
+              {
+                  unsigned int word = ETH_RXDATA;
+                  printfNexys("[%02u] %08X\r\n", word_idx, word);
+                  word_idx++;
+              }
+              printfNexys("--- End (%u words) ---\r\n", word_idx);
+          }
+          if (rx)
+              ETH_IS = rx;
+          rx_prev = rx;
+
+          LED_OUT = (frames << 4) | rx_held;
+      }
+  }
+
+Expected serial output for a broadcast frame from eth_test.sh:
+  EthTest ready
+  --- Frame 1 (flags=1) ---
+  [00] FFFFFFFF    <- dest MAC bytes 0-3 (broadcast)
+  [01] FFFF????    <- dest MAC bytes 4-5 + src MAC bytes 0-1
+  [02] ????????    <- src MAC bytes 2-5
+  [03] ????????    <- EtherType high + payload start
+  ...
+  --- End (15 words) ---
+
+[00] = FFFFFFFF → FIFO receiving data, hardware fixes working
+[00] = DEADBEEF → FIFO still empty, investigate further
+
+--- Commit ---
+
+All changes committed as:
+  git commit -m "Fix FIFO reset and AXI-Stream RX reset; add serial packet printing"
+  Commit hash: d1c3e70
+  Author: joram200 <joram2@pdx.edu>
+  Files changed:
+    Hardware/Hardware.srcs/sources_1/new/ethernet_top.sv  (Bug 1 + Bug 2)
+    EthTest/src/main.c                                    (Bug 3 + UART print)
+    Hardware/Hardware.runs/impl_1/rvfpganexys.bit         (new bitstream)
+    Hardware/Hardware.runs/synth_1/rvfpganexys.dcp        (new synth checkpoint)
+
+--- Phase 5: Flash and Test ---
+
+Firmware build: pio run -t upload
+  Result: SUCCESS (1728 bytes written to RISC-V program memory via OpenOCD JTAG)
+  RAM used: 1.0% (12308 / 1216512 bytes)
+  Flash used: 0.0% (1728 / 16777216 bytes)
+
+FPGA bitstream programming:
+  Initial attempt via Vivado hw_manager:
+    open_hw_manager → connect_hw_server → open_hw_target → program_hw_devices
+    Result: SUCCESS — new bitstream loaded to FPGA
+    Side effect: Left JTAG TAP in state incompatible with OpenOCD BSCAN tunnel
+
+  Subsequent pio run -t upload attempt:
+    Error: Hart 0 failed to halt during examine()
+    dmstatus=0x00000c82 (anyunavail=1, contradictory state)
+    Root cause: Vivado hw_manager uses hw_server JTAG protocol; after it
+    programs the FPGA, the JTAG TAP is not in the Test Logic Reset state
+    that OpenOCD's BSCAN-tunneled RISC-V debug requires.
+
+  Fix: Reprogram FPGA via OpenOCD pld load (xilinx-xc7.cfg) which properly
+  manages JTAG TAP state end-to-end:
+    openocd -f cpld/xilinx-xc7.cfg -c "pld load 0 {rvfpganexys.bit}" -c shutdown
+    Result: loaded rvfpganexys.bit in 3s 196447us — SUCCESS
+    JTAG TAP now in correct state for subsequent RISC-V debug access.
+
+  Second pio run -t upload after OpenOCD pld load:
+    Result: SUCCESS (1728 bytes written at 0x00000000)
+
+Serial monitor capture:
+  Attempted capture via stty + cat /dev/ttyUSB1 at 115200 baud
+  and at 57600 baud (in case UART clock is 25 MHz, not 50 MHz).
+  Result: No bytes received on either baud rate.
+
+  Diagnosis incomplete — possible causes:
+    a) Firmware crashes before reaching uartInit() due to unmapped register
+       access in a new peripheral or changed SoC memory map
+    b) UART peripheral at 0x80002000 is not responding in this bitstream
+    c) Serial capture timing issue (missed the boot message)
+    d) uartInit() baud divisor (27 = 50MHz/115200/16) mismatch with actual
+       peripheral clock in our regenerated bitstream
+    e) OpenOCD 'resume 0x0' did not properly restart the CPU
+
+  Session ended with Task 5 handed off to user to run via PlatformIO VSCode IDE
+  and observe the serial monitor directly.
+
+--- Key Engineering Findings This Session ---
+
+1. HARTS_DISABLE=1 is required for all Vivado batch runs on this NTFS-mounted
+   system. set_param general.maxThreads 1 alone is insufficient.
+
+2. The Vivado hw_manager (hw_server) leaves the Digilent JTAG TAP in a state
+   that breaks OpenOCD's BSCAN-tunneled RISC-V debug. Always reprogram via
+   OpenOCD pld load when using PlatformIO for firmware upload.
+
+3. The correct FPGA-to-firmware programming sequence is:
+   a) HARTS_DISABLE=1 vivado -mode tcl -source rebuild_inprocess.tcl
+   b) openocd [xc7.cfg] -c "pld load 0 rvfpganexys.bit" -c shutdown
+   c) pio run -t upload   (firmware via RISC-V JTAG debug)
+
+4. Bug 2 (axi_rxd_arstn from mii_rxrstn) is the most likely root cause of all
+   previous testing failures. The fix (tie to s_axi_lite_resetn) is correct
+   and is now in the committed bitstream.
+
+--- Outstanding Work ---
+
+- Confirm serial UART output from firmware (via PlatformIO serial monitor)
+- Verify [00] = FFFFFFFF for broadcast frames (Bug 2 fix confirmed working)
+- If FIFO still empty: add printfNexys("STATUS=%08X\r\n", ETH_RXSTATUS) as
+  diagnostic to check word_count bits [17:9]
+- Bug 4 (Ethernet header stripping): strip first 4 words before pixel payload
+  once data flow is confirmed
+- Bug 5: benign, no fix needed

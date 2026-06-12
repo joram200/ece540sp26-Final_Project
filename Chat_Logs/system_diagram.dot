@@ -1,0 +1,94 @@
+digraph ethernet_top_soc {
+    graph [
+        rankdir=TB
+        fontname="Helvetica"
+        fontsize=11
+        splines=polyline
+        nodesep=0.6
+        ranksep=0.7
+        bgcolor="white"
+        label="EthTest System Architecture — Nexys A7 (xc7a100t)"
+        labelloc=t
+        labeljust=c
+        fontsize=14
+    ]
+    node [fontname="Helvetica" fontsize=10 shape=box style="filled,rounded" fillcolor="#DDEEFF" color="#336699" penwidth=1.5]
+    edge [fontname="Helvetica" fontsize=9 color="#444444"]
+
+    /* ── Clock generator ───────────────────────────────────────────── */
+    PLLE2 [label="clk_gen_nexys\nPLLE2_BASE PLL\n────────────────────────\n100 MHz in → 25 MHz  clk_core\n              100 MHz clk_eth\n              125 MHz clk_gtx\n               50 MHz clk_eth_ref  (0°)\n               50 MHz clk_eth_ref_phy (45°)"
+           fillcolor="#E8F4E8" shape=box]
+
+    ODDR [label="ODDR\nClock Forwarding\nclk_eth_ref_phy 50 MHz 45°\n→ CLKIN output pin"
+          fillcolor="#E8F4E8"]
+
+    /* ── CPU ────────────────────────────────────────────────────────── */
+    CPU [label="VeeR EL2 RISC-V Core\nclk_core — 25 MHz"
+         fillcolor="#FFF3CD"]
+
+    /* ── AXI Crossbar ──────────────────────────────────────────────── */
+    XBAR [label="AXI Crossbar  (axi_intercon)\n────────────────────────────────\n0x00000000–0x07FFFFFF → DDR2 SDRAM\n0x80000000–0x80003FFF → Peripherals\n0x80040000–0x8007FFFF → Ethernet"
+          fillcolor="#FFF3CD"]
+
+    /* ── AXI CDC ────────────────────────────────────────────────────── */
+    CDC [label="AXI CDC Bridge\nclk_core 25 MHz → clk_eth 100 MHz"
+         fillcolor="#F5E6FF"]
+
+    /* ── ethernet_top cluster ──────────────────────────────────────── */
+    subgraph cluster_ethtop {
+        label="ethernet_top   (clk_eth — 100 MHz)"
+        style="filled,rounded"
+        fillcolor="#EEF6FF"
+        color="#336699"
+        penwidth=2
+        fontsize=11
+        fontname="Helvetica Bold"
+
+        W64 [label="axi_lite_64to32\n64-bit CPU bus → 32-bit MAC AXI-Lite\nSelects lane via addr[2]"
+             fillcolor="#DDEEFF"]
+
+        MAC [label="axi_ethernet_0\nXilinx AXI Ethernet MAC\n────────────────────────────\nMII mode | SupportLevel=1\nAXI-Lite control (offsets 0x000–0x7FC)\nAXI-Stream RX output (m_axis_rxd)\nAXI-Stream TX input  (s_axis_txd)\nMDIO management interface"
+             fillcolor="#DDEEFF"]
+
+        FIFO [label="RX Capture FIFO  — 256 × 32-bit\n────────────────────────────────\nrxd_tready = ~fifo_full (backpressure)\nETH_RXDATA   @ offset 0x1000  (pop)\nETH_RXSTATUS @ offset 0x1008  (status)"
+              fillcolor="#D6EAF8"]
+
+        RMII [label="rmii_phy_if\nMII ↔ RMII Bridge\n────────────────────────────\nClocked by clk_eth_ref 50 MHz 0°\nGenerates mii_rxc/txc (25 MHz toggle)\nDecodes CRS_DV per RMII spec"
+              fillcolor="#DDEEFF"]
+
+        /* internal edges */
+        W64 -> MAC [label="32-bit AXI-Lite\noffsets 0x000–0x7FC" dir=both]
+        W64 -> FIFO [label="FIFO register reads\noffsets 0x1000/0x1008" dir=both]
+        MAC -> FIFO [label="m_axis_rxd\nAXI-Stream 32-bit words\n+ tlast frame boundary"]
+        MAC -> RMII [label="MII 4-bit nibbles 25 MHz\nmii_rxd/dv/er, mii_txd/en/clk" dir=both]
+    }
+
+    /* ── External devices ───────────────────────────────────────────── */
+    PHY [label="LAN8720A Ethernet PHY\nRMII 100/10 Mbps | REF_CLK-In mode"
+         fillcolor="#FFE8CC" shape=box style="filled,rounded"]
+
+    RJ45 [label="RJ45 Jack\n100Base-TX"
+          fillcolor="#F0F0F0" shape=box style="filled,rounded"]
+
+    DDR2 [label="DDR2 SDRAM\n128 MB"
+          fillcolor="#F0F0F0"]
+
+    PERIPH [label="Peripherals\nGPIO, UART, Timers\n0x80000000–0x80003FFF"
+            fillcolor="#F0F0F0"]
+
+    /* ── Top-level edges ────────────────────────────────────────────── */
+    PLLE2 -> ODDR [label="clk_eth_ref_phy\n50 MHz 45°"]
+    PLLE2 -> RMII [label="clk_eth_ref\n50 MHz 0°"]
+    PLLE2 -> MAC  [label="clk_gtx\n125 MHz"]
+    PLLE2 -> CPU  [label="clk_core\n25 MHz"]
+
+    CPU -> XBAR [label="AXI4 64-bit / 32-bit addr" dir=both]
+    XBAR -> CDC [label="eth_cpu AXI bus\nclk_core domain" dir=both]
+    XBAR -> DDR2 [label="AXI4" dir=both]
+    XBAR -> PERIPH [label="AXI4-Lite" dir=both]
+    CDC -> W64 [label="eth_cdc_bus AXI4 64-bit\nclk_eth domain" dir=both]
+
+    ODDR -> PHY [label="CLKIN 50 MHz ref"]
+    RMII -> PHY [label="RMII signals\nCRS_DV, RXD[1:0], RXERR\nTXEN, TXD[1:0]" dir=both]
+    PHY -> RJ45 [label="100Base-TX" dir=both]
+}

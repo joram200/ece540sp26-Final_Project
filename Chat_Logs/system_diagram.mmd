@@ -1,0 +1,78 @@
+flowchart TB
+    subgraph FPGA["On FPGA — Nexys A7 (xc7a100t)"]
+        direction TB
+
+        PLLE2["clk_gen_nexys — PLLE2_BASE PLL
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        100 MHz input  →  25 MHz  clk_core
+                          100 MHz clk_eth
+                          125 MHz clk_gtx
+                           50 MHz clk_eth_ref     0°
+                           50 MHz clk_eth_ref_phy 45°"]
+
+        ODDR["ODDR — Clock Forwarding
+        clk_eth_ref_phy (50 MHz 45°) → CLKIN output pin"]
+
+        CPU["VeeR EL2 RISC-V Core
+        clk_core — 25 MHz"]
+
+        XBAR["AXI Crossbar  (axi_intercon)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        0x00000000 – 0x08000000  →  DDR2 SDRAM
+        0x80000000 – 0x80004000  →  Peripherals
+        0x80040000 – 0x8007FFFF  →  Ethernet"]
+
+        CDC["AXI CDC Bridge
+        clk_core 25 MHz  →  clk_eth 100 MHz"]
+
+        subgraph ETHTOP["ethernet_top   (clk_eth — 100 MHz)"]
+            direction TB
+
+            W64["axi_lite_64to32
+            64-bit CPU bus → 32-bit MAC AXI-Lite
+            Selects wdata / rdata lane via addr[2]"]
+
+            MAC["axi_ethernet_0  —  Xilinx AXI Ethernet MAC
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            MII mode  |  SupportLevel=1  |  Soft TEMAC
+            AXI-Lite control  (offsets 0x000 – 0x7FC)
+            AXI-Stream RX output  (m_axis_rxd, 32-bit)
+            AXI-Stream TX input   (s_axis_txd)
+            MDIO management interface"]
+
+            FIFO["RX Capture FIFO  —  256 × 32-bit
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            rxd_tready = ~fifo_full  (backpressure)
+            ETH_RXDATA   @ offset 0x1000  (pop)
+            ETH_RXSTATUS @ offset 0x1008  (status)"]
+
+            RMIIIF["rmii_phy_if  —  MII ↔ RMII Bridge
+            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            Clocked by clk_eth_ref  (50 MHz  0°)
+            Generates mac_mii_rxc/txc  (25 MHz toggle)
+            Decodes CRS_DV per RMII spec"]
+
+            W64 <-->|"32-bit AXI-Lite\noffsets 0x000 – 0x7FC"| MAC
+            W64 <-->|"FIFO register reads\noffsets 0x1000 / 0x1008"| FIFO
+            MAC -->|"m_axis_rxd\nAXI-Stream 32-bit words\n+ tlast frame boundary"| FIFO
+            MAC <-->|"MII  (4-bit nibbles, 25 MHz)\nmii_rxd, mii_rx_dv, mii_rx_er\nmii_txd, mii_tx_en, mii_tx_clk"| RMIIIF
+        end
+
+        PLLE2 -->|"clk_eth_ref_phy\n50 MHz 45°"| ODDR
+        PLLE2 -->|"clk_eth_ref 50 MHz 0°"| RMIIIF
+        PLLE2 -->|"clk_gtx 125 MHz"| MAC
+        CPU <-->|"AXI4  64-bit data\n32-bit address"| XBAR
+        XBAR <-->|"eth_cpu AXI bus\n(clk_core domain)"| CDC
+        CDC <-->|"eth_cdc_bus AXI4  64-bit\n(clk_eth domain)"| W64
+    end
+
+    PHY["LAN8720A Ethernet Transceiver Chip
+    RMII  100 / 10 Mbps  |  REF_CLK-In mode"]
+
+    RJ45["RJ45 Jack"]
+
+    ODDR -->|"CLKIN  50 MHz reference"| PHY
+    RMIIIF <-->|"RMII signals
+    CRS_DV, RXD[1:0], RXERR
+    TXEN,   TXD[1:0]"| PHY
+    PHY <-->|"100Base-TX"| RJ45

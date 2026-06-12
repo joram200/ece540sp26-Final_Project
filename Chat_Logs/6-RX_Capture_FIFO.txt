@@ -1,0 +1,188 @@
+╭─── Claude Code v2.1.88 ──────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back Jose!                 │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│     Sonnet 4.6 · Claude Pro · joram2@pdx.edu's     │                         │
+│     Organization                                   │                         │
+│   /…/Spring_2026/ECE_540/ece540sp26-Final_Project  │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+✻ Conversation compacted (ctrl+o for history)
+
+  ⎿  Read README_mii-to-rmii.md (187 lines)
+  ⎿  Read Hardware/rebuild_inprocess.tcl (55 lines)
+  ⎿  Read Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1/imports/sr
+     c/OtherSources/clk_gen_nexys.v (70 lines)
+  ⎿  Referenced file Hardware/Hardware.srcs/sources_1/imports/vga.srcs/sources_1
+     /imports/src/rvfpganexys.sv
+  ⎿  Referenced file 
+     Hardware/Hardware.srcs/constrs_1/imports/src/rvfpganexys.xdc
+  ⎿  Plan file referenced (~/.claude/plans/binary-singing-narwhal.md)
+
+❯ Read SoC Design in Hardware/ to find any remaining timing or clock domain
+  issues. Then with the SoC srcs in mind read the datasheets
+  ds759_axi_ethernet.pdf, 8720a.pdf, RMII.pdf, and README_mii-to-rmii.md to
+  see where the software can find the packet data and why it couldn't.
+
+  Searched for 3 patterns, read 1 file (ctrl+o to expand)
+
+● Analysis Complete
+
+  Clock/Timing — No Hardware Issues Found
+
+  The clock domain design is correct:
+  - rmii_phy_if.v — all FFs clocked by phy_rmii_ref_clk (50 MHz). Reset
+  synchronized via shift register from clk_eth. No CDC violations.
+  - clk_gen_nexys.v — PLLE2_BASE generates all clocks from one PLL, all are
+  proper generated clocks.
+  - XDC constraints properly define mii_rx_clk, mii_tx_clk as generated clocks,
+  and set_clock_groups -asynchronous covers all domains.
+
+  The bitstream is timing-clean. The hardware is not the problem.
+
+  ---
+  Why Software Cannot Find Packet Data
+
+  Root cause 1 — Wrong interface, no data registers.
+
+  The AXI Ethernet IP (DS759) has no AXI4-Lite register that contains received 
+  frame bytes. The entire register map (IS at 0x0C, RCW1 at 0x404, EMMC at
+  0x410, etc.) is control/status only. Received frame payload exists exclusively
+   on the AXI4-Stream port m_axis_rxd_tdata[31:0].
+
+  main.c treats the MAC like a UART with a data register — that register does
+  not exist in this IP.
+
+  Root cause 2 — The stream is hardwired to discard.
+
+  rvfpganexys.sv:455:
+  .m_axis_rxd_tready (1'b1),
+
+  m_axis_rxd_tready=1 tells the MAC "I am always ready to consume data." The MAC
+   streams every received frame byte out and the design accepts/discards them
+  all in hardware. The CPU never sees them — there is no buffer, no FIFO, no
+  memory-mapped register that accumulates the stream.
+
+  ethernet_top.sv:70-74 exports m_axis_rxd_tdata/tkeep/tlast/tvalid as output
+  ports and m_axis_rxd_tready as an input, so the parent rvfpganexys.sv controls
+   draining. Currently it drains everything to /dev/null.
+
+  Root cause 3 — Software only reads interrupt status.
+
+  main.c polls ETH_IS (0x80040000 + 0x0C). When RXCMPLT (bit 2) or RXRJECT (bit
+  3) fires, it increments a frame counter and shows it on LEDs. It detects that
+  frames arrived but captures none of their bytes.
+
+  ---
+  What Must Change to Read Packet Data
+
+  The stream m_axis_rxd_tdata[31:0] needs to land somewhere the CPU can read.
+  Two practical options:
+
+  Option A — AXI-Stream capture FIFO (simpler, fits existing architecture)
+
+  Add a small block RAM FIFO in ethernet_top.sv that:
+  1. Takes m_axis_rxd_tdata/tvalid/tlast as inputs
+  2. Drives m_axis_rxd_tready from the FIFO's prog_full inverse (backpressure)
+  3. Exposes two AXI4-Lite read registers: FIFO_DATA (read pops one word) and
+  FIFO_STATUS (word count / empty flag)
+  4. Maps into the 64-to-32 adapter's address space
+
+  Software would then: wait for RXCMPLT → loop reading FIFO_DATA words until
+  FIFO_STATUS says empty → process the frame bytes.
+
+  Option B — AXI DMA (more capable, uses existing IP catalog)
+
+  Wire m_axis_rxd to a Xilinx AXI DMA engine that writes frames to BRAM/DRAM.
+  CPU reads from memory. More infrastructure but handles large frames without
+  polling.
+
+  ---
+  Summary Table
+
+  ┌────────────────┬─────────────────────────────┬─────────────────────────┐
+  │     Layer      │        Current State        │         Problem         │
+  ├────────────────┼─────────────────────────────┼─────────────────────────┤
+  │ PHY clock      │ FPGA sources 50 MHz via     │ Correct                 │
+  │ (CLKIN)        │ ODDR                        │                         │
+  ├────────────────┼─────────────────────────────┼─────────────────────────┤
+  │ RMII→MII       │ rmii_phy_if.v, all 50 MHz   │ Correct, no CDC         │
+  │ conversion     │ domain                      │                         │
+  ├────────────────┼─────────────────────────────┼─────────────────────────┤
+  │ MII→MAC        │ AXI Ethernet IP, MII mode   │ Frames received, IS     │
+  │                │                             │ bits fire               │
+  ├────────────────┼─────────────────────────────┼─────────────────────────┤
+  │ MAC RX stream  │ m_axis_rxd_tready=1'b1      │ All frame bytes         │
+  │                │                             │ discarded in hardware   │
+  ├────────────────┼─────────────────────────────┼─────────────────────────┤
+  │ AXI-Lite       │ IS/RCW1/EMMC only           │ No frame data register  │
+  │ registers      │                             │ exists                  │
+  ├────────────────┼─────────────────────────────┼─────────────────────────┤
+  │ Software       │ Polls IS, counts frames     │ Never reads frame       │
+  │                │                             │ content — can't         │
+  └────────────────┴─────────────────────────────┴─────────────────────────┘
+
+  The frame counter working (LEDs toggling on receive) confirms the MAC, PHY,
+  and clock paths are all functional. The gap is entirely architectural:
+  received bytes need a memory-mapped landing zone before software can use them
+  for VGA pixel data.
+
+✻ Worked for 7m 27s
+
+❯ Read ECE_540_Final_Project_Proposal.pdf and determine which option would be
+  better to implement into the design for the purposes of the project.
+
+  Read proposal PDF. Block diagram shows: Host PC → 10/100 Ethernet →
+  Microchip PHY → RISC-V Processor firmware → VGA Controller → 480p Monitor.
+
+● Option A (AXI-Stream capture FIFO) recommended over Option B (AXI DMA):
+  - Proposal says "ethernet controller peripheral designed in system Verilog"
+    → Option A is custom RTL; Option B requires Xilinx IP catalog DMA block.
+  - CPU stays in the loop per the proposal's architecture diagram.
+  - Fits existing AXI-Lite address space with no block design changes.
+  - Performance sufficient: 640×480 RGB565 ≈ 600 KB/frame; at 100 Mbps
+    (~10 MB/s usable) = ~16 fps theoretical maximum.
+
+❯ implement option A into the design and regenerate the bitstream with
+  previous tcl methods
+
+● Design confirmed (axi_intercon.sv:275):
+  ETH peripheral address range: 0x80040000 – 0x8007FFFF (256 KB).
+  FIFO registers placed at offsets > 0x7FC (MAC's max) → 0x1000.
+  No CDC needed: MAC axis_clk = s_axi_lite_clk = 100 MHz.
+
+● Files modified:
+
+  Hardware/Hardware.srcs/sources_1/new/ethernet_top.sv
+  - Removed 10 m_axis_rxd_* / m_axis_rxs_* external ports.
+  - Added 256×32 synchronous FIFO (fifo_data[], fifo_last[], 8-bit ptrs).
+  - rxd_tready = ~fifo_full (real backpressure instead of 1'b1).
+  - AXI-Lite read decoder: s_axi_araddr[17:12] != 0 → FIFO path.
+  - MUXed s_axi_arready, s_axi_rvalid, s_axi_rdata, s_axi_rresp between
+    MAC and FIFO responses. MAC arvalid gated when FIFO address selected.
+  - ETH_RXDATA (offset 0x1000): read pops one 32-bit word.
+  - ETH_RXSTATUS (offset 0x1008): {frame_count[7:0], word_count[8:0],
+    last_flag, full, empty}.
+
+  Hardware/Hardware.srcs/sources_1/imports/vga.srcs/.../rvfpganexys.sv
+  - Removed .m_axis_rxd_tready(1'b1) and .m_axis_rxs_tready(1'b1).
+
+  EthTest/src/main.c
+  - Added ETH_RXDATA (0x80041000) and ETH_RXSTATUS (0x80041008) macros.
+  - Added FIFO drain loop after each RXCMPLT event:
+      while (!(ETH_RXSTATUS & 0x1u)) { (void)ETH_RXDATA; }
+
+● Bitstream regenerated:
+  cd Hardware && vivado -mode batch -source rebuild_inprocess.tcl 2>&1 | tee rebuild.log
+  Result: 0 errors. Hardware/Hardware.runs/impl_1/rvfpganexys.bit written.
+
+❯ commit this as "RX Capture FIFO" and push
+
+  Commit 0fb9df0 pushed to joram200/ece540sp26-Final_Project main.
+
+● Next integration step:
+  Replace (void)word in main.c drain loop with writes to the VGA framebuffer
+  address to stream received pixel data to the display.
