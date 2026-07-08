@@ -1,0 +1,368 @@
+ECE 540 Final Project — Chat Log Session 9
+Session 9: AXI DMA S2MM Integration and sbbusy Fix (July 2026)
+================================================================================
+
+Context: Session 8 ended with the serial UART showing no output despite a
+successful firmware flash. Task 5 (flash + test) was handed off to the user
+to complete via PlatformIO IDE. Shortly after, documentation was committed
+(commit 5820352 "Final Ethernet Fix") consolidating all previous chat logs,
+architecture diagrams, and reference PDFs. Session 9 then pivoted to replacing
+the custom RX Capture FIFO in ethernet_top.sv with a proper Xilinx AXI DMA
+(axi_dma_0) S2MM (Stream-to-Memory-Map) path, leading to the discovery and
+fix of a critical sbbusy stuck-HIGH bug.
+
+================================================================================
+PART 1: Documentation Commit (commit 5820352 "Final Ethernet Fix")
+================================================================================
+
+Files added in this commit (no hardware changes):
+
+  Chat_Logs/1-AXI_Ethernet_Integration.txt
+  Chat_Logs/2-Bitstream_Generation_with_Licensed_ip.txt
+  Chat_Logs/3-Address_Problem.txt
+  Chat_Logs/4-Byte_lane_Fix.txt
+  Chat_Logs/5-MAC_MII_fix.txt
+  Chat_Logs/6-RX_Capture_FIFO.txt
+  Chat_Logs/7-EthTest_Major_Bugs.md
+  Chat_Logs/8-Final_Attempt_For_Packet_Readability.txt
+  Chat_Logs/EthTest_Architecture_and_Registers.md
+  Chat_Logs/system_diagram.dot / .mmd / .png
+  ECE_540_Final_Project_Proposal.pdf
+  RMII.pdf
+  README_mii-to-rmii.md
+
+================================================================================
+PART 2: AXI DMA S2MM Integration
+================================================================================
+
+Motivation: The custom RX Capture FIFO in ethernet_top.sv (256-entry, polled
+by main.c) had three fundamental problems revealed in Session 8:
+  1. Small fixed FIFO (256 words) with no flow-control back to the MAC.
+  2. Polling loop in firmware blocks all other work.
+  3. Custom FIFO cannot sustain wire-rate 100 Mbps bursts into DDR.
+
+Decision: Replace the custom FIFO with Xilinx AXI DMA IP (axi_dma_0) using
+Scatter-Gather S2MM (AXI Stream → DDR). This is the standard Xilinx approach
+for high-bandwidth streaming into memory:
+  - MAC AXI-Stream RX → AXI DMA S2MM → DDR2
+  - CPU polls a descriptor ring in DDR to find completed frames
+  - DMA handles flow control, burst aggregation, and frame boundaries
+
+--- Phase 1: AXI DMA IP (axi_dma_0) ---
+
+Added via create_axi_dma.tcl:
+  CONFIG.c_include_sg       = 1       (scatter-gather mode)
+  CONFIG.c_sg_include_stscntrl_strm = 0
+  CONFIG.c_m_axi_mm2s_data_width = 32
+  CONFIG.c_m_axi_s2mm_data_width = 32
+  CONFIG.c_mm2s_burst_size  = 16
+  CONFIG.c_s2mm_burst_size  = 16
+  CONFIG.c_sg_length_width  = 23      (up to 8 MB per descriptor)
+  AXI-Lite slave at CPU address 0x80042000 (offset 0x2000 from ETH_BASE)
+
+AXI DMA exposes three AXI4 master ports:
+  m_axi_sg   — Scatter-Gather (R/W, 32-bit) — reads/writes descriptor ring
+  m_axi_mm2s — Memory-Map-to-Stream (R only, 32-bit) — DDR → MAC TX (stubbed)
+  m_axi_s2mm — Stream-to-Memory-Map (W only, 32-bit) — MAC RX → DDR
+
+--- Phase 2: rvfpganexys.sv — DMA AXI Infrastructure ---
+
+Added three DMA AXI clock-domain crossings (clk_eth → user_clk):
+
+  AXI_BUS #(32, 32, 4, 1) dma_sg_src / dma_sg_mem
+  AXI_BUS #(32, 32, 4, 1) dma_mm2s_src / dma_mm2s_mem
+  AXI_BUS #(32, 32, 4, 1) dma_s2mm_src / dma_s2mm_mem
+
+  axi_cdc_intf #(.AXI_ID_WIDTH(4)) dma_sg_cdc
+    (.src=dma_sg_src [clk_eth], .dst=dma_sg_mem [user_clk])
+
+  axi_cdc_intf #(.AXI_ID_WIDTH(4)) dma_mm2s_cdc
+    (.src=dma_mm2s_src [clk_eth], .dst=dma_mm2s_mem [user_clk])
+
+  axi_cdc_intf #(.AXI_ID_WIDTH(4)) dma_s2mm_cdc
+    (.src=dma_s2mm_src [clk_eth], .dst=dma_s2mm_mem [user_clk])
+
+Added two AXI dwidth converters (32→64 bit, user_clk domain):
+
+  axi_dwidth_conv_sg    (SG 32→64)   — u_sg_dwidth
+  axi_dwidth_conv_s2mm  (S2MM 32→64) — u_s2mm_dwidth
+
+These are needed because litedram has a 64-bit AXI data bus; the DMA uses 32-bit.
+
+MM2S channel (DDR→TX) is stubbed: all AW/W/B signals driven to 0, AR/R driven
+to 0. Only the S2MM and SG paths are active for receive-only operation.
+
+Flat DMA wire assignments from ethernet_top ports:
+  - m_axi_sg_* wires → dma_sg_src fields
+  - m_axi_mm2s_ar* → dma_mm2s_src.ar (W channel tied to 0, B.ready = 1)
+  - m_axi_s2mm_aw/w/b* → dma_s2mm_src fields (AR tied to 0)
+
+4-port DDR crossbar wiring (axi_crossbar_0, CONFIG.ID_WIDTH=6):
+  S0 = CPU (mem, 6-bit IDs)
+  S1 = SG-DMA (via sg_wide_* after dwidth_conv, IDs=0 padded to 6 bits)
+  S2 = MM2S-DMA (stubbed, AWVALID/ARVALID tied 0)
+  S3 = S2MM-DMA (via s2mm_wide_* after dwidth_conv, IDs=0 padded to 6 bits)
+  M0 = ddr_* flat wires → litedram_top #(.ID_WIDTH(6))
+
+--- Phase 3: main.c — AXI DMA S2MM Scatter-Gather Firmware ---
+
+Replaced FIFO-polling firmware with AXI DMA scatter-gather ring approach:
+
+  DMA_BASE   = 0x80042000  (axi_dma_0 AXI-Lite, offset 0x2000 from MAC)
+  DMA_N_DESC = 8           (ring of 8 descriptors)
+  DMA_DESC_BASE = 0x06000000  (descriptor ring in DDR, 8×64 B = 512 B)
+  DMA_BUF_BASE  = 0x06001000  (frame buffers, 8×1536 B = 12 KB)
+  DMA_BUF_SIZE  = 1536        (max Ethernet frame)
+
+Descriptor struct (64 bytes, PG021 Table 2-5 layout):
+  typedef struct {
+      volatile uint32_t next_desc;  // +0x00 next descriptor address (circular)
+      volatile uint32_t _p0;        // +0x04 next_desc MSB (0)
+      volatile uint32_t buf_addr;   // +0x08 frame buffer address
+      volatile uint32_t _p1;        // +0x0C buf_addr MSB (0)
+      volatile uint32_t _rsv[2];    // +0x10
+      volatile uint32_t control;    // +0x18 [27]=SOF [26]=EOF [22:0]=buf_len
+      volatile uint32_t status;     // +0x1C [31]=Cmplt [22:0]=bytes_received
+      volatile uint32_t app[5];     // +0x20 app fields (checksum etc.)
+      volatile uint32_t _pad[3];    // +0x34 pad to 64 bytes
+  } sg_desc_t;
+
+dma_rx_init() function:
+  1. Build circular ring: each desc.next_desc points to next (last wraps to 0)
+  2. Reset S2MM: DMA_S2MM_CR = DMA_CR_RESET; wait for self-clear
+  3. Set CURDESC = DMA_DESC_BASE (before asserting Run — PG021 §2.3)
+  4. Assert Run: DMA_S2MM_CR = DMA_CR_RUN
+  5. Kick engine: DMA_S2MM_TAILDESC = last descriptor address
+
+Main loop:
+  - Polls ring[rx_idx].status & DMA_STS_CMPLT
+  - On completion: read len from status[22:0], dump up to 16 words via
+    printfNexys("[%02u] %08X\r\n")
+  - Re-arm: clear status, restore control word, advance TAILDESC, bump rx_idx
+
+Expected serial output for a broadcast frame:
+  DMA RX ready
+  --- Frame 1 (64 bytes) ---
+  [00] FFFFFFFF    <- dest MAC [0:3] (broadcast)
+  [01] FFFF????    <- dest MAC [4:5] + src MAC [0:1]
+  [02] ????????    <- src MAC [2:5]
+  [03] 08000000    <- EtherType (0x0800=IPv4) + first payload byte
+  ...
+  --- End ---
+
+================================================================================
+PART 3: sbbusy Stuck-HIGH Bug — Discovery and Diagnosis
+================================================================================
+
+After adding the 4-port crossbar and DMA infrastructure, JTAG firmware loading
+via OpenOCD SBA (System Bus Access) failed: SBCS register remained stuck at
+0x2024040f (sbbusy=1) for 5+ seconds after every SBA write.
+
+Observed behavior:
+  - SBA reads: work correctly, data retrieved from DDR
+  - SBA writes: data DOES reach DDR (verified by readback), but sbbusy never
+    clears → OpenOCD times out → firmware loading impossible
+
+Root cause analysis (traced through full AXI path):
+
+Step 1 — B channel CDC direction confirmed correct:
+  axi_cdc.sv FIFO for B channel:
+    src=dst_clk (user_clk) push side: reads mem.b_valid from crossbar S0
+    dst=src_clk (clk_core) pop side: drives cpu.b_valid to VeeRwolf
+  Direction is correct; CDC is not the problem.
+
+Step 2 — AXI_BUS modport directions confirmed correct:
+  AXI_BUS.Master: input b_id, b_valid; output b_ready
+  AXI_BUS.Slave:  output b_id, b_valid; input b_ready
+  mem is dst (Master-connected) of CDC, crossbar S0 side.
+
+Step 3 — CRITICAL: axi_crossbar_0 XCI port widths:
+  s_axi_awid: 24-bit (4×6)   — slave ports
+  m_axi_awid:  6-bit (1×6)   — master port ← SAME width as per-slave field!
+  CONFIG.ID_WIDTH = 6         — no routing bits added
+
+  This means: axi_crossbar_0 with NUM_SI=4, ID_WIDTH=6 does NOT prepend
+  slave-port-index bits to master AWID. Both slave and master use 6-bit IDs.
+
+Step 4 — VeeRwolf internal routing bits identified:
+  VeeRwolf's internal PULP axi_xbar (SlvAxiIDWidth=4, MstAxiIDWidth=6)
+  prepends 2-bit slave-port-index to all transaction IDs:
+    SBA on internal port S1 → cpu.aw_id has AWID[5:4] = 2'b01 (routing bits)
+
+Step 5 — Misrouting identified:
+  The Xilinx axi_crossbar_0 uses the incoming AWID to track which slave port
+  originated each transaction. When it sees AWID[5:4]=2'b01 (VeeRwolf's
+  internal routing bits), it interprets this as "S1 originated the write."
+  So on the B channel it routes the response to external slave port S1
+  (= DMA SG port) instead of S0 (= CPU port).
+  DMA SG port's BREADY=0 when idle (from axi_dwidth_conv_sg's idle state)
+  → B response stalls at S1 → litedram cannot deassert BVALID → ddr_bready=0
+  → sbbusy permanently stuck HIGH.
+
+  This is a structural incompatibility: VeeRwolf was designed to connect to
+  a PULP axi_mux (which adds its OWN routing bits BEFORE sending to slave),
+  not a Xilinx crossbar (which reuses the incoming ID bits for routing).
+
+================================================================================
+PART 4: sbbusy Fix — PULP axi_mux Wrapper
+================================================================================
+
+Fix: Replace Xilinx axi_crossbar_0 with PULP axi_mux (already in source tree
+at VeeRwolf/Interconnect/AxiInterconnect/pulp-platform.org__axi_0.25.0/).
+
+The PULP axi_mux #(.SlvAxiIDWidth(6), .NoSlvPorts(4)):
+  - MstAxiIDWidth = SlvAxiIDWidth + clog2(NoSlvPorts) = 6 + 2 = 8 bits
+  - On AW/AR: prepends slave-port-index[1:0] to MSBs of master ID
+    CPU (S0): mst_awid = {2'b00, slv_awid[5:0]}  ← routing index = 0
+    SG  (S1): mst_awid = {2'b01, 6'b0}
+    S2MM(S3): mst_awid = {2'b11, 6'b0}
+  - On B/R: decodes mst_bid[7:6] to select slave port, strips top 2 bits,
+    returns slv_bid[5:0] (VeeRwolf's full 6-bit ID including its OWN routing
+    bits) to the correct slave port.
+
+Result:
+  CPU sends AWID=6'b01_YYYY (VeeRwolf routing bits 01 for SBA in [5:4])
+  axi_mux sends litedram AWID=8'b00_01_YYYY (mux routing 00 = S0 in [7:6])
+  litedram returns BID=8'b00_01_YYYY
+  axi_mux: BID[7:6]=00 → route to S0; strip → slv_bid=6'b01_YYYY ✓
+  CPU receives BID=6'b01_YYYY; VeeRwolf's internal PULP xbar: [5:4]=01 → SBA ✓
+  sbbusy clears.
+
+--- New file: Hardware/Hardware.srcs/sources_1/new/ddr_mux_wrapper.sv ---
+
+Module with same packed-vector port interface as axi_crossbar_0, so
+rvfpganexys.sv changes are minimal (module name + ID wire widths only).
+
+Internally:
+  1. Defines PULP AXI struct types (slv_aw_t/mst_aw_t/w_t/slv_b_t/mst_b_t/
+     slv_ar_t/mst_ar_t/slv_r_t/mst_r_t/slv_req_t/slv_resp_t/mst_req_t/mst_resp_t)
+     matching axi/typedef.svh macros, without requiring the include.
+     slv_id_t = logic [5:0];  mst_id_t = logic [7:0]
+  2. Unpacks 4 slave port vectors (6-bit IDs, 64-bit data) into slv_req_t array
+  3. Connects master req/resp struct to flat output wires (8-bit IDs)
+  4. Instantiates axi_mux with all struct type parameters
+
+Key parameters:
+  axi_mux #(.SlvAxiIDWidth(6), .NoSlvPorts(4), .MaxWTrans(8),
+             .FallThrough(0), .SpillAw(1), .SpillW(0), .SpillB(0),
+             .SpillAr(1), .SpillR(0))
+
+--- Changes to rvfpganexys.sv ---
+
+  1. ddr_awid, ddr_arid wires: [5:0] → [7:0]
+  2. ddr_bid,  ddr_rid  wires: [5:0] → [7:0]
+  3. Module instantiation: axi_crossbar_0 u_ddr_xbar → ddr_mux_wrapper u_ddr_xbar
+     (same port connections, no vector width changes needed)
+  4. Comment updated: "DDR arbiter output flat wires (M00 of axi_interconnect_0,
+     6-bit IDs)" → "(M0 of ddr_mux_wrapper, 8-bit IDs)"
+
+--- Changes to litedram_top instantiation ---
+
+  #(.ID_WIDTH(6)) → #(.ID_WIDTH(8))
+  i_awid/i_arid/o_bid/o_rid now [7:0], matching ddr_awid/ddr_arid/ddr_bid/ddr_rid
+
+--- Changes to rebuild_inprocess.tcl ---
+
+  1. RTL file registration loop now includes ddr_mux_wrapper.sv:
+       foreach sv_name {axi_lite_64to32.sv ddr_mux_wrapper.sv} { ... }
+
+  2. axi_crossbar_0 removed from OOC IP loop and synth_ip loop.
+     New loop covers only: {axi_dma_0 axi_dwidth_conv_sg axi_dwidth_conv_s2mm}
+
+================================================================================
+PART 5: Bitstream Rebuild
+================================================================================
+
+Command:
+  cd Hardware/
+  HARTS_DISABLE=1 vivado -mode tcl -source rebuild_inprocess.tcl 2>&1 | tee build.log
+
+Steps completed:
+  OOC synthesis: axi_dma_0, axi_dwidth_conv_sg, axi_dwidth_conv_s2mm
+  synth_design -top rvfpganexys -part xc7a100tcsg324-1 -flatten_hierarchy rebuilt
+  opt_design
+  place_design
+  phys_opt_design
+  route_design
+  write_bitstream → Hardware.runs/impl_1/rvfpganexys.bit
+
+Result: SUCCESS (exit code 0)
+Bitstream: Hardware.runs/impl_1/rvfpganexys.bit (3,825,912 bytes)
+Timestamp: 2026-07-01 15:40
+
+No synthesis errors. Existing warnings are pre-existing VeeRwolf/LiteDRAM
+scan-mode / memory-port warnings (unchanged from previous builds).
+
+================================================================================
+PART 6: Outstanding Work
+================================================================================
+
+1. Flash FPGA and firmware:
+     a) Program FPGA via OpenOCD (avoids JTAG TAP state issue from hw_manager):
+          openocd -f cpld/xilinx-xc7.cfg \
+            -c "pld load 0 Hardware/Hardware.runs/impl_1/rvfpganexys.bit" \
+            -c shutdown
+     b) Upload firmware:
+          cd EthTest && pio run -t upload
+
+2. Verify sbbusy fix:
+   OpenOCD should complete firmware upload without timing out on SBA writes.
+   "Download verified" message confirms fix is working.
+
+3. Test Ethernet frame capture:
+     sudo ./eth_test.sh <interface>
+   Monitor serial at 115200 baud. Expected output:
+     DMA RX ready
+     --- Frame 1 (64 bytes) ---
+     [00] FFFFFFFF    <- broadcast dest MAC
+     [01] FFFF????
+     ...
+     --- End ---
+
+4. Diagnostic if DMA frames don't appear:
+   - Check DMA_S2MM_SR for halted/idle bits
+   - Verify descriptor ring alignment (must be 64-byte aligned — 0x06000000 ✓)
+   - Check DMA_S2MM_SR[4] (DMAIntErr) for internal errors
+   - Verify MAC AXI-Stream TREADY is asserted (ethernet_top → axi_dma S2MM port)
+
+5. ethernet_top.sv: wire up axi_dma_0 S2MM AXI Stream port to MAC
+   - Connect MAC rxd_tdata/rxd_tvalid/rxd_tlast to DMA s_axis_s2mm_tdata/
+     tvalid/tlast; connect DMA s_axis_s2mm_tready back to MAC
+   - Remove the old custom FIFO logic (fifo_data, fifo_wptr, fifo_rptr,
+     fifo_count, ETH_RXDATA, ETH_RXSTATUS registers) once DMA path verified
+
+================================================================================
+KEY ENGINEERING FINDINGS — SESSION 9
+================================================================================
+
+1. AXI crossbar B-channel routing and PULP routing bits:
+   The Xilinx AXI Crossbar (axi_crossbar_0) with same-width S and M IDs
+   (CONFIG.ID_WIDTH=6, no routing bits added) relies on the incoming AWID to
+   determine which slave port receives the B response. VeeRwolf's internal PULP
+   axi_xbar encodes its own 2-bit routing index into AWID[5:4], which the
+   Xilinx crossbar misinterprets as the external slave-port index. The PULP
+   axi_mux (ddr_mux_wrapper) correctly adds its own routing bits ABOVE the
+   incoming ID bits, providing unambiguous routing that is transparent to
+   VeeRwolf's internal routing mechanism.
+
+2. AXI DMA S2MM scatter-gather ring initialization sequence (PG021 §2.3):
+   CURDESC must be written BEFORE asserting the Run bit. Writing TAILDESC after
+   Run kicks the engine and causes it to begin fetching descriptors. Writing
+   TAILDESC before Run is a protocol violation.
+
+3. DMA descriptor buffer alignment:
+   AXI DMA requires scatter-gather descriptors to be 64-byte aligned (AWADDR
+   must have [5:0]=6'b0). DMA_DESC_BASE=0x06000000 satisfies this. Frame
+   buffers do not have alignment requirements beyond the AXI data bus width.
+
+4. HARTS_DISABLE=1 remains required:
+   All Vivado batch runs on this NTFS-mounted Linux system must use
+   HARTS_DISABLE=1. set_param general.maxThreads 1 alone is insufficient.
+
+5. Commit recommendation: Once sbbusy fix is verified via successful firmware
+   upload, commit:
+     - Hardware/Hardware.srcs/sources_1/new/ddr_mux_wrapper.sv (new)
+     - Hardware/Hardware.srcs/sources_1/imports/.../rvfpganexys.sv (modified)
+     - Hardware/rebuild_inprocess.tcl (modified)
+     - EthTest/src/main.c (DMA firmware)
+     - Hardware/Hardware.runs/impl_1/rvfpganexys.bit (new bitstream)

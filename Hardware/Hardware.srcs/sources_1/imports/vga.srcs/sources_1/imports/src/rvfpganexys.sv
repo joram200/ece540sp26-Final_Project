@@ -132,6 +132,106 @@ module rvfpganexys
    AXI_BUS #(32, 64, 6, 1) eth_cpu();
    AXI_BUS #(32, 64, 6, 1) eth_cdc_bus();
 
+   // -------------------------------------------------------------------------
+   // DMA AXI4 master flat wires (clk_eth domain, driven by ethernet_top)
+   // axi_dma_0 uses fixed ID=0; no AWID/ARID signals on the flat port list.
+   // -------------------------------------------------------------------------
+   // Scatter-Gather channel (descriptor ring in DDR)
+   wire [31:0] m_axi_sg_awaddr;   wire  [7:0] m_axi_sg_awlen;
+   wire  [2:0] m_axi_sg_awsize;   wire  [1:0] m_axi_sg_awburst;
+   wire  [2:0] m_axi_sg_awprot;   wire  [3:0] m_axi_sg_awcache;
+   wire        m_axi_sg_awvalid;  wire        m_axi_sg_awready;
+   wire [31:0] m_axi_sg_wdata;    wire  [3:0] m_axi_sg_wstrb;
+   wire        m_axi_sg_wlast;    wire        m_axi_sg_wvalid;
+   wire        m_axi_sg_wready;   wire  [1:0] m_axi_sg_bresp;
+   wire        m_axi_sg_bvalid;   wire        m_axi_sg_bready;
+   wire [31:0] m_axi_sg_araddr;   wire  [7:0] m_axi_sg_arlen;
+   wire  [2:0] m_axi_sg_arsize;   wire  [1:0] m_axi_sg_arburst;
+   wire  [2:0] m_axi_sg_arprot;   wire  [3:0] m_axi_sg_arcache;
+   wire        m_axi_sg_arvalid;  wire        m_axi_sg_arready;
+   wire [31:0] m_axi_sg_rdata;    wire  [1:0] m_axi_sg_rresp;
+   wire        m_axi_sg_rlast;    wire        m_axi_sg_rvalid;
+   wire        m_axi_sg_rready;
+
+   // MM2S channel (DDR → DMA → MAC TX) — READ-ONLY (AR+R only)
+   wire [31:0] m_axi_mm2s_araddr;  wire  [7:0] m_axi_mm2s_arlen;
+   wire  [2:0] m_axi_mm2s_arsize;  wire  [1:0] m_axi_mm2s_arburst;
+   wire  [2:0] m_axi_mm2s_arprot;  wire  [3:0] m_axi_mm2s_arcache;
+   wire        m_axi_mm2s_arvalid; wire        m_axi_mm2s_arready;
+   wire [31:0] m_axi_mm2s_rdata;   wire  [1:0] m_axi_mm2s_rresp;
+   wire        m_axi_mm2s_rlast;   wire        m_axi_mm2s_rvalid;
+   wire        m_axi_mm2s_rready;
+
+   // S2MM channel (MAC RX → DMA → DDR) — WRITE-ONLY (AW+W+B only)
+   wire [31:0] m_axi_s2mm_awaddr;  wire  [7:0] m_axi_s2mm_awlen;
+   wire  [2:0] m_axi_s2mm_awsize;  wire  [1:0] m_axi_s2mm_awburst;
+   wire  [2:0] m_axi_s2mm_awprot;  wire  [3:0] m_axi_s2mm_awcache;
+   wire        m_axi_s2mm_awvalid; wire        m_axi_s2mm_awready;
+   wire [31:0] m_axi_s2mm_wdata;   wire  [3:0] m_axi_s2mm_wstrb;
+   wire        m_axi_s2mm_wlast;   wire        m_axi_s2mm_wvalid;
+   wire        m_axi_s2mm_wready;  wire  [1:0] m_axi_s2mm_bresp;
+   wire        m_axi_s2mm_bvalid;  wire        m_axi_s2mm_bready;
+
+   // DMA interrupt wires
+   wire        mm2s_introut;
+   wire        s2mm_introut;
+
+   // DMA AXI buses: src = clk_eth, dst = user_clk (after CDC)
+   // ID_WIDTH=4: DMA uses ID=0; 4 slave ports → 2 routing bits → 6-bit M00 IDs
+   // Data width = 32 (DMA native); dwidth_converters widen to 64 before crossbar
+   AXI_BUS #(32, 32, 4, 1) dma_sg_src();
+   AXI_BUS #(32, 32, 4, 1) dma_sg_mem();
+   AXI_BUS #(32, 32, 4, 1) dma_mm2s_src();
+   AXI_BUS #(32, 32, 4, 1) dma_mm2s_mem();
+   AXI_BUS #(32, 32, 4, 1) dma_s2mm_src();
+   AXI_BUS #(32, 32, 4, 1) dma_s2mm_mem();
+
+   // DDR arbiter output flat wires (M0 of ddr_mux_wrapper, 8-bit IDs)
+   // axi_mux prepends 2-bit slave-port-index → 8 bits total.
+   wire  [7:0] ddr_awid,    ddr_arid;
+   wire [31:0] ddr_awaddr,  ddr_araddr;
+   wire  [7:0] ddr_awlen,   ddr_arlen;
+   wire  [2:0] ddr_awsize,  ddr_arsize;
+   wire  [1:0] ddr_awburst, ddr_arburst;
+   wire        ddr_awvalid, ddr_awready;
+   wire [63:0] ddr_wdata,   ddr_rdata;
+   wire  [7:0] ddr_wstrb;
+   wire        ddr_wlast,   ddr_wvalid,  ddr_wready;
+   wire  [7:0] ddr_bid,     ddr_rid;
+   wire  [1:0] ddr_bresp,   ddr_rresp;
+   wire        ddr_bvalid,  ddr_bready;
+   wire        ddr_arvalid, ddr_arready;
+   wire        ddr_rlast,   ddr_rvalid,  ddr_rready;
+
+   // CPU path: mem is 6-bit IDs; crossbar S00 now ID_WIDTH=6, full IDs preserved.
+
+   // Static fields for DMA src buses (not present on ethernet_top flat ports)
+   assign dma_sg_src.aw_atop  = 6'd0;  assign dma_sg_src.aw_id    = 4'd0;
+   assign dma_sg_src.aw_lock  = 1'b0;  assign dma_sg_src.aw_region = 4'd0;
+   assign dma_sg_src.aw_qos   = 4'd0;  assign dma_sg_src.aw_user  = 1'b0;
+   assign dma_sg_src.ar_id    = 4'd0;  assign dma_sg_src.ar_lock  = 1'b0;
+   assign dma_sg_src.ar_region = 4'd0; assign dma_sg_src.ar_qos   = 4'd0;
+   assign dma_sg_src.ar_user  = 1'b0;  assign dma_sg_src.w_user   = 1'b0;
+
+   assign dma_mm2s_src.aw_atop  = 6'd0;  assign dma_mm2s_src.aw_id    = 4'd0;
+   assign dma_mm2s_src.aw_lock  = 1'b0;  assign dma_mm2s_src.aw_region = 4'd0;
+   assign dma_mm2s_src.aw_qos   = 4'd0;  assign dma_mm2s_src.aw_user  = 1'b0;
+   assign dma_mm2s_src.ar_id    = 4'd0;  assign dma_mm2s_src.ar_lock  = 1'b0;
+   assign dma_mm2s_src.ar_region = 4'd0; assign dma_mm2s_src.ar_qos   = 4'd0;
+   assign dma_mm2s_src.ar_user  = 1'b0;  assign dma_mm2s_src.w_user   = 1'b0;
+
+   assign dma_s2mm_src.aw_atop  = 6'd0;  assign dma_s2mm_src.aw_id    = 4'd0;
+   assign dma_s2mm_src.aw_lock  = 1'b0;  assign dma_s2mm_src.aw_region = 4'd0;
+   assign dma_s2mm_src.aw_qos   = 4'd0;  assign dma_s2mm_src.aw_user  = 1'b0;
+   assign dma_s2mm_src.ar_id    = 4'd0;  assign dma_s2mm_src.ar_lock  = 1'b0;
+   assign dma_s2mm_src.ar_region = 4'd0; assign dma_s2mm_src.ar_qos   = 4'd0;
+   assign dma_s2mm_src.ar_user  = 1'b0;  assign dma_s2mm_src.w_user   = 1'b0;
+
+   // Unused user bits on DMA dst (slave side not driven by CDC)
+   assign dma_sg_mem.b_user   = 1'b0;  assign dma_sg_mem.r_user   = 1'b0;
+   assign dma_mm2s_mem.b_user = 1'b0;  assign dma_mm2s_mem.r_user = 1'b0;
+   assign dma_s2mm_mem.b_user = 1'b0;  assign dma_s2mm_mem.r_user = 1'b0;
+
    assign cpu.aw_atop = 6'd0;
    assign cpu.aw_user = 1'b0;
    assign cpu.ar_user = 1'b0;
@@ -184,8 +284,442 @@ module rvfpganexys
       .dst_rst_ni (~user_rst),
       .dst        (eth_cdc_bus));
 
+   // -------------------------------------------------------------------------
+   // DMA CDC bridges: clk_eth (100 MHz) → user_clk (litedram domain)
+   // Flat wires from ethernet_top are assigned into *_src AXI_BUS fields.
+   // Response signals (ready/resp/data) are read back from *_src to flat wires.
+   // -------------------------------------------------------------------------
+
+   // --- SG channel ---
+   assign dma_sg_src.aw_valid = m_axi_sg_awvalid;
+   assign dma_sg_src.aw_addr  = m_axi_sg_awaddr;
+   assign dma_sg_src.aw_len   = m_axi_sg_awlen;
+   assign dma_sg_src.aw_size  = m_axi_sg_awsize;
+   assign dma_sg_src.aw_burst = m_axi_sg_awburst;
+   assign dma_sg_src.aw_prot  = m_axi_sg_awprot;
+   assign dma_sg_src.aw_cache = m_axi_sg_awcache;
+   assign dma_sg_src.w_data   = m_axi_sg_wdata;
+   assign dma_sg_src.w_strb   = m_axi_sg_wstrb;
+   assign dma_sg_src.w_last   = m_axi_sg_wlast;
+   assign dma_sg_src.w_valid  = m_axi_sg_wvalid;
+   assign dma_sg_src.b_ready  = m_axi_sg_bready;
+   assign dma_sg_src.ar_valid = m_axi_sg_arvalid;
+   assign dma_sg_src.ar_addr  = m_axi_sg_araddr;
+   assign dma_sg_src.ar_len   = m_axi_sg_arlen;
+   assign dma_sg_src.ar_size  = m_axi_sg_arsize;
+   assign dma_sg_src.ar_burst = m_axi_sg_arburst;
+   assign dma_sg_src.ar_prot  = m_axi_sg_arprot;
+   assign dma_sg_src.ar_cache = m_axi_sg_arcache;
+   assign dma_sg_src.r_ready  = m_axi_sg_rready;
+   assign m_axi_sg_awready = dma_sg_src.aw_ready;
+   assign m_axi_sg_wready  = dma_sg_src.w_ready;
+   assign m_axi_sg_bresp   = dma_sg_src.b_resp;
+   assign m_axi_sg_bvalid  = dma_sg_src.b_valid;
+   assign m_axi_sg_arready = dma_sg_src.ar_ready;
+   assign m_axi_sg_rdata   = dma_sg_src.r_data;
+   assign m_axi_sg_rresp   = dma_sg_src.r_resp;
+   assign m_axi_sg_rlast   = dma_sg_src.r_last;
+   assign m_axi_sg_rvalid  = dma_sg_src.r_valid;
+
+   axi_cdc_intf #(.AXI_USER_WIDTH(1), .AXI_ADDR_WIDTH(32),
+                  .AXI_DATA_WIDTH(32), .AXI_ID_WIDTH(4))
+   dma_sg_cdc (.src_clk_i(clk_eth),  .src_rst_ni(~user_rst), .src(dma_sg_src),
+               .dst_clk_i(user_clk), .dst_rst_ni(~user_rst), .dst(dma_sg_mem));
+
+   // --- MM2S channel (read-only: AR+R only; no AW/W/B ports on DMA) ---
+   assign dma_mm2s_src.aw_valid = 1'b0;
+   assign dma_mm2s_src.aw_addr  = 32'h0;
+   assign dma_mm2s_src.aw_len   = 8'h0;
+   assign dma_mm2s_src.aw_size  = 3'h0;
+   assign dma_mm2s_src.aw_burst = 2'b01;
+   assign dma_mm2s_src.aw_prot  = 3'h0;
+   assign dma_mm2s_src.aw_cache = 4'h0;
+   assign dma_mm2s_src.w_data   = 32'h0;
+   assign dma_mm2s_src.w_strb   = 4'h0;
+   assign dma_mm2s_src.w_last   = 1'b0;
+   assign dma_mm2s_src.w_valid  = 1'b0;
+   assign dma_mm2s_src.b_ready  = 1'b1;
+   assign dma_mm2s_src.ar_valid = m_axi_mm2s_arvalid;
+   assign dma_mm2s_src.ar_addr  = m_axi_mm2s_araddr;
+   assign dma_mm2s_src.ar_len   = m_axi_mm2s_arlen;
+   assign dma_mm2s_src.ar_size  = m_axi_mm2s_arsize;
+   assign dma_mm2s_src.ar_burst = m_axi_mm2s_arburst;
+   assign dma_mm2s_src.ar_prot  = m_axi_mm2s_arprot;
+   assign dma_mm2s_src.ar_cache = m_axi_mm2s_arcache;
+   assign dma_mm2s_src.r_ready  = m_axi_mm2s_rready;
+   assign m_axi_mm2s_arready = dma_mm2s_src.ar_ready;
+   assign m_axi_mm2s_rdata   = dma_mm2s_src.r_data;
+   assign m_axi_mm2s_rresp   = dma_mm2s_src.r_resp;
+   assign m_axi_mm2s_rlast   = dma_mm2s_src.r_last;
+   assign m_axi_mm2s_rvalid  = dma_mm2s_src.r_valid;
+
+   axi_cdc_intf #(.AXI_USER_WIDTH(1), .AXI_ADDR_WIDTH(32),
+                  .AXI_DATA_WIDTH(32), .AXI_ID_WIDTH(4))
+   dma_mm2s_cdc (.src_clk_i(clk_eth),  .src_rst_ni(~user_rst), .src(dma_mm2s_src),
+                 .dst_clk_i(user_clk), .dst_rst_ni(~user_rst), .dst(dma_mm2s_mem));
+
+   // MM2S is read-only and not used in RX-only demo: stub out DDR responses
+   assign dma_mm2s_mem.aw_ready = 1'b0;
+   assign dma_mm2s_mem.w_ready  = 1'b0;
+   assign dma_mm2s_mem.b_resp   = 2'b00;
+   assign dma_mm2s_mem.b_valid  = 1'b0;
+   assign dma_mm2s_mem.ar_ready = 1'b0;
+   assign dma_mm2s_mem.r_data   = 32'h0;
+   assign dma_mm2s_mem.r_resp   = 2'b00;
+   assign dma_mm2s_mem.r_last   = 1'b0;
+   assign dma_mm2s_mem.r_valid  = 1'b0;
+
+   // --- S2MM channel (write-only: AW+W+B only; no AR/R ports on DMA) ---
+   assign dma_s2mm_src.aw_valid = m_axi_s2mm_awvalid;
+   assign dma_s2mm_src.aw_addr  = m_axi_s2mm_awaddr;
+   assign dma_s2mm_src.aw_len   = m_axi_s2mm_awlen;
+   assign dma_s2mm_src.aw_size  = m_axi_s2mm_awsize;
+   assign dma_s2mm_src.aw_burst = m_axi_s2mm_awburst;
+   assign dma_s2mm_src.aw_prot  = m_axi_s2mm_awprot;
+   assign dma_s2mm_src.aw_cache = m_axi_s2mm_awcache;
+   assign dma_s2mm_src.w_data   = m_axi_s2mm_wdata;
+   assign dma_s2mm_src.w_strb   = m_axi_s2mm_wstrb;
+   assign dma_s2mm_src.w_last   = m_axi_s2mm_wlast;
+   assign dma_s2mm_src.w_valid  = m_axi_s2mm_wvalid;
+   assign dma_s2mm_src.b_ready  = m_axi_s2mm_bready;
+   assign dma_s2mm_src.ar_valid = 1'b0;
+   assign dma_s2mm_src.ar_addr  = 32'h0;
+   assign dma_s2mm_src.ar_len   = 8'h0;
+   assign dma_s2mm_src.ar_size  = 3'h0;
+   assign dma_s2mm_src.ar_burst = 2'b01;
+   assign dma_s2mm_src.ar_prot  = 3'h0;
+   assign dma_s2mm_src.ar_cache = 4'h0;
+   assign dma_s2mm_src.r_ready  = 1'b0;
+   assign m_axi_s2mm_awready = dma_s2mm_src.aw_ready;
+   assign m_axi_s2mm_wready  = dma_s2mm_src.w_ready;
+   assign m_axi_s2mm_bresp   = dma_s2mm_src.b_resp;
+   assign m_axi_s2mm_bvalid  = dma_s2mm_src.b_valid;
+
+   axi_cdc_intf #(.AXI_USER_WIDTH(1), .AXI_ADDR_WIDTH(32),
+                  .AXI_DATA_WIDTH(32), .AXI_ID_WIDTH(4))
+   dma_s2mm_cdc (.src_clk_i(clk_eth),  .src_rst_ni(~user_rst), .src(dma_s2mm_src),
+                 .dst_clk_i(user_clk), .dst_rst_ni(~user_rst), .dst(dma_s2mm_mem));
+
+   // -------------------------------------------------------------------------
+   // DMA dwidth converter flat wire outputs (64-bit, user_clk domain → crossbar)
+   wire [31:0] sg_wide_awaddr;  wire [7:0] sg_wide_awlen;
+   wire  [2:0] sg_wide_awsize;  wire [1:0] sg_wide_awburst;
+   wire  [3:0] sg_wide_awcache; wire [2:0] sg_wide_awprot;
+   wire        sg_wide_awvalid; wire       sg_wide_awready;
+   wire [63:0] sg_wide_wdata;   wire [7:0] sg_wide_wstrb;
+   wire        sg_wide_wlast;   wire       sg_wide_wvalid;
+   wire        sg_wide_wready;  wire [1:0] sg_wide_bresp;
+   wire        sg_wide_bvalid;  wire       sg_wide_bready;
+   wire [31:0] sg_wide_araddr;  wire [7:0] sg_wide_arlen;
+   wire  [2:0] sg_wide_arsize;  wire [1:0] sg_wide_arburst;
+   wire  [3:0] sg_wide_arcache; wire [2:0] sg_wide_arprot;
+   wire        sg_wide_arvalid; wire       sg_wide_arready;
+   wire [63:0] sg_wide_rdata;   wire [1:0] sg_wide_rresp;
+   wire        sg_wide_rlast;   wire       sg_wide_rvalid;
+   wire        sg_wide_rready;
+
+   wire [31:0] s2mm_wide_awaddr;  wire [7:0] s2mm_wide_awlen;
+   wire  [2:0] s2mm_wide_awsize;  wire [1:0] s2mm_wide_awburst;
+   wire  [3:0] s2mm_wide_awcache; wire [2:0] s2mm_wide_awprot;
+   wire        s2mm_wide_awvalid; wire       s2mm_wide_awready;
+   wire [63:0] s2mm_wide_wdata;   wire [7:0] s2mm_wide_wstrb;
+   wire        s2mm_wide_wlast;   wire       s2mm_wide_wvalid;
+   wire        s2mm_wide_wready;  wire [1:0] s2mm_wide_bresp;
+   wire        s2mm_wide_bvalid;  wire       s2mm_wide_bready;
+
+   // SG: 32→64 bit width converter
+   axi_dwidth_conv_sg u_sg_dwidth (
+       .s_axi_aclk    (user_clk),
+       .s_axi_aresetn (~user_rst),
+       .s_axi_awaddr  (dma_sg_mem.aw_addr),
+       .s_axi_awlen   (dma_sg_mem.aw_len),
+       .s_axi_awsize  (dma_sg_mem.aw_size),
+       .s_axi_awburst (dma_sg_mem.aw_burst),
+       .s_axi_awlock  (dma_sg_mem.aw_lock),
+       .s_axi_awcache (dma_sg_mem.aw_cache),
+       .s_axi_awprot  (dma_sg_mem.aw_prot),
+       .s_axi_awregion(dma_sg_mem.aw_region),
+       .s_axi_awqos   (dma_sg_mem.aw_qos),
+       .s_axi_awvalid (dma_sg_mem.aw_valid),
+       .s_axi_awready (dma_sg_mem.aw_ready),
+       .s_axi_wdata   (dma_sg_mem.w_data),
+       .s_axi_wstrb   (dma_sg_mem.w_strb),
+       .s_axi_wlast   (dma_sg_mem.w_last),
+       .s_axi_wvalid  (dma_sg_mem.w_valid),
+       .s_axi_wready  (dma_sg_mem.w_ready),
+       .s_axi_bresp   (dma_sg_mem.b_resp),
+       .s_axi_bvalid  (dma_sg_mem.b_valid),
+       .s_axi_bready  (dma_sg_mem.b_ready),
+       .s_axi_araddr  (dma_sg_mem.ar_addr),
+       .s_axi_arlen   (dma_sg_mem.ar_len),
+       .s_axi_arsize  (dma_sg_mem.ar_size),
+       .s_axi_arburst (dma_sg_mem.ar_burst),
+       .s_axi_arlock  (dma_sg_mem.ar_lock),
+       .s_axi_arcache (dma_sg_mem.ar_cache),
+       .s_axi_arprot  (dma_sg_mem.ar_prot),
+       .s_axi_arregion(dma_sg_mem.ar_region),
+       .s_axi_arqos   (dma_sg_mem.ar_qos),
+       .s_axi_arvalid (dma_sg_mem.ar_valid),
+       .s_axi_arready (dma_sg_mem.ar_ready),
+       .s_axi_rdata   (dma_sg_mem.r_data),
+       .s_axi_rresp   (dma_sg_mem.r_resp),
+       .s_axi_rlast   (dma_sg_mem.r_last),
+       .s_axi_rvalid  (dma_sg_mem.r_valid),
+       .s_axi_rready  (dma_sg_mem.r_ready),
+       .m_axi_awaddr  (sg_wide_awaddr),
+       .m_axi_awlen   (sg_wide_awlen),
+       .m_axi_awsize  (sg_wide_awsize),
+       .m_axi_awburst (sg_wide_awburst),
+       .m_axi_awlock  (),
+       .m_axi_awcache (sg_wide_awcache),
+       .m_axi_awprot  (sg_wide_awprot),
+       .m_axi_awregion(),
+       .m_axi_awqos   (),
+       .m_axi_awvalid (sg_wide_awvalid),
+       .m_axi_awready (sg_wide_awready),
+       .m_axi_wdata   (sg_wide_wdata),
+       .m_axi_wstrb   (sg_wide_wstrb),
+       .m_axi_wlast   (sg_wide_wlast),
+       .m_axi_wvalid  (sg_wide_wvalid),
+       .m_axi_wready  (sg_wide_wready),
+       .m_axi_bresp   (sg_wide_bresp),
+       .m_axi_bvalid  (sg_wide_bvalid),
+       .m_axi_bready  (sg_wide_bready),
+       .m_axi_araddr  (sg_wide_araddr),
+       .m_axi_arlen   (sg_wide_arlen),
+       .m_axi_arsize  (sg_wide_arsize),
+       .m_axi_arburst (sg_wide_arburst),
+       .m_axi_arlock  (),
+       .m_axi_arcache (sg_wide_arcache),
+       .m_axi_arprot  (sg_wide_arprot),
+       .m_axi_arregion(),
+       .m_axi_arqos   (),
+       .m_axi_arvalid (sg_wide_arvalid),
+       .m_axi_arready (sg_wide_arready),
+       .m_axi_rdata   (sg_wide_rdata),
+       .m_axi_rresp   (sg_wide_rresp),
+       .m_axi_rlast   (sg_wide_rlast),
+       .m_axi_rvalid  (sg_wide_rvalid),
+       .m_axi_rready  (sg_wide_rready)
+   );
+
+   // S2MM: 32→64 bit width converter (write-only in practice; AR/R tied to 0)
+   axi_dwidth_conv_s2mm u_s2mm_dwidth (
+       .s_axi_aclk    (user_clk),
+       .s_axi_aresetn (~user_rst),
+       .s_axi_awaddr  (dma_s2mm_mem.aw_addr),
+       .s_axi_awlen   (dma_s2mm_mem.aw_len),
+       .s_axi_awsize  (dma_s2mm_mem.aw_size),
+       .s_axi_awburst (dma_s2mm_mem.aw_burst),
+       .s_axi_awlock  (dma_s2mm_mem.aw_lock),
+       .s_axi_awcache (dma_s2mm_mem.aw_cache),
+       .s_axi_awprot  (dma_s2mm_mem.aw_prot),
+       .s_axi_awregion(dma_s2mm_mem.aw_region),
+       .s_axi_awqos   (dma_s2mm_mem.aw_qos),
+       .s_axi_awvalid (dma_s2mm_mem.aw_valid),
+       .s_axi_awready (dma_s2mm_mem.aw_ready),
+       .s_axi_wdata   (dma_s2mm_mem.w_data),
+       .s_axi_wstrb   (dma_s2mm_mem.w_strb),
+       .s_axi_wlast   (dma_s2mm_mem.w_last),
+       .s_axi_wvalid  (dma_s2mm_mem.w_valid),
+       .s_axi_wready  (dma_s2mm_mem.w_ready),
+       .s_axi_bresp   (dma_s2mm_mem.b_resp),
+       .s_axi_bvalid  (dma_s2mm_mem.b_valid),
+       .s_axi_bready  (dma_s2mm_mem.b_ready),
+       .s_axi_araddr  (32'h0),
+       .s_axi_arlen   (8'h0),
+       .s_axi_arsize  (3'h0),
+       .s_axi_arburst (2'b01),
+       .s_axi_arlock  (1'b0),
+       .s_axi_arcache (4'h0),
+       .s_axi_arprot  (3'h0),
+       .s_axi_arregion(4'h0),
+       .s_axi_arqos   (4'h0),
+       .s_axi_arvalid (1'b0),
+       .s_axi_arready (dma_s2mm_mem.ar_ready),
+       .s_axi_rdata   (dma_s2mm_mem.r_data),
+       .s_axi_rresp   (dma_s2mm_mem.r_resp),
+       .s_axi_rlast   (dma_s2mm_mem.r_last),
+       .s_axi_rvalid  (dma_s2mm_mem.r_valid),
+       .s_axi_rready  (1'b0),
+       .m_axi_awaddr  (s2mm_wide_awaddr),
+       .m_axi_awlen   (s2mm_wide_awlen),
+       .m_axi_awsize  (s2mm_wide_awsize),
+       .m_axi_awburst (s2mm_wide_awburst),
+       .m_axi_awlock  (),
+       .m_axi_awcache (s2mm_wide_awcache),
+       .m_axi_awprot  (s2mm_wide_awprot),
+       .m_axi_awregion(),
+       .m_axi_awqos   (),
+       .m_axi_awvalid (s2mm_wide_awvalid),
+       .m_axi_awready (s2mm_wide_awready),
+       .m_axi_wdata   (s2mm_wide_wdata),
+       .m_axi_wstrb   (s2mm_wide_wstrb),
+       .m_axi_wlast   (s2mm_wide_wlast),
+       .m_axi_wvalid  (s2mm_wide_wvalid),
+       .m_axi_wready  (s2mm_wide_wready),
+       .m_axi_bresp   (s2mm_wide_bresp),
+       .m_axi_bvalid  (s2mm_wide_bvalid),
+       .m_axi_bready  (s2mm_wide_bready),
+       .m_axi_araddr  (),
+       .m_axi_arlen   (),
+       .m_axi_arsize  (),
+       .m_axi_arburst (),
+       .m_axi_arlock  (),
+       .m_axi_arcache (),
+       .m_axi_arprot  (),
+       .m_axi_arregion(),
+       .m_axi_arqos   (),
+       .m_axi_arvalid (),
+       .m_axi_arready (1'b0),
+       .m_axi_rdata   (64'h0),
+       .m_axi_rresp   (2'b00),
+       .m_axi_rlast   (1'b0),
+       .m_axi_rvalid  (1'b0),
+       .m_axi_rready  ()
+   );
+
+   // -------------------------------------------------------------------------
+   // DDR crossbar: axi_crossbar_0  (4 masters → 1 litedram slave)
+   // axi_crossbar uses vectorized ports: signals packed [S3|S2|S1|S0] LSB=S0.
+   // S0 = CPU (mem, trimmed to 4-bit IDs)
+   // S1 = DMA SG, S2 = DMA MM2S, S3 = DMA S2MM  (4-bit IDs from CDC)
+   // M0 = ddr_* flat wires → litedram_top (6-bit IDs: 4+2 routing bits)
+   // -------------------------------------------------------------------------
+
+   // ---- AW channel pack (slave → crossbar) ----
+   // S0=CPU(mem), S1=SG(via sg_wide_), S2=MM2S(unused/tied0), S3=S2MM(via s2mm_wide_)
+   // crossbar ID_WIDTH=6: each slave slot is 6 bits; 4 slots = 24-bit vector.
+   wire [23:0]  xbar_s_awid    = {6'b0,             6'b0,             6'b0,            mem.aw_id};
+   wire [127:0] xbar_s_awaddr  = {s2mm_wide_awaddr, 32'h0,            sg_wide_awaddr,  mem.aw_addr};
+   wire [31:0]  xbar_s_awlen   = {s2mm_wide_awlen,  8'h0,             sg_wide_awlen,   mem.aw_len};
+   wire [11:0]  xbar_s_awsize  = {s2mm_wide_awsize, 3'h0,             sg_wide_awsize,  mem.aw_size};
+   wire [7:0]   xbar_s_awburst = {s2mm_wide_awburst,2'b01,            sg_wide_awburst, mem.aw_burst};
+   wire [3:0]   xbar_s_awlock  = {1'b0,             1'b0,             1'b0,            mem.aw_lock};
+   wire [15:0]  xbar_s_awcache = {s2mm_wide_awcache,4'h0,             sg_wide_awcache, mem.aw_cache};
+   wire [11:0]  xbar_s_awprot  = {s2mm_wide_awprot, 3'h0,             sg_wide_awprot,  mem.aw_prot};
+   wire [15:0]  xbar_s_awqos   = {4'h0,             4'h0,             4'h0,            mem.aw_qos};
+   wire [3:0]   xbar_s_awvalid = {s2mm_wide_awvalid,1'b0,             sg_wide_awvalid, mem.aw_valid};
+   wire [3:0]   xbar_s_awready;
+   assign mem.aw_ready        = xbar_s_awready[0];
+   assign sg_wide_awready     = xbar_s_awready[1];
+   // xbar_s_awready[2] (MM2S) floats — MM2S not used
+   assign s2mm_wide_awready   = xbar_s_awready[3];
+
+   // ---- W channel pack ----
+   wire [255:0] xbar_s_wdata   = {s2mm_wide_wdata,  64'h0,            sg_wide_wdata,   mem.w_data};
+   wire [31:0]  xbar_s_wstrb   = {s2mm_wide_wstrb,  8'h0,             sg_wide_wstrb,   mem.w_strb};
+   wire [3:0]   xbar_s_wlast   = {s2mm_wide_wlast,  1'b0,             sg_wide_wlast,   mem.w_last};
+   wire [3:0]   xbar_s_wvalid  = {s2mm_wide_wvalid, 1'b0,             sg_wide_wvalid,  mem.w_valid};
+   wire [3:0]   xbar_s_wready;
+   assign mem.w_ready         = xbar_s_wready[0];
+   assign sg_wide_wready      = xbar_s_wready[1];
+   // xbar_s_wready[2] (MM2S) floats — MM2S not used
+   assign s2mm_wide_wready    = xbar_s_wready[3];
+
+   // ---- B channel unpack (crossbar → slaves) ----
+   // crossbar ID_WIDTH=6: s_axi_bid is 24-bit (6 bits × 4 slots); bresp is 8-bit (2×4).
+   wire [23:0]  xbar_s_bid;
+   wire [7:0]   xbar_s_bresp;
+   wire [3:0]   xbar_s_bvalid;
+   wire [3:0]   xbar_s_bready  = {s2mm_wide_bready, 1'b1, sg_wide_bready, mem.b_ready};
+   assign mem.b_id             = xbar_s_bid[5:0];   // S0: full 6-bit response ID
+   assign mem.b_resp           = xbar_s_bresp[1:0];
+   assign mem.b_valid          = xbar_s_bvalid[0];
+   assign sg_wide_bresp        = xbar_s_bresp[3:2];
+   assign sg_wide_bvalid       = xbar_s_bvalid[1];
+   // xbar_s_bid[17:12], bresp[5:4], bvalid[2] (MM2S) not connected
+   assign s2mm_wide_bresp      = xbar_s_bresp[7:6];
+   assign s2mm_wide_bvalid     = xbar_s_bvalid[3];
+
+   // ---- AR channel pack ----
+   wire [23:0]  xbar_s_arid    = {6'b0,             6'b0,             6'b0,            mem.ar_id};
+   wire [127:0] xbar_s_araddr  = {32'h0,            32'h0,            sg_wide_araddr,  mem.ar_addr};
+   wire [31:0]  xbar_s_arlen   = {8'h0,             8'h0,             sg_wide_arlen,   mem.ar_len};
+   wire [11:0]  xbar_s_arsize  = {3'h0,             3'h0,             sg_wide_arsize,  mem.ar_size};
+   wire [7:0]   xbar_s_arburst = {2'b01,            2'b01,            sg_wide_arburst, mem.ar_burst};
+   wire [3:0]   xbar_s_arlock  = {1'b0,             1'b0,             1'b0,            mem.ar_lock};
+   wire [15:0]  xbar_s_arcache = {4'h0,             4'h0,             sg_wide_arcache, mem.ar_cache};
+   wire [11:0]  xbar_s_arprot  = {3'h0,             3'h0,             sg_wide_arprot,  mem.ar_prot};
+   wire [15:0]  xbar_s_arqos   = {4'h0,             4'h0,             4'h0,            mem.ar_qos};
+   wire [3:0]   xbar_s_arvalid = {1'b0,             1'b0,             sg_wide_arvalid, mem.ar_valid};
+   wire [3:0]   xbar_s_arready;
+   assign mem.ar_ready        = xbar_s_arready[0];
+   assign sg_wide_arready     = xbar_s_arready[1];
+   // xbar_s_arready[2] (MM2S) and [3] (S2MM) not needed
+
+   // ---- R channel unpack ----
+   // crossbar ID_WIDTH=6: s_axi_rid is 24-bit (6 bits × 4 slots).
+   wire [23:0]  xbar_s_rid;
+   wire [255:0] xbar_s_rdata;
+   wire [7:0]   xbar_s_rresp;
+   wire [3:0]   xbar_s_rlast;
+   wire [3:0]   xbar_s_rvalid;
+   wire [3:0]   xbar_s_rready  = {1'b0, 1'b0, sg_wide_rready, mem.r_ready};
+   assign mem.r_id             = xbar_s_rid[5:0];  // S0: full 6-bit response ID
+   assign mem.r_data           = xbar_s_rdata[63:0];
+   assign mem.r_resp           = xbar_s_rresp[1:0];
+   assign mem.r_last           = xbar_s_rlast[0];
+   assign mem.r_valid          = xbar_s_rvalid[0];
+   assign sg_wide_rdata        = xbar_s_rdata[127:64];
+   assign sg_wide_rresp        = xbar_s_rresp[3:2];
+   assign sg_wide_rlast        = xbar_s_rlast[1];
+   assign sg_wide_rvalid       = xbar_s_rvalid[1];
+   // xbar_s_rdata[191:128], rresp[5:4], rlast[2], rvalid[2] (MM2S) not connected
+   // xbar_s_rdata[255:192], rresp[7:6], rlast[3], rvalid[3] (S2MM) not connected
+
+   // PULP axi_mux wrapper: 4 slave ports (CPU/SG/MM2S/S2MM) → 1 DDR master.
+   // Correctly prepends 2-bit slave-port-index to AWID/ARID so that B/R
+   // responses are routed back to the originating slave, fixing the sbbusy
+   // stuck-HIGH bug caused by axi_crossbar_0 misrouting B responses.
+   ddr_mux_wrapper u_ddr_xbar (
+       .aclk    (user_clk),
+       .aresetn (~user_rst),
+       // Slave (input) ports — same packed vectors as before
+       .s_axi_awid    (xbar_s_awid),    .s_axi_awaddr  (xbar_s_awaddr),
+       .s_axi_awlen   (xbar_s_awlen),   .s_axi_awsize  (xbar_s_awsize),
+       .s_axi_awburst (xbar_s_awburst), .s_axi_awlock  (xbar_s_awlock),
+       .s_axi_awcache (xbar_s_awcache), .s_axi_awprot  (xbar_s_awprot),
+       .s_axi_awqos   (xbar_s_awqos),   .s_axi_awvalid (xbar_s_awvalid),
+       .s_axi_awready (xbar_s_awready),
+       .s_axi_wdata   (xbar_s_wdata),   .s_axi_wstrb   (xbar_s_wstrb),
+       .s_axi_wlast   (xbar_s_wlast),   .s_axi_wvalid  (xbar_s_wvalid),
+       .s_axi_wready  (xbar_s_wready),
+       .s_axi_bid     (xbar_s_bid),     .s_axi_bresp   (xbar_s_bresp),
+       .s_axi_bvalid  (xbar_s_bvalid),  .s_axi_bready  (xbar_s_bready),
+       .s_axi_arid    (xbar_s_arid),    .s_axi_araddr  (xbar_s_araddr),
+       .s_axi_arlen   (xbar_s_arlen),   .s_axi_arsize  (xbar_s_arsize),
+       .s_axi_arburst (xbar_s_arburst), .s_axi_arlock  (xbar_s_arlock),
+       .s_axi_arcache (xbar_s_arcache), .s_axi_arprot  (xbar_s_arprot),
+       .s_axi_arqos   (xbar_s_arqos),   .s_axi_arvalid (xbar_s_arvalid),
+       .s_axi_arready (xbar_s_arready),
+       .s_axi_rid     (xbar_s_rid),     .s_axi_rdata   (xbar_s_rdata),
+       .s_axi_rresp   (xbar_s_rresp),   .s_axi_rlast   (xbar_s_rlast),
+       .s_axi_rvalid  (xbar_s_rvalid),  .s_axi_rready  (xbar_s_rready),
+       // Master (output) port — 8-bit IDs (6+2 routing bits)
+       .m_axi_awid    (ddr_awid),    .m_axi_awaddr  (ddr_awaddr),
+       .m_axi_awlen   (ddr_awlen),   .m_axi_awsize  (ddr_awsize),
+       .m_axi_awburst (ddr_awburst), .m_axi_awlock  (),
+       .m_axi_awcache (),            .m_axi_awprot  (),
+       .m_axi_awqos   (),            .m_axi_awvalid (ddr_awvalid),
+       .m_axi_awready (ddr_awready),
+       .m_axi_wdata   (ddr_wdata),   .m_axi_wstrb   (ddr_wstrb),
+       .m_axi_wlast   (ddr_wlast),   .m_axi_wvalid  (ddr_wvalid),
+       .m_axi_wready  (ddr_wready),
+       .m_axi_bid     (ddr_bid),     .m_axi_bresp   (ddr_bresp),
+       .m_axi_bvalid  (ddr_bvalid),  .m_axi_bready  (ddr_bready),
+       .m_axi_arid    (ddr_arid),    .m_axi_araddr  (ddr_araddr),
+       .m_axi_arlen   (ddr_arlen),   .m_axi_arsize  (ddr_arsize),
+       .m_axi_arburst (ddr_arburst), .m_axi_arlock  (),
+       .m_axi_arcache (),            .m_axi_arprot  (),
+       .m_axi_arqos   (),            .m_axi_arvalid (ddr_arvalid),
+       .m_axi_arready (ddr_arready),
+       .m_axi_rid     (ddr_rid),     .m_axi_rdata   (ddr_rdata),
+       .m_axi_rresp   (ddr_rresp),   .m_axi_rlast   (ddr_rlast),
+       .m_axi_rvalid  (ddr_rvalid),  .m_axi_rready  (ddr_rready));
+
    litedram_top
-     #(.ID_WIDTH (6))
+     #(.ID_WIDTH (8))
    ddr2
      (.serial_tx   (litedram_tx),
       .serial_rx   (i_uart_rx),
@@ -210,35 +744,35 @@ module rvfpganexys
       .ddram_odt   (ddram_odt  ),
       .init_done  (litedram_init_done),
       .init_error (litedram_init_error),
-      .i_awid    (mem.aw_id   ),
-      .i_awaddr  (mem.aw_addr[26:0] ),
-      .i_awlen   (mem.aw_len  ),
-      .i_awsize  ({1'b0,mem.aw_size} ),
-      .i_awburst (mem.aw_burst),
-      .i_awvalid (mem.aw_valid),
-      .o_awready (mem.aw_ready),
-      .i_arid    (mem.ar_id   ),
-      .i_araddr  (mem.ar_addr[26:0] ),
-      .i_arlen   (mem.ar_len  ),
-      .i_arsize  ({1'b0,mem.ar_size} ),
-      .i_arburst (mem.ar_burst),
-      .i_arvalid (mem.ar_valid),
-      .o_arready (mem.ar_ready),
-      .i_wdata   (mem.w_data  ),
-      .i_wstrb   (mem.w_strb  ),
-      .i_wlast   (mem.w_last  ),
-      .i_wvalid  (mem.w_valid ),
-      .o_wready  (mem.w_ready ),
-      .o_bid     (mem.b_id    ),
-      .o_bresp   (mem.b_resp  ),
-      .o_bvalid  (mem.b_valid ),
-      .i_bready  (mem.b_ready ),
-      .o_rid     (mem.r_id    ),
-      .o_rdata   (mem.r_data  ),
-      .o_rresp   (mem.r_resp  ),
-      .o_rlast   (mem.r_last  ),
-      .o_rvalid  (mem.r_valid ),
-      .i_rready  (mem.r_ready ));
+      .i_awid    (ddr_awid          ),
+      .i_awaddr  (ddr_awaddr[26:0]  ),
+      .i_awlen   (ddr_awlen         ),
+      .i_awsize  ({1'b0,ddr_awsize} ),
+      .i_awburst (ddr_awburst       ),
+      .i_awvalid (ddr_awvalid       ),
+      .o_awready (ddr_awready       ),
+      .i_arid    (ddr_arid          ),
+      .i_araddr  (ddr_araddr[26:0]  ),
+      .i_arlen   (ddr_arlen         ),
+      .i_arsize  ({1'b0,ddr_arsize} ),
+      .i_arburst (ddr_arburst       ),
+      .i_arvalid (ddr_arvalid       ),
+      .o_arready (ddr_arready       ),
+      .i_wdata   (ddr_wdata         ),
+      .i_wstrb   (ddr_wstrb         ),
+      .i_wlast   (ddr_wlast         ),
+      .i_wvalid  (ddr_wvalid        ),
+      .o_wready  (ddr_wready        ),
+      .o_bid     (ddr_bid           ),
+      .o_bresp   (ddr_bresp         ),
+      .o_bvalid  (ddr_bvalid        ),
+      .i_bready  (ddr_bready        ),
+      .o_rid     (ddr_rid           ),
+      .o_rdata   (ddr_rdata         ),
+      .o_rresp   (ddr_rresp         ),
+      .o_rlast   (ddr_rlast         ),
+      .o_rvalid  (ddr_rvalid        ),
+      .i_rready  (ddr_rready        ));
 
    wire        dmi_reg_en;
    wire [6:0]  dmi_reg_addr;
@@ -442,16 +976,42 @@ module rvfpganexys
       .s_axi_rresp       (eth_cdc_bus.r_resp),
       .s_axi_rvalid      (eth_cdc_bus.r_valid),
       .s_axi_rready      (eth_cdc_bus.r_ready),
-      // AXI-Stream TX (tied off — no DMA yet)
-      .s_axis_txd_tdata  (32'd0),
-      .s_axis_txd_tkeep  (4'd0),
-      .s_axis_txd_tlast  (1'b0),
-      .s_axis_txd_tvalid (1'b0),
-      .s_axis_txc_tdata  (32'd0),
-      .s_axis_txc_tkeep  (4'd0),
-      .s_axis_txc_tlast  (1'b0),
-      .s_axis_txc_tvalid (1'b0),
-      // AXI-Stream RX captured internally by ethernet_top FIFO (no external ports)
+      // DMA AXI4 master ports: Scatter-Gather
+      .m_axi_sg_awaddr   (m_axi_sg_awaddr),  .m_axi_sg_awlen    (m_axi_sg_awlen),
+      .m_axi_sg_awsize   (m_axi_sg_awsize),  .m_axi_sg_awburst  (m_axi_sg_awburst),
+      .m_axi_sg_awprot   (m_axi_sg_awprot),  .m_axi_sg_awcache  (m_axi_sg_awcache),
+      .m_axi_sg_awvalid  (m_axi_sg_awvalid), .m_axi_sg_awready  (m_axi_sg_awready),
+      .m_axi_sg_wdata    (m_axi_sg_wdata),   .m_axi_sg_wstrb    (m_axi_sg_wstrb),
+      .m_axi_sg_wlast    (m_axi_sg_wlast),   .m_axi_sg_wvalid   (m_axi_sg_wvalid),
+      .m_axi_sg_wready   (m_axi_sg_wready),  .m_axi_sg_bresp    (m_axi_sg_bresp),
+      .m_axi_sg_bvalid   (m_axi_sg_bvalid),  .m_axi_sg_bready   (m_axi_sg_bready),
+      .m_axi_sg_araddr   (m_axi_sg_araddr),  .m_axi_sg_arlen    (m_axi_sg_arlen),
+      .m_axi_sg_arsize   (m_axi_sg_arsize),  .m_axi_sg_arburst  (m_axi_sg_arburst),
+      .m_axi_sg_arprot   (m_axi_sg_arprot),  .m_axi_sg_arcache  (m_axi_sg_arcache),
+      .m_axi_sg_arvalid  (m_axi_sg_arvalid), .m_axi_sg_arready  (m_axi_sg_arready),
+      .m_axi_sg_rdata    (m_axi_sg_rdata),   .m_axi_sg_rresp    (m_axi_sg_rresp),
+      .m_axi_sg_rlast    (m_axi_sg_rlast),   .m_axi_sg_rvalid   (m_axi_sg_rvalid),
+      .m_axi_sg_rready   (m_axi_sg_rready),
+      // DMA AXI4 master ports: MM2S (DDR → MAC TX) — READ-ONLY (AR+R only)
+      .m_axi_mm2s_araddr  (m_axi_mm2s_araddr), .m_axi_mm2s_arlen   (m_axi_mm2s_arlen),
+      .m_axi_mm2s_arsize  (m_axi_mm2s_arsize), .m_axi_mm2s_arburst (m_axi_mm2s_arburst),
+      .m_axi_mm2s_arprot  (m_axi_mm2s_arprot), .m_axi_mm2s_arcache (m_axi_mm2s_arcache),
+      .m_axi_mm2s_arvalid (m_axi_mm2s_arvalid),.m_axi_mm2s_arready (m_axi_mm2s_arready),
+      .m_axi_mm2s_rdata   (m_axi_mm2s_rdata),  .m_axi_mm2s_rresp   (m_axi_mm2s_rresp),
+      .m_axi_mm2s_rlast   (m_axi_mm2s_rlast),  .m_axi_mm2s_rvalid  (m_axi_mm2s_rvalid),
+      .m_axi_mm2s_rready  (m_axi_mm2s_rready),
+      // DMA AXI4 master ports: S2MM (MAC RX → DDR) — WRITE-ONLY (AW+W+B only)
+      .m_axi_s2mm_awaddr  (m_axi_s2mm_awaddr), .m_axi_s2mm_awlen   (m_axi_s2mm_awlen),
+      .m_axi_s2mm_awsize  (m_axi_s2mm_awsize), .m_axi_s2mm_awburst (m_axi_s2mm_awburst),
+      .m_axi_s2mm_awprot  (m_axi_s2mm_awprot), .m_axi_s2mm_awcache (m_axi_s2mm_awcache),
+      .m_axi_s2mm_awvalid (m_axi_s2mm_awvalid),.m_axi_s2mm_awready (m_axi_s2mm_awready),
+      .m_axi_s2mm_wdata   (m_axi_s2mm_wdata),  .m_axi_s2mm_wstrb   (m_axi_s2mm_wstrb),
+      .m_axi_s2mm_wlast   (m_axi_s2mm_wlast),  .m_axi_s2mm_wvalid  (m_axi_s2mm_wvalid),
+      .m_axi_s2mm_wready  (m_axi_s2mm_wready), .m_axi_s2mm_bresp   (m_axi_s2mm_bresp),
+      .m_axi_s2mm_bvalid  (m_axi_s2mm_bvalid), .m_axi_s2mm_bready  (m_axi_s2mm_bready),
+      // DMA interrupts (not yet wired to CPU interrupt controller)
+      .mm2s_introut      (mm2s_introut),
+      .s2mm_introut      (s2mm_introut),
       // RMII PHY interface
       .phy_rmii_crsdv    (CRS_DV),
       .phy_rmii_rxd      ({RXD1, RXD0}),
@@ -467,8 +1027,7 @@ module rvfpganexys
       .phy_rst_n         (nRST),
       // Speed mode: 1 = 100 Mbps
       .mode_speed        (1'b1),
-      // Interrupts (unconnected for now)
-      .mac_irq           (),
-      .interrupt         ());
+      // MAC interrupt (unconnected)
+      .mac_irq           ());
 
 endmodule
